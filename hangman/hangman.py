@@ -1,18 +1,21 @@
 # coding=utf-8
 import re
+from dictionary import Dictionary
 
 
 class Hangman(object):
     MAX_TURNS = 10
 
-    def __init__(self, answer=None):
+    def __init__(self, answer=None, dictionary=Dictionary):
+        if not answer:
+            answer = dictionary()()
+
         if not self.valid_answer(answer):
             raise ValueError
 
         self.answer = answer.upper()
         self._misses = set()
         self._hits = set()
-
 
     @staticmethod
     def valid_answer(text):
@@ -22,7 +25,7 @@ class Hangman(object):
         valid_guess = re.compile('^[a-z]$', re.I).search(str(letter))
 
         if not valid_guess:
-            raise ValueError
+            raise ValueError('Must be a letter A-Z')
 
         is_miss = letter.upper() not in self.answer
 

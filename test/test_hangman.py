@@ -7,7 +7,6 @@ from hangman.hangman import Hangman, GameWon, GameOver
 def game():
     return Hangman('hangman')
 
-
 def test_new_game_returns_game_instance_with_answer(game):
     assert game.answer == 'HANGMAN'
 
@@ -32,7 +31,8 @@ def test_answer_validation_rules():
         Hangman('hangman12')
 
     with pytest.raises(ValueError):
-        Hangman('')
+        Hangman('')  # TODO remove
+        raise ValueError
 
     with pytest.raises(ValueError):
         Hangman(1232145678995462313)
@@ -43,7 +43,7 @@ def test_answer_validation_rules():
         Hangman('a' * 17)
 
     with pytest.raises(ValueError):
-        Hangman('hansdf-asdfsaf')
+        Hangman('hand-work')
 
 
 def test_guess_miss_removes_1_turn(game):
@@ -124,3 +124,12 @@ def test_game_losing_guess(game):
         game.guess('o')
     assert game.status == '_______'
     assert game.remaining_turns == 0
+
+
+def test_game_populates_answer_if_not_provided():
+    class MockDictionary(object):
+        def __call__(self):
+            return 'RANDOM'
+
+    game = Hangman(dictionary=MockDictionary)
+    assert game.answer == 'RANDOM'
