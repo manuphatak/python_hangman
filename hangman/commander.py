@@ -1,5 +1,6 @@
 # coding=utf-8
-from . import Hangman, GameOver, GameWon, Presenter
+from . import Hangman, GameOver, GameWon
+from . import Presenter
 
 
 class Commander(object):
@@ -13,20 +14,20 @@ class Commander(object):
         flash = None
         play_again = False
         while True:
-            self.Presenter.write(self.game, flash)
+            self.Presenter.write(self.game, flash=flash)
             flash = None
             guess = self.Presenter.prompt()
             try:
                 self.game.guess(guess)
             except GameOver:
-                message = "YOU'RE AN IDIOT. THE ANSWER IS {}".format(
+                message = "YOU'RE AN IDIOT. THE ANSWER IS {0}".format(
                     self.game.answer)
-                self.Presenter.write(self.game, message, color='red')
+                self.Presenter.write(self.game, flash=message, color='red')
                 play_again = self.Presenter.play_again_prompt()
                 break
             except GameWon:
                 message = "YOU ARE SO COOL"
-                self.Presenter.write(self.game, message, color='cyan')
+                self.Presenter.write(self.game, flash=message, color='cyan')
                 play_again = self.Presenter.play_again_prompt()
                 break
             except ValueError as e:
@@ -38,7 +39,3 @@ class Commander(object):
         else:
             self.Presenter.goodbye()
             return self
-
-
-
-

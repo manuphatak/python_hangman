@@ -12,7 +12,7 @@ class Hangman(object):
             answer = dictionary()()
 
         if not self.valid_answer(answer):
-            raise ValueError
+            raise ValueError("Word must be letters A-Z")
 
         self.answer = answer.upper()
         self._misses = set()

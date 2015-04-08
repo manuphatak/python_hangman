@@ -1,5 +1,6 @@
 # coding=utf-8
 import click
+from builtins import zip
 
 
 class Presenter():
@@ -52,9 +53,9 @@ class Presenter():
         yield ''
         yield ''
         yield ''
-        yield '{:s}{:s}'.format(' ' * 5, 'MISSES:')
-        misses = '{:_<10s}'.format(''.join(self.game.misses))
-        yield '{:s}{:s}'.format(' ' * 5, ' '.join(list(misses)))
+        yield '{0:s}{1:s}'.format(' ' * 5, 'MISSES:')
+        misses = '{0:_<10s}'.format(''.join(self.game.misses))
+        yield '{0:s}{1:s}'.format(' ' * 5, ' '.join(list(misses)))
         yield ''
         yield ''
         yield ''
@@ -68,21 +69,21 @@ class Presenter():
 
         if flash:
             color = color if color else 'yellow'
-            self.click.secho('{:45s}'.format(flash), bold=True, fg=color)
+            self.click.secho('{0:45s}'.format(flash), bold=True, fg=color)
         else:
             self.click.echo()
 
-        self.click.secho('{: ^45s}'.format('HANGMAN GAME'), bold=True,
+        self.click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True,
                          underline=True)
 
-        iterate_this = zip(self.picture(), self.status(), xrange(10))
-        for picture, details, i in iterate_this:
-            self.click.echo('{:10s}{:35s}'.format(picture, details))
+        iterate_this = list(zip(self.picture(), self.status()))
+        for picture, details in iterate_this:
+            self.click.echo('{0:10s}{1:35s}'.format(picture, details))
 
         deliminator = '   ' if len(game.status) < 45 / 4 else '  '
         status = deliminator.join(list(game.status))
         self.click.echo()
-        self.click.echo('{: ^45s}'.format(status))
+        self.click.echo('{0: ^45s}'.format(status))
 
         return self
 
@@ -103,3 +104,4 @@ class Presenter():
     def goodbye(cls, click=click):
         self = cls(click=click)
         self.click.secho('Have a nice day!', bold=True, fg='green', blink=True)
+        self.click.echo()

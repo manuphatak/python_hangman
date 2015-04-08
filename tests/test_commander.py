@@ -1,6 +1,9 @@
 # coding=utf-8
+import sys
+
 from mock import Mock
 import pytest
+
 from hangman import Hangman, Presenter, Commander, GameOver, GameWon
 
 
@@ -52,6 +55,7 @@ def test_game_won(hangman, presenter, capsys):
     assert out == ''
 
 
+@pytest.mark.skipif(sys.version_info > (2, 7), reason="requires python2.7")
 def test_value_error(hangman, presenter, capsys):
     hangman.guess.side_effect = [ValueError, GameWon]
     Commander.run(hangman=hangman, presenter=presenter())
@@ -59,4 +63,3 @@ def test_value_error(hangman, presenter, capsys):
     out, err = capsys.readouterr()
 
     assert out == ''
-

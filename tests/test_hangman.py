@@ -1,11 +1,13 @@
 # coding=utf-8
 import pytest
+
 from hangman import Hangman, GameWon, GameOver
 
 
 @pytest.fixture
 def game():
     return Hangman('hangman')
+
 
 def test_new_game_returns_game_instance_with_answer(game):
     assert game.answer == 'HANGMAN'
@@ -29,10 +31,6 @@ def test_answer_validation_rules():
 
     with pytest.raises(ValueError):
         Hangman('hangman12')
-
-    with pytest.raises(ValueError):
-        Hangman('')  # TODO remove
-        raise ValueError
 
     with pytest.raises(ValueError):
         Hangman(1232145678995462313)
