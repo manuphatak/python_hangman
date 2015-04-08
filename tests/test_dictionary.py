@@ -1,6 +1,6 @@
 # coding=utf-8
 import pytest
-from hangman.dictionary import Dictionary
+from hangman import Dictionary
 
 
 @pytest.fixture

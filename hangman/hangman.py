@@ -1,6 +1,7 @@
 # coding=utf-8
 import re
-from dictionary import Dictionary
+
+from . import Dictionary
 
 
 class Hangman(object):

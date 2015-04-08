@@ -1,6 +1,5 @@
 # coding=utf-8
-from hangman import Hangman, GameOver, GameWon
-from presenter import Presenter
+from . import Hangman, GameOver, GameWon, Presenter
 
 
 class Commander(object):
@@ -9,9 +8,10 @@ class Commander(object):
         self.Presenter = presenter
 
     @classmethod
-    def run(cls, *args, **kwargs):
+    def run(cls, hangman=Hangman, presenter=Presenter):
+        self = cls(hangman=hangman, presenter=presenter)
         flash = None
-        self = cls(*args, **kwargs)
+        play_again = False
         while True:
             self.Presenter.write(self.game, flash)
             flash = None
@@ -19,19 +19,26 @@ class Commander(object):
             try:
                 self.game.guess(guess)
             except GameOver:
-                message = "YOU'RE AN IDIOT. THE ANSWER IS {}".format(self.game.answer)
-                self.Presenter.write(self.game, message)
+                message = "YOU'RE AN IDIOT. THE ANSWER IS {}".format(
+                    self.game.answer)
+                self.Presenter.write(self.game, message, color='red')
+                play_again = self.Presenter.play_again_prompt()
                 break
             except GameWon:
                 message = "YOU ARE SO COOL"
-                self.Presenter.write(self.game, message)
+                self.Presenter.write(self.game, message, color='cyan')
+                play_again = self.Presenter.play_again_prompt()
                 break
             except ValueError as e:
                 flash = e.message
                 continue
+        if play_again:
+            del self
+            cls.run(hangman=hangman, presenter=presenter)
+        else:
+            self.Presenter.goodbye()
+            return self
 
-        return self
 
 
-if __name__ == '__main__':
-    Commander.run()
+

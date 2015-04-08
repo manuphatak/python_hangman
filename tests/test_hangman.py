@@ -1,6 +1,6 @@
 # coding=utf-8
 import pytest
-from hangman.hangman import Hangman, GameWon, GameOver
+from hangman import Hangman, GameWon, GameOver
 
 
 @pytest.fixture
