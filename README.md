@@ -32,3 +32,6 @@ workon hangman # for venv users
 pip uninstall python-hangman
 deactivate # for venv users
 ```
+
+## Call Diagram
+![Call Diagram](charts/basic-dot.png)
