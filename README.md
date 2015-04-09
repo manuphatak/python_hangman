@@ -1,8 +1,8 @@
 # Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman)
-##### A Python TDD Experiment
+#### A Python TDD Experiment
 My first python agnostic, tox tested, travis-backed, program!
 
-Has **~100%** unit test coverage, with passing tests on every version of python.
+Has **~100%** unit test coverage, with passing tests on every version of python including PyPy.
 
 **Compatibility**
 - Python 2.6
@@ -38,17 +38,43 @@ deactivate # for venv users
 ## Goal
 Learning!  Python in this case.  I'm particularly interested in testing and Test Driven Development.  This was a TDD exercise.
 
-Tox fell into my lap while figuring out setuptools so I went with it! Why not explore python agnosticism?  Making this very *simple* app python agnostic was an interesting challenge--and not so simple.  Actually, in retrospect it was.  It took changing probably less then 10 lines of code.  The real challenge was getting all these tools to work. I setup every version of python on my rig so tox could create virtualenvs with them. 
+Also, explored:
+- Tox, test automation
+- Travis CI
+- Python version agnostic programming
 
 ## Design
-There are 3 components that LOOSELY resemble MVC--this was unintentional.
+There are 3 main components that run the game:  [hangman.Hangman](hangman/hangman.py#L7), [hangman.Commander](hangman/hangman.py#L7), and [hangman.Presenter](hangman/presenter.py#L6)
 
-The game logic is all in one class [hangman.Hangman](hangman/hangman.py#L7).  In the MVC analogy, this would be the model.
+The entirety of the game logic is contained in [hangman.Hangman](hangman/hangman.py#L7).  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
 
-[hangman.Commander](hangman/hangman.py#L7) is exactly that, the commander, the director, the maestro, the controller.  It tells you, the user, how to interact with the game. It does this by using the presentation layer, [hangman.Presenter](hangman/presenter.py#L6), to present the state of the game, and collect input.  The commander closes the gap between the game and the presentation layer, without convoluting the logic in either.
+For example:
 
-I chose this design pattern, because there was ambiguity in how to interact with the user.  Curses was on the table.  BUT TDD says build the simplest working product, THEN iterate features. So I did that, and ultimately went a different direction then curses.  The great thing here is that with this design, the front end can be swapped out anytime.  No problem.
+```python
+>>> from hangman.hangman import Hangman
+>>> game = Hangman(answer='hangman')
+>>> game.status
+'_______'
+>>> game.guess('a')
+<hangman.hangman.Hangman object at 0x7ffd9e32ea10>
+>>> game.status
+'_A___A_'
+>>> game.guess('n'), game.guess('z'), game.guess('e')
+(<hangman.hangman.Hangman object at 0x7ffd9e32ea10>, <hangman.hangman.Hangman ob
+ject at 0x7ffd9e32ea10>, <hangman.hangman.Hangman object at 0x7ffd9e32ea10>)
+>>> game.status, game.misses, game.remaining_turns
+('_AN__AN', ['Z', 'E'], 8)
+```
 
+[hangman.Presenter](hangman/presenter.py#L6) is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user  
+
+The  [hangman.Commander](hangman/hangman.py#L7) is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events. 
+
+#### Design Reasoning
+
+This design pattern was the right choice, because I didn't know, in advance, how the game was to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
+
+**Mistakes:** The presenter class, in my mind, is a static class.  Python does not play friendly with static classes OR I'm doing it wrong.  This could be refactored in a meaningful way.
 
 ## Call Diagram
-![Call Diagram](charts/basic-dot.png)
+![Call Diagram](charts/basic-1000-dot.png)

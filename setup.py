@@ -1,8 +1,12 @@
-from distutils.core import setup
-from setuptools.command.test import test as TestCommand
 import sys
 
+from setuptools import setup
 
+# noinspection PyPep8Naming
+from setuptools.command.test import test as TestCommand
+
+
+# noinspection PyAttributeOutsideInit
 class Tox(TestCommand):
     user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
 
@@ -16,7 +20,6 @@ class Tox(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
         import tox
         import shlex
 
@@ -33,9 +36,11 @@ setup(name='python_hangman',
       author_email='bionikspoon@gmail.com',
       description='Python hangman TDD demonstration.',
       keywords='python tdd hangman',
-      install_requires=['click', 'future'],
-      tests_require=['pytest',
-                     'mock',
-                     'tox'],
+      install_requires=['click',
+                        'future'],
+      use_2to3=True,
+      tests_require=['tox',
+                     'pytest',
+                     'mock'],
       cmdclass={'test': Tox},
       entry_points={'console_scripts': ['hangman = hangman:cli']})

@@ -5,6 +5,22 @@ from . import Dictionary
 
 
 class Hangman(object):
+    """
+    >>> from hangman.hangman import Hangman
+    >>> game = Hangman(answer='hangman')
+    >>> game.status
+    '_______'
+    >>> game.guess('a')
+    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>
+    >>> game.status
+    '_A___A_'
+    >>> game.guess('n'), game.guess('z'), game.guess('e')
+    (<hangman.hangman.Hangman object at 0x7ffd9e32ea10>,
+    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>,
+    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>)
+    >>> game.status, game.misses, game.remaining_turns
+    ('_AN__AN', ['Z', 'E'], 8)
+    """
     MAX_TURNS = 10
 
     def __init__(self, answer=None, dictionary=Dictionary):
