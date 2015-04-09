@@ -92,7 +92,7 @@ class Presenter():
         self = cls(click=click)
         self.click.echo()
         self.click.secho('Dare to pick a letter: ', dim=True, bold=True)
-        return self.click.getchar(True)
+        return self.click.getchar()
 
     @classmethod
     def play_again_prompt(cls, click=click):
