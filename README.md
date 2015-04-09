@@ -1,4 +1,4 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/tdd_python_hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/tdd_python_hangman)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman---Python-TDD-Experiment.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman---Python-TDD-Experiment)
 ##### A Python TDD Experiment
 My first multiversion, tox tested, travis-backed, program!
 
