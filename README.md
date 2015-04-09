@@ -16,7 +16,7 @@ Has **~100%** unit test coverage, with passing tests on every version of python.
 
 ```sh
 git clone git@github.com:bionikspoon/Hangman---Python-TDD-Experiment.git
-cd tdd_python_hangman
+cd Hangman---Python-TDD-Experiment/
 mkvirtualenv hangman  # optional for venv users
 pip install .
 hangman 
