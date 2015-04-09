@@ -1,6 +1,6 @@
 # Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman)
 ##### A Python TDD Experiment
-My first multiversion, tox tested, travis-backed, program!
+My first python agnostic, tox tested, travis-backed, program!
 
 Has **~100%** unit test coverage, with passing tests on every version of python.
 
@@ -11,6 +11,8 @@ Has **~100%** unit test coverage, with passing tests on every version of python.
 - Python 3.3
 - Python 3.4
 - PyPy
+
+![terminal](hangman.jpg)
 
 ## Usage
 
