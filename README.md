@@ -1,4 +1,4 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman---Python-TDD-Experiment.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman---Python-TDD-Experiment)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman)
 ##### A Python TDD Experiment
 My first multiversion, tox tested, travis-backed, program!
 
@@ -15,8 +15,8 @@ Has **~100%** unit test coverage, with passing tests on every version of python.
 ## Usage
 
 ```sh
-git clone git@github.com:bionikspoon/Hangman---Python-TDD-Experiment.git
-cd Hangman---Python-TDD-Experiment/
+git clone git@github.com:bionikspoon/Hangman.git
+cd Hangman/
 mkvirtualenv hangman  # optional for venv users
 pip install .
 hangman 
