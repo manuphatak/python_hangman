@@ -1,4 +1,4 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop)
 #### A Python TDD Experiment
 My first python agnostic, tox tested, travis-backed, program!
 
