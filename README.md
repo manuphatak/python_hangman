@@ -42,6 +42,7 @@ Also, explored:
 - Tox, test automation
 - Travis CI
 - Python version agnostic programming
+- Setuptools
 
 ## Design
 There are 3 main components that run the game:  [hangman.Hangman](hangman/hangman.py#L7), [hangman.Commander](hangman/hangman.py#L7), and [hangman.Presenter](hangman/presenter.py#L6)

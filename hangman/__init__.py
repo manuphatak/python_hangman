@@ -1,4 +1,7 @@
 # coding=utf-8
+
+__version__ = '1.1.0'
+
 from .dictionary import Dictionary
 from .hangman import Hangman, GameOver, GameWon
 from .presenter import Presenter
