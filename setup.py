@@ -2,30 +2,23 @@ import sys
 import re
 
 from setuptools import setup
-from setuptools.command.test import test as test_command
+from setuptools.command.test import test as TestCommand
 
 version_re = re.compile(r"(?<=^__version__ = \')[\w\.]+(?=\'$)", re.U | re.M)
 with open('hangman/__init__.py', 'rb') as f:
     version = version_re.search(f.read().decode('utf-8')).group()
 
-# noinspection PyAttributeOutsideInit
-class Tox(test_command):
-    user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
 
-    def initialize_options(self):
-        test_command.initialize_options(self)
-        self.tox_args = None
-
+class PyTest(TestCommand):
     def finalize_options(self):
-        test_command.finalize_options(self)
+        TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
 
     def run_tests(self):
-        import tox
-        import shlex
+        import pytest
 
-        errno = tox.cmdline(args=shlex.split(self.tox_args))
+        errno = pytest.main(self.test_args)
         sys.exit(errno)
 
 # @f:off
@@ -44,6 +37,6 @@ setup(name='python_hangman',
       tests_require=['tox',
                      'pytest',
                      'mock'],
-      cmdclass={'test': Tox},
+      cmdclass={'test': PyTest},
       entry_points={'console_scripts': ['hangman = hangman:cli']})
 # @f:on
