@@ -14,6 +14,6 @@ It uses the `Mock` library to patch the user input.  Currently it's set to run t
 
 ![ ](basic-100-sfdp.png)
 
-![ ](basic-1000-circo.png)
+![ ](basic-100-circo.png)
 
 ![ ](basic-100-twopi.png)
