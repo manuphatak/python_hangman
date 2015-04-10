@@ -1,4 +1,5 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop) [![License](https://pypip.in/license/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/)
+
 #### A Python TDD Experiment
 My first python agnostic, tox tested, travis-backed, program!
 
