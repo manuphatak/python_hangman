@@ -1,16 +1,16 @@
 # coding=utf-8
-import sys
-
+import click
 import pytest
-
 from mock import Mock
+from builtins import map
 
 from hangman import Presenter, Hangman
-from builtins import map
+
 try:
     import __pypy__
 except ImportError:
     __pypy__ = None
+
 
 @pytest.fixture
 def game():
@@ -18,31 +18,24 @@ def game():
     mock_game.return_value = mock_game
     mock_game.misses = []
     mock_game.status = '_______'
+    mock_game.answer = 'HANGMAN'
     return mock_game
 
 
 @pytest.fixture
-def click():
-    import click
-
-    mock_click = Mock(spec=click)
-    mock_click.return_value = mock_click
-    mock_click.confirm.return_value = True
-    mock_click.getchar.return_value = 'A'
-    return mock_click
-
-
-@pytest.fixture
-def presenter(game, click):
-    return Presenter(game=game, click=click)
+def presenter(monkeypatch):
+    monkeypatch.setattr('click.getchar', lambda: 'A')
+    monkeypatch.setattr('click.confirm', lambda _: True)
+    return Presenter()
 
 
 def test_mock_init(presenter):
-    presenter.game = game
+    presenter.game = None
     presenter.click = click
 
 
-def test_picture_10_turns(presenter):
+def test_picture_10_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 10
 
     actual = [line for line in presenter.picture()]
@@ -51,7 +44,8 @@ def test_picture_10_turns(presenter):
     assert actual == expected
 
 
-def test_picture_9_turns(presenter):
+def test_picture_9_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 9
 
     actual = [line for line in presenter.picture()]
@@ -60,7 +54,8 @@ def test_picture_9_turns(presenter):
     assert actual == expected
 
 
-def test_picture_8_turns(presenter):
+def test_picture_8_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 8
 
     actual = [line for line in presenter.picture()]
@@ -69,7 +64,8 @@ def test_picture_8_turns(presenter):
     assert actual == expected
 
 
-def test_picture_7_turns(presenter):
+def test_picture_7_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 7
 
     actual = [line for line in presenter.picture()]
@@ -78,7 +74,8 @@ def test_picture_7_turns(presenter):
     assert actual == expected
 
 
-def test_picture_6_turns(presenter):
+def test_picture_6_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 6
 
     actual = [line for line in presenter.picture()]
@@ -87,7 +84,8 @@ def test_picture_6_turns(presenter):
     assert actual == expected
 
 
-def test_picture_5_turns(presenter):
+def test_picture_5_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 5
 
     actual = [line for line in presenter.picture()]
@@ -96,7 +94,8 @@ def test_picture_5_turns(presenter):
     assert actual == expected
 
 
-def test_picture_4_turns(presenter):
+def test_picture_4_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 4
 
     actual = [line for line in presenter.picture()]
@@ -105,7 +104,8 @@ def test_picture_4_turns(presenter):
     assert actual == expected
 
 
-def test_picture_3_turns(presenter):
+def test_picture_3_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 3
 
     actual = [line for line in presenter.picture()]
@@ -114,7 +114,8 @@ def test_picture_3_turns(presenter):
     assert actual == expected
 
 
-def test_picture_2_turns(presenter):
+def test_picture_2_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 2
 
     actual = [line for line in presenter.picture()]
@@ -123,7 +124,8 @@ def test_picture_2_turns(presenter):
     assert actual == expected
 
 
-def test_picture_1_turns(presenter):
+def test_picture_1_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 1
 
     actual = [line for line in presenter.picture()]
@@ -132,7 +134,8 @@ def test_picture_1_turns(presenter):
     assert actual == expected
 
 
-def test_picture_0_turns(presenter):
+def test_picture_0_turns(presenter, game):
+    presenter.game = game
     presenter.game.remaining_turns = 0
 
     actual = [line for line in presenter.picture()]
@@ -141,7 +144,9 @@ def test_picture_0_turns(presenter):
     assert actual == expected
 
 
-def test_status_0_misses(presenter):
+def test_status_0_misses_full(presenter, game):
+    presenter.game = game
+    presenter.game.misses = []
     actual = [line for line in presenter.status()]
     expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '',
                 '', '', '']
@@ -149,9 +154,9 @@ def test_status_0_misses(presenter):
     assert actual == expected
 
 
-def test_status_2_misses(presenter):
-    # noinspection PySetFunctionToLiteral
-    presenter.game.misses = list(set(['A', 'E']))
+def test_status_2_misses(presenter, game):
+    presenter.game = game
+    presenter.game.misses = ['A', 'E']
 
     actual = [line for line in presenter.status()]
     expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '',
@@ -160,8 +165,9 @@ def test_status_2_misses(presenter):
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-def test_status_10_misses(presenter):
-    presenter.game.misses = list(set(list('QWERTYASDF')))
+def test_status_10_misses(presenter, game):
+    presenter.game = game
+    presenter.game.misses = list('QWERTYASDF')
 
     actual = [line for line in presenter.status()]
     expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '',
@@ -170,13 +176,6 @@ def test_status_10_misses(presenter):
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-@pytest.mark.skipif(sys.version_info > (2, 7), reason="requires python2.7")
-def test_write_constructor(presenter, game, click):
-    assert dir(presenter) == dir(Presenter.write(game=game, click=click))
-    assert isinstance(Presenter.write(game=game, click=click).click, Mock)
-
-
-@pytest.mark.skipif(sys.version_info > (2, 7), reason="requires python2.7")
 def test_write_output(game, capsys):
     expected = """
                 HANGMAN GAME
@@ -191,42 +190,58 @@ ________|_
 
           _   _   _   _   _   _   _
 """
-    Presenter.write(game=game)
+    Presenter().write(game=game)
     out, err = capsys.readouterr()
     actual = [line.strip() for line in out.split('\n')]
     assert actual == list(map(str.strip, expected.split('\n')))
     assert err == ''
 
 
-@pytest.mark.skipif(sys.version_info > (2, 7), reason="requires python2.7")
 def test_flash_message(game, capsys):
     message = 'This test is a success'
-    Presenter.write(game=game, flash=message)
+    Presenter().write(game=game, message=message)
     out, err = capsys.readouterr()
     assert out.split('\n')[0] == '{0: <45}'.format(message)
     assert err == ''
 
 
-@pytest.mark.skipif(__pypy__, reason='PyPy IS statement')
-def test_prompt_class_method(click):
-    actual = Presenter.prompt(click)
+def test_prompt_class_method(presenter):
+    actual = presenter.prompt()
     assert actual is 'A'
 
 
-def test_play_again_prompt_class_method_true(click):
-    actual = Presenter.play_again_prompt(click)
+def test_play_again_prompt_method_true(presenter):
+    actual = presenter.play_again_prompt()
     assert actual is True
 
 
-def test_play_again_prompt_class_method_false(click):
-    click.confirm.return_value = False
-    actual = Presenter.play_again_prompt(click)
-    assert actual is False
-
-
-@pytest.mark.skipif(sys.version_info > (2, 7), reason="requires python2.7")
-def test_goodbye_class_method(capsys):
-    Presenter.goodbye()
+def test_goodbye_method(capsys, presenter):
+    presenter.goodbye()
     out, err = capsys.readouterr()
     assert out == 'Have a nice day!\n\n'
     assert err == ''
+
+
+def test_game_does_not_persist_between_calls(presenter, game, capsys):
+    presenter.write(game=game)
+    capsys.readouterr()
+
+    assert presenter.game is None
+
+
+def test_game_won(capsys, presenter, game):
+    expected = 'YOU ARE SO COOL'
+
+    presenter.write(game=game, game_won=True)
+    out, err = capsys.readouterr()
+
+    assert out.split('\n')[0].strip() == expected
+
+
+def test_game_over(capsys, presenter, game):
+    expected = "YOU'RE AN IDIOT. THE ANSWER IS HANGMAN"
+
+    presenter.write(game=game, game_over=True)
+    out, err = capsys.readouterr()
+
+    assert out.split('\n')[0].strip() == expected

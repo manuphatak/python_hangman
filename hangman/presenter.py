@@ -1,13 +1,24 @@
 # coding=utf-8
+from functools import wraps
+
 import click
 from builtins import zip
 
 
-class Presenter():
-    game = None
+def delete_game(func):
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        try:
+            return func(self, *args, **kwargs)
+        finally:
+            self.game = None
 
-    def __init__(self, game=None, click=click):
-        self.game = game
+    return wrapper
+
+
+class Presenter():
+    def __init__(self, click=click):
+        self.game = None
         self.click = click
 
     def picture(self):
@@ -50,11 +61,11 @@ class Presenter():
         yield '________|_'
 
     def status(self):
+        misses = '{0:_<10s}'.format(''.join(self.game.misses))
         yield ''
         yield ''
         yield ''
         yield '{0:s}{1:s}'.format(' ' * 5, 'MISSES:')
-        misses = '{0:_<10s}'.format(''.join(self.game.misses))
         yield '{0:s}{1:s}'.format(' ' * 5, ' '.join(list(misses)))
         yield ''
         yield ''
@@ -62,14 +73,20 @@ class Presenter():
         yield ''
         yield ''
 
-    @classmethod
-    def write(cls, game=None, click=click, flash=None, color=None):
-        self = cls(game=game, click=click)
+    @delete_game
+    def write(self, game=None, message=None, game_over=False, game_won=False):
+        self.game = game
         self.click.clear()
 
-        if flash:
-            color = color if color else 'yellow'
-            self.click.secho('{0:45s}'.format(flash), bold=True, fg=color)
+        if message:
+            self.click.secho('{0:45s}'.format(message), bold=True, fg='yellow')
+        elif game_over:
+            message = "YOU'RE AN IDIOT. THE ANSWER IS {0}".format(
+                self.game.answer)
+            self.click.secho('{0:45s}'.format(message), bold=True, fg='red')
+        elif game_won:
+            message = "YOU ARE SO COOL"
+            self.click.secho('{0:45s}'.format(message), bold=True, fg='cyan')
         else:
             self.click.echo()
 
@@ -87,21 +104,15 @@ class Presenter():
 
         return self
 
-    @classmethod
-    def prompt(cls, click=click):
-        self = cls(click=click)
+    def prompt(self):
         self.click.echo()
         self.click.secho('Dare to pick a letter: ', dim=True, bold=True)
         return self.click.getchar()
 
-    @classmethod
-    def play_again_prompt(cls, click=click):
-        self = cls(click=click)
+    def play_again_prompt(self):
         self.click.echo()
         return self.click.confirm('Double or nothings?')
 
-    @classmethod
-    def goodbye(cls, click=click):
-        self = cls(click=click)
+    def goodbye(self):
         self.click.secho('Have a nice day!', bold=True, fg='green', blink=True)
         self.click.echo()

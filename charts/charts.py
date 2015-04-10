@@ -1,15 +1,33 @@
+from contextlib import contextmanager
 import string
 from random import choice
+from cStringIO import StringIO
+import sys
 
 from mock import patch
-from pycallgraph import PyCallGraph, Config, GlobbingFilter
+from pycallgraph import (PyCallGraph, Config, GlobbingFilter,
+                         PyCallGraphException)
 from pycallgraph.output import GraphvizOutput
 
 from hangman import Commander
 
 
-ITERATIONS = 10
-CHUNKS = 100
+ITERATIONS = 100
+CHUNKS = 10
+
+
+@contextmanager
+def capture():
+    old_out, old_err = sys.stdout, sys.stderr
+    print "In..."
+    try:
+        out, err = StringIO(), StringIO()
+        sys.stdout, sys.stderr = out, err
+        yield (out, err)
+    finally:
+        sys.stdout, sys.stderr = old_out, old_err
+        out, err = out.getvalue(), err.getvalue()
+        print "Out..."
 
 
 def random_letter():
@@ -35,14 +53,37 @@ def main(tool='dot'):
         getchar_.side_effect = random_letter
         confirm_.side_effect = new_game()
         with PyCallGraph(output=graphviz, config=config):
-            for _ in xrange(ITERATIONS):
+            for i in xrange(ITERATIONS):
                 Commander.run()
 
 
 if __name__ == '__main__':
-    main('dot')
-    main('neato')
-    # main('fdp')
-    # # main('sfdp')
-    # main('twopi')
-    # main('circo')
+    try:
+        main('dot')
+    except PyCallGraphException:
+        pass
+
+    # try:
+    #     main('neato')
+    # except PyCallGraphException:
+    #     pass
+    #
+    # try:
+    #     main('fdp')
+    # except PyCallGraphException:
+    #     pass
+    #
+    # try:
+    #     main('sfdp')
+    # except PyCallGraphException:
+    #     pass
+    #
+    # try:
+    #     main('twopi')
+    # except PyCallGraphException:
+    #     pass
+    #
+    # try:
+    #     main('circo')
+    # except PyCallGraphException:
+    #     pass

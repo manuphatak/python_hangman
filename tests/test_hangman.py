@@ -6,7 +6,7 @@ from hangman import Hangman, GameWon, GameOver
 
 @pytest.fixture
 def game():
-    return Hangman('hangman')
+    return Hangman(answer='hangman')
 
 
 def test_new_game_returns_game_instance_with_answer(game):
@@ -131,3 +131,8 @@ def test_game_populates_answer_if_not_provided():
 
     game = Hangman(dictionary=MockDictionary)
     assert game.answer == 'RANDOM'
+
+
+def test_game_repr(game):
+    expected = "hangman(status='_______', misses=[], remaining_turns=10)"
+    assert repr(game) == expected

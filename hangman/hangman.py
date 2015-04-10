@@ -1,4 +1,5 @@
 # coding=utf-8
+from collections import namedtuple
 import re
 
 from . import Dictionary
@@ -8,16 +9,10 @@ class Hangman(object):
     """
     >>> from hangman.hangman import Hangman
     >>> game = Hangman(answer='hangman')
-    >>> game.status
-    '_______'
     >>> game.guess('a')
-    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>
-    >>> game.status
-    '_A___A_'
-    >>> game.guess('n'), game.guess('z'), game.guess('e')
-    (<hangman.hangman.Hangman object at 0x7ffd9e32ea10>,
-    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>,
-    <hangman.hangman.Hangman object at 0x7ffd9e32ea10>)
+    hangman(status='_A___A_', misses=[], remaining_turns=10)
+    >>> game.guess('n').guess('z').guess('e')
+    hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
     >>> game.status, game.misses, game.remaining_turns
     ('_AN__AN', ['Z', 'E'], 8)
     """
@@ -33,6 +28,11 @@ class Hangman(object):
         self.answer = answer.upper()
         self._misses = set()
         self._hits = set()
+
+    def __repr__(self):
+        return repr(namedtuple('hangman',
+                               ['status', 'misses', 'remaining_turns'])._make(
+            (self.status, self.misses, self.remaining_turns)))
 
     @staticmethod
     def valid_answer(text):
