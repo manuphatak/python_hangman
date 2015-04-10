@@ -1,11 +1,11 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop) [![License](https://pypip.in/license/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Downloads](https://pypip.in/download/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop) [![License](https://pypip.in/license/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Downloads](https://pypip.in/download/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/)
 
 #### A Python TDD Experiment
 My first python agnostic, tox tested, travis-backed, program!
 
 Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
 
-**Compatibility**
+**Compatibility** [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) 
 - Python 2.6
 - Python 2.7
 - Python 3.2
