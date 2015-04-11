@@ -1,6 +1,9 @@
 # coding=utf-8
 """
-This module contains all of the game logic.
+    hangman.hangman module
+    ========================
+
+    This module contains all of the game logic.
 """
 from collections import namedtuple
 import re
@@ -29,7 +32,7 @@ class Hangman(object):
         Instantiate a new game. Populate answer if necessary.
 
         :param str answer: answer to game instance
-        :param Dictionary dictionary: class to generate answer
+        :param hangmang.Dictionary dictionary: class to generate answer
         :return: self
         """
         if not answer:

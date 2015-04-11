@@ -1,5 +1,8 @@
 # coding=utf-8
 """
+    hangman.commander module
+    ========================
+
     This module is responsible for guiding the user throught the game.
 """
 from . import Hangman, GameOver, GameWon
@@ -22,7 +25,7 @@ class Commander(object):
         """
         Start the tour.
 
-        :param hangman: Hangman dependency injection.
+        :param hangman.Hangman: Hangman dependency injection.
         :param presenter: Presenter dependence injection.
         :return: An instance of self.
         """

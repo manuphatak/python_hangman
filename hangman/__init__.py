@@ -1,11 +1,12 @@
 # coding=utf-8
 """
-    Python Hangman
-    ~~~~~~~~~~~~~~
+    hangman.__init__ module
+    =======================
 
     A well tested, cli, python version-agnostic, multi-platform hangman game.
     It's built following TDD principles and each component services a
     sensibly distinct logical purpose.
+
 """
 __version__ = '1.2.3'
 

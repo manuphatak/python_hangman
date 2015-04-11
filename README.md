@@ -29,6 +29,10 @@ hangman
 pip uninstall python_hangman
 ```
 
+#### Full Documentation
+
+[https://hangman.readthedocs.org/](https://hangman.readthedocs.org/)
+
 ## Goal
 Learning!  Python in this case.  I'm particularly interested in testing and Test Driven Development.  This was a TDD exercise.
 
@@ -39,6 +43,7 @@ Also, explored:
 - Setuptools
 - Publishing on pip
 - Coverage via coveralls
+- Documentation with sphinx and ReadTheDocs
 
 ## Design
 There are 3 main components that run the game:  [hangman.Hangman](hangman/hangman.py#L7), [hangman.Commander](hangman/hangman.py#L7), and [hangman.Presenter](hangman/presenter.py#L6)
@@ -64,9 +69,7 @@ The  [hangman.Commander](hangman/hangman.py#L7) is exactly that, the commander, 
 
 #### Design Reasoning
 
-This design pattern was the right choice, because I didn't know, in advance, how the game was to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
-
-~~**Mistakes:** The presenter class, in my mind, is a static class.  Python does not play friendly with static classes OR I'm doing it wrong.  This could be refactored in a meaningful way.~~
+This design pattern was the right choice, because it offers a sensible separation between the game logic and presentation layer.  I did not know in advance how the game was going to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
 
 ## Call Diagram
 ![Call Diagram](charts/basic-1000-dot.png)

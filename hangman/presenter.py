@@ -1,6 +1,9 @@
 # coding=utf-8
 """
-This module handles user interaction. Printing and prompting.
+    hangman.presenter module
+    ========================
+
+    This module handles user interaction. Printing and prompting.
 """
 from functools import wraps
 
@@ -115,7 +118,7 @@ class Presenter():
         Flashes any messages.
         Zip the two halves of the picture together.
 
-        :param Hangman game: game instance
+        :param hangman.Hangman game: game instance
         :param message: flash message
         :param bool game_over: GameOver has been raised
         :param bool game_won: GameWon has been raised

@@ -1,5 +1,8 @@
 # coding=utf-8
 """
+    hangman.__main__ module
+    =======================
+
     Entry point for `hangman` command.
 """
 import click

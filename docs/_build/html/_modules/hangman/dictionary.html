@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hangman.dictionary &mdash; Python Hangman 1.2.3 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Python Hangman 1.2.3 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../index.html" class="fa fa-home"> Python Hangman</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Python Hangman</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>hangman.dictionary</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for hangman.dictionary</h1><div class="highlight"><pre>
+<span class="c"># coding=utf-8</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    hangman.dictionary module</span>
+<span class="sd">    ========================</span>
+
+<span class="sd">    This module is called to choose a random word for the game.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+
+
+<div class="viewcode-block" id="Dictionary"><a class="viewcode-back" href="../../index.html#hangman.dictionary.Dictionary">[docs]</a><span class="k">class</span> <span class="nc">Dictionary</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callable class that returns a random word from a static dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">WORDS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ATTEMPT&#39;</span><span class="p">,</span> <span class="s">&#39;DOLL&#39;</span><span class="p">,</span> <span class="s">&#39;ELLEN&#39;</span><span class="p">,</span> <span class="s">&#39;FLOATING&#39;</span><span class="p">,</span> <span class="s">&#39;PRIDE&#39;</span><span class="p">,</span> <span class="s">&#39;HEADING&#39;</span><span class="p">,</span> <span class="s">&#39;FILM&#39;</span><span class="p">,</span>
+             <span class="s">&#39;KIDS&#39;</span><span class="p">,</span> <span class="s">&#39;MONKEY&#39;</span><span class="p">,</span> <span class="s">&#39;LUNGS&#39;</span><span class="p">,</span> <span class="s">&#39;HABIT&#39;</span><span class="p">,</span> <span class="s">&#39;SPIN&#39;</span><span class="p">,</span> <span class="s">&#39;DISCUSSION&#39;</span><span class="p">,</span>
+             <span class="s">&#39;OFFICIAL&#39;</span><span class="p">,</span> <span class="s">&#39;PHILADELPHIA&#39;</span><span class="p">,</span> <span class="s">&#39;FACING&#39;</span><span class="p">,</span> <span class="s">&#39;MARTIN&#39;</span><span class="p">,</span> <span class="s">&#39;NORWAY&#39;</span><span class="p">,</span>
+             <span class="s">&#39;POLICEMAN&#39;</span><span class="p">,</span> <span class="s">&#39;TOBACCO&#39;</span><span class="p">,</span> <span class="s">&#39;VESSELS&#39;</span><span class="p">,</span> <span class="s">&#39;TALES&#39;</span><span class="p">,</span> <span class="s">&#39;VAPOR&#39;</span><span class="p">,</span> <span class="s">&#39;INDEPENDENT&#39;</span><span class="p">,</span>
+             <span class="s">&#39;COOKIES&#39;</span><span class="p">,</span> <span class="s">&#39;WEALTH&#39;</span><span class="p">,</span> <span class="s">&#39;PENNSYLVANIA&#39;</span><span class="p">,</span> <span class="s">&#39;EXPLANATION&#39;</span><span class="p">,</span> <span class="s">&#39;DAMAGE&#39;</span><span class="p">,</span>
+             <span class="s">&#39;OCCASIONALLY&#39;</span><span class="p">,</span> <span class="s">&#39;EXIST&#39;</span><span class="p">,</span> <span class="s">&#39;SIMPLEST&#39;</span><span class="p">,</span> <span class="s">&#39;PLATES&#39;</span><span class="p">,</span> <span class="s">&#39;CANAL&#39;</span><span class="p">,</span>
+             <span class="s">&#39;NEIGHBORHOOD&#39;</span><span class="p">,</span> <span class="s">&#39;PALACE&#39;</span><span class="p">,</span> <span class="s">&#39;ADVICE&#39;</span><span class="p">,</span> <span class="s">&#39;LABEL&#39;</span><span class="p">,</span> <span class="s">&#39;DANNY&#39;</span><span class="p">,</span> <span class="s">&#39;CLAWS&#39;</span><span class="p">,</span>
+             <span class="s">&#39;RUSH&#39;</span><span class="p">,</span> <span class="s">&#39;CHOSE&#39;</span><span class="p">,</span> <span class="s">&#39;EGYPT&#39;</span><span class="p">,</span> <span class="s">&#39;POETRY&#39;</span><span class="p">,</span> <span class="s">&#39;BREEZE&#39;</span><span class="p">,</span> <span class="s">&#39;WOLF&#39;</span><span class="p">,</span>
+             <span class="s">&#39;MANUFACTURING&#39;</span><span class="p">,</span> <span class="s">&#39;OURSELVES&#39;</span><span class="p">,</span> <span class="s">&#39;SCARED&#39;</span><span class="p">,</span> <span class="s">&#39;ARRANGEMENT&#39;</span><span class="p">,</span> <span class="s">&#39;POSSIBLY&#39;</span><span class="p">,</span>
+             <span class="s">&#39;PROMISED&#39;</span><span class="p">,</span> <span class="s">&#39;BRICK&#39;</span><span class="p">,</span> <span class="s">&#39;ACRES&#39;</span><span class="p">,</span> <span class="s">&#39;TREATED&#39;</span><span class="p">,</span> <span class="s">&#39;SELECTION&#39;</span><span class="p">,</span> <span class="s">&#39;POSITIVE&#39;</span><span class="p">,</span>
+             <span class="s">&#39;CONSTANTLY&#39;</span><span class="p">,</span> <span class="s">&#39;SATISFIED&#39;</span><span class="p">,</span> <span class="s">&#39;ZOO&#39;</span><span class="p">,</span> <span class="s">&#39;CUSTOMS&#39;</span><span class="p">,</span> <span class="s">&#39;UNIVERSITY&#39;</span><span class="p">,</span>
+             <span class="s">&#39;FIREPLACE&#39;</span><span class="p">,</span> <span class="s">&#39;SHALLOW&#39;</span><span class="p">,</span> <span class="s">&#39;INSTANT&#39;</span><span class="p">,</span> <span class="s">&#39;SALE&#39;</span><span class="p">,</span> <span class="s">&#39;PRACTICAL&#39;</span><span class="p">,</span> <span class="s">&#39;SILLY&#39;</span><span class="p">,</span>
+             <span class="s">&#39;SATELLITES&#39;</span><span class="p">,</span> <span class="s">&#39;SHAKING&#39;</span><span class="p">,</span> <span class="s">&#39;ROCKY&#39;</span><span class="p">,</span> <span class="s">&#39;SLOPE&#39;</span><span class="p">,</span> <span class="s">&#39;CASEY&#39;</span><span class="p">,</span> <span class="s">&#39;REMARKABLE&#39;</span><span class="p">,</span>
+             <span class="s">&#39;RUBBED&#39;</span><span class="p">,</span> <span class="s">&#39;HAPPILY&#39;</span><span class="p">,</span> <span class="s">&#39;MISSION&#39;</span><span class="p">,</span> <span class="s">&#39;CAST&#39;</span><span class="p">,</span> <span class="s">&#39;SHAKE&#39;</span><span class="p">,</span> <span class="s">&#39;REQUIRE&#39;</span><span class="p">,</span>
+             <span class="s">&#39;DONKEY&#39;</span><span class="p">,</span> <span class="s">&#39;EXCHANGE&#39;</span><span class="p">,</span> <span class="s">&#39;JANUARY&#39;</span><span class="p">,</span> <span class="s">&#39;MOUNT&#39;</span><span class="p">,</span> <span class="s">&#39;AUTUMN&#39;</span><span class="p">,</span> <span class="s">&#39;SLIP&#39;</span><span class="p">,</span>
+             <span class="s">&#39;BORDER&#39;</span><span class="p">,</span> <span class="s">&#39;LEE&#39;</span><span class="p">,</span> <span class="s">&#39;MELTED&#39;</span><span class="p">,</span> <span class="s">&#39;TRAP&#39;</span><span class="p">,</span> <span class="s">&#39;SOLAR&#39;</span><span class="p">,</span> <span class="s">&#39;RECALL&#39;</span><span class="p">,</span> <span class="s">&#39;MYSTERIOUS&#39;</span><span class="p">,</span>
+             <span class="s">&#39;SWUNG&#39;</span><span class="p">,</span> <span class="s">&#39;CONTRAST&#39;</span><span class="p">,</span> <span class="s">&#39;TOY&#39;</span><span class="p">,</span> <span class="s">&#39;GRABBED&#39;</span><span class="p">,</span> <span class="s">&#39;AUGUST&#39;</span><span class="p">,</span> <span class="s">&#39;RELATIONSHIP&#39;</span><span class="p">,</span>
+             <span class="s">&#39;HUNTER&#39;</span><span class="p">,</span> <span class="s">&#39;DEPTH&#39;</span><span class="p">,</span> <span class="s">&#39;FOLKS&#39;</span><span class="p">,</span> <span class="s">&#39;DEEPLY&#39;</span><span class="p">,</span> <span class="s">&#39;IMAGE&#39;</span><span class="p">,</span> <span class="s">&#39;STIFF&#39;</span><span class="p">,</span> <span class="s">&#39;RHYME&#39;</span><span class="p">,</span>
+             <span class="s">&#39;ILLINOIS&#39;</span><span class="p">,</span> <span class="s">&#39;SPECIES&#39;</span><span class="p">,</span> <span class="s">&#39;ADULT&#39;</span><span class="p">,</span> <span class="s">&#39;FINEST&#39;</span><span class="p">,</span> <span class="s">&#39;THUMB&#39;</span><span class="p">,</span> <span class="s">&#39;SLIGHT&#39;</span><span class="p">,</span>
+             <span class="s">&#39;GRANDMOTHER&#39;</span><span class="p">,</span> <span class="s">&#39;SHOUT&#39;</span><span class="p">,</span> <span class="s">&#39;HARRY&#39;</span><span class="p">,</span> <span class="s">&#39;MATHEMATICS&#39;</span><span class="p">,</span> <span class="s">&#39;MILL&#39;</span><span class="p">,</span>
+             <span class="s">&#39;ESSENTIAL&#39;</span><span class="p">,</span> <span class="s">&#39;TUNE&#39;</span><span class="p">,</span> <span class="s">&#39;FORT&#39;</span><span class="p">,</span> <span class="s">&#39;COACH&#39;</span><span class="p">,</span> <span class="s">&#39;NUTS&#39;</span><span class="p">,</span> <span class="s">&#39;GARAGE&#39;</span><span class="p">,</span> <span class="s">&#39;CALM&#39;</span><span class="p">,</span>
+             <span class="s">&#39;MEMORY&#39;</span><span class="p">,</span> <span class="s">&#39;SOAP&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick a word at random.</span>
+
+<span class="sd">        :return: A random word.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WORDS</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Manu Phatak.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

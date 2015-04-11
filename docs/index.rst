@@ -1,6 +1,3 @@
-.. highlight:: language
-    :linenothreshold: 5
-
 ##########################
 Welcome to Python Hangman!
 ##########################
@@ -25,6 +22,7 @@ My first python agnostic, tox tested, travis-backed, program!
 
 Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
 
+
 Compatibility
 -------------
 .. image:: https://pypip.in/py_versions/python_hangman/badge.svg
@@ -42,7 +40,7 @@ Compatibility
 - Python 3.4
 - PyPy
 
-.. image:: hangman.jpg
+.. image:: ../presents/hangman.jpg
 
 ***********
 Quick Start
@@ -55,8 +53,8 @@ Quick Start
 
     hangman
 
-Uninstall
----------
+**Uninstall**
+
 
 .. code-block:: sh
 
@@ -108,13 +106,14 @@ The  :py:class:`hangman.Commander` is exactly that, the commander, the director,
 Design Reasoning
 ----------------
 
-This design pattern was the right choice, because I didn't know, in advance, how the game was to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
+This design pattern was the right choice, because it offers a sensible separation between the game logic and presentation layer.  I did not know in advance how the game was going to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
 
 ************
 Call Diagram
 ************
 
-.. image:: charts/basic-1000-dot.png
+.. image:: ../presents/charts/basic-1000-dot.png
+
 
 ******************
 Indices and tables
@@ -124,3 +123,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. include:: hangman.rst
