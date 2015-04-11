@@ -1,11 +1,11 @@
-# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=master)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop) [![License](https://pypip.in/license/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/)
+# Hangman [![Build Status](https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop)](https://travis-ci.org/bionikspoon/Hangman) [![Coverage Status](https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop)](https://coveralls.io/r/bionikspoon/Hangman?branch=develop) [![License](https://pypip.in/license/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) [![Downloads](https://pypip.in/download/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/)
 
 #### A Python TDD Experiment
 My first python agnostic, tox tested, travis-backed, program!
 
 Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
 
-**Compatibility**
+**Compatibility** [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) 
 - Python 2.6
 - Python 2.7
 - Python 3.2
@@ -15,26 +15,23 @@ Has **very high** unit test coverage, with passing tests on every version of pyt
 
 ![terminal](hangman.jpg)
 
-## Usage
+## Quick Start
 
 ```sh
-git clone git@github.com:bionikspoon/Hangman.git
-cd Hangman/
 mkvirtualenv hangman  # optional for venv users
-pip install .
+pip install python_hangman
 hangman 
 ```
 
 #### Uninstall
+
 ```sh
-rmvirtualenv hangman
+pip uninstall python_hangman
 ```
-or
-```sh
-workon hangman # for venv users
-pip uninstall python-hangman
-deactivate # for venv users
-```
+
+#### Full Documentation
+
+[https://hangman.readthedocs.org/](https://hangman.readthedocs.org/)
 
 ## Goal
 Learning!  Python in this case.  I'm particularly interested in testing and Test Driven Development.  This was a TDD exercise.
@@ -44,6 +41,9 @@ Also, explored:
 - Travis CI
 - Python version agnostic programming
 - Setuptools
+- Publishing on pip
+- Coverage via coveralls
+- Documentation with sphinx and ReadTheDocs
 
 ## Design
 There are 3 main components that run the game:  [hangman.Hangman](hangman/hangman.py#L7), [hangman.Commander](hangman/hangman.py#L7), and [hangman.Presenter](hangman/presenter.py#L6)
@@ -69,9 +69,7 @@ The  [hangman.Commander](hangman/hangman.py#L7) is exactly that, the commander, 
 
 #### Design Reasoning
 
-This design pattern was the right choice, because I didn't know, in advance, how the game was to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
-
-**Mistakes:** The presenter class, in my mind, is a static class.  Python does not play friendly with static classes OR I'm doing it wrong.  This could be refactored in a meaningful way.
+This design pattern was the right choice, because it offers a sensible separation between the game logic and presentation layer.  I did not know in advance how the game was going to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
 
 ## Call Diagram
 ![Call Diagram](charts/basic-1000-dot.png)

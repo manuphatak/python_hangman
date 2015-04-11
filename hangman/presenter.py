@@ -1,4 +1,10 @@
 # coding=utf-8
+"""
+    hangman.presenter module
+    ========================
+
+    This module handles user interaction. Printing and prompting.
+"""
 from functools import wraps
 
 import click
@@ -6,6 +12,13 @@ from builtins import zip
 
 
 def delete_game(func):
+    """
+    Decorator.  Reset game state to prevent persistence.
+
+    :type func: __builtin__.function
+    :return: original function
+    """
+
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         try:
@@ -17,11 +30,28 @@ def delete_game(func):
 
 
 class Presenter():
+    """
+    Print and prompt.  This class is used by the commander to collect and
+    present data.  Makes extensive use of click's library.
+    """
+
     def __init__(self, click=click):
+        """
+        Instantiate a new class. Should be treated like a singleton.
+
+        :type click: click
+        :return: self
+        """
         self.game = None
         self.click = click
 
     def picture(self):
+        """
+        Draw the iconic hangman game status.
+
+        Generator function.
+        :return: Line of picture.
+        """
         turns = self.game.remaining_turns
         yield '    _____'
         yield '    |   |'
@@ -61,6 +91,12 @@ class Presenter():
         yield '________|_'
 
     def status(self):
+        """
+        Draw game status.
+
+        Generator Function.
+        :return: Line of status.
+        """
         misses = '{0:_<10s}'.format(''.join(self.game.misses))
         yield ''
         yield ''
@@ -75,6 +111,20 @@ class Presenter():
 
     @delete_game
     def write(self, game=None, message=None, game_over=False, game_won=False):
+        """
+        Present the game status with pictures.
+
+        Clears the screen.
+        Flashes any messages.
+        Zip the two halves of the picture together.
+
+        :param hangman.Hangman game: game instance
+        :param message: flash message
+        :param bool game_over: GameOver has been raised
+        :param bool game_won: GameWon has been raised
+        :return: self
+        """
+
         self.game = game
         self.click.clear()
 
@@ -105,14 +155,28 @@ class Presenter():
         return self
 
     def prompt(self):
+        """
+        Prompt user for a single keystroke.
+
+        :return: a single letter
+        """
         self.click.echo()
         self.click.secho('Dare to pick a letter: ', dim=True, bold=True)
         return self.click.getchar()
 
     def play_again_prompt(self):
+        """
+        Prompt user to play again.
+
+        :rtype: bool
+        :return: bool response
+        """
         self.click.echo()
         return self.click.confirm('Double or nothings?')
 
     def goodbye(self):
+        """
+        Write a goodbye message.
+        """
         self.click.secho('Have a nice day!', bold=True, fg='green', blink=True)
         self.click.echo()
