@@ -5,7 +5,9 @@ My first python agnostic, tox tested, travis-backed, program!
 
 Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
 
-**Compatibility** [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) 
+**Compatibility**
+[![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) 
+
 - Python 2.6
 - Python 2.7
 - Python 3.2
@@ -37,6 +39,7 @@ pip uninstall python_hangman
 Learning!  Python in this case.  I'm particularly interested in testing and Test Driven Development.  This was a TDD exercise.
 
 Also, explored:
+
 - Tox, test automation
 - Travis CI
 - Python version agnostic programming
@@ -57,8 +60,10 @@ For example:
 >>> game = Hangman(answer='hangman')
 >>> game.guess('a')
 hangman(status='_A___A_', misses=[], remaining_turns=10)
+
 >>> game.guess('n').guess('z').guess('e')
 hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
+
 >>> game.status, game.misses, game.remaining_turns
 ('_AN__AN', ['Z', 'E'], 8)
 ```
