@@ -8,7 +8,7 @@
     sensibly distinct logical purpose.
 
 """
-__version__ = '1.2.3'
+__version__ = '1.3.1'
 
 from .dictionary import Dictionary
 from .hangman import Hangman, GameOver, GameWon
