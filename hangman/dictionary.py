@@ -1,8 +1,17 @@
 # coding=utf-8
+"""
+    hangman.dictionary module
+    ========================
+
+    This module is called to choose a random word for the game.
+"""
 from random import choice
 
 
 class Dictionary(object):
+    """
+    Callable class that returns a random word from a static dictionary.
+    """
     WORDS = ['ATTEMPT', 'DOLL', 'ELLEN', 'FLOATING', 'PRIDE', 'HEADING', 'FILM',
              'KIDS', 'MONKEY', 'LUNGS', 'HABIT', 'SPIN', 'DISCUSSION',
              'OFFICIAL', 'PHILADELPHIA', 'FACING', 'MARTIN', 'NORWAY',
@@ -27,4 +36,9 @@ class Dictionary(object):
              'MEMORY', 'SOAP']
 
     def __call__(self):
+        """
+        Pick a word at random.
+
+        :return: A random word.
+        """
         return choice(self.WORDS)

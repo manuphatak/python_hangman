@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hangman.hangman &mdash; Python Hangman 1.2.3 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Python Hangman 1.2.3 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../index.html" class="fa fa-home"> Python Hangman</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Python Hangman</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>hangman.hangman</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for hangman.hangman</h1><div class="highlight"><pre>
+<span class="c"># coding=utf-8</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    hangman.hangman module</span>
+<span class="sd">    ========================</span>
+
+<span class="sd">    This module contains all of the game logic.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Dictionary</span>
+
+
+<div class="viewcode-block" id="Hangman"><a class="viewcode-back" href="../../index.html#hangman.hangman.Hangman">[docs]</a><span class="k">class</span> <span class="nc">Hangman</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The hangman game object contains the logic for managing the status of the</span>
+<span class="sd">    game and raising key game related events.</span>
+
+<span class="sd">    &gt;&gt;&gt; from hangman.hangman import Hangman</span>
+<span class="sd">    &gt;&gt;&gt; game = Hangman(answer=&#39;hangman&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; game.guess(&#39;a&#39;)</span>
+<span class="sd">    hangman(status=&#39;_A___A_&#39;, misses=[], remaining_turns=10)</span>
+<span class="sd">    &gt;&gt;&gt; game.guess(&#39;n&#39;).guess(&#39;z&#39;).guess(&#39;e&#39;)</span>
+<span class="sd">    hangman(status=&#39;_AN__AN&#39;, misses=[&#39;Z&#39;, &#39;E&#39;], remaining_turns=8)</span>
+<span class="sd">    &gt;&gt;&gt; game.status, game.misses, game.remaining_turns</span>
+<span class="sd">    (&#39;_AN__AN&#39;, [&#39;Z&#39;, &#39;E&#39;], 8)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MAX_TURNS</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">answer</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">=</span><span class="n">Dictionary</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a new game. Populate answer if necessary.</span>
+
+<span class="sd">        :param str answer: answer to game instance</span>
+<span class="sd">        :param hangmang.Dictionary dictionary: class to generate answer</span>
+<span class="sd">        :return: self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">answer</span><span class="p">:</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">()()</span>
+
+        <span class="c"># Validate answer.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_answer</span><span class="p">(</span><span class="n">answer</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Word must be letters A-Z&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">answer</span> <span class="o">=</span> <span class="n">answer</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build a human readable representation of self.</span>
+
+<span class="sd">        :return: namedtuple with status, misses, and remaining_turns</span>
+<span class="sd">        :rtype: namedtuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s">&#39;hangman&#39;</span><span class="p">,</span>
+                               <span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">,</span> <span class="s">&#39;misses&#39;</span><span class="p">,</span> <span class="s">&#39;remaining_turns&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">misses</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remaining_turns</span><span class="p">)))</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Hangman.valid_answer"><a class="viewcode-back" href="../../index.html#hangman.hangman.Hangman.valid_answer">[docs]</a>    <span class="k">def</span> <span class="nf">valid_answer</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate word against game rules.  Letters only.  Max:16</span>
+
+<span class="sd">        :param str word: letters only, max 16, case insensitive</span>
+<span class="sd">        :return: true if valid</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;^[a-z]{1,16}$&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">word</span><span class="p">)))</span>
+</div>
+<div class="viewcode-block" id="Hangman.guess"><a class="viewcode-back" href="../../index.html#hangman.hangman.Hangman.guess">[docs]</a>    <span class="k">def</span> <span class="nf">guess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">letter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate guess against game rules.  Add guess to hit or miss.</span>
+
+<span class="sd">        :param str letter: Any letter a-Z.  Length exactly 1</span>
+<span class="sd">        :return: self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">valid_guess</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;^[a-z]$&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">letter</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_guess</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Must be a letter A-Z&#39;</span><span class="p">)</span>
+
+        <span class="n">is_miss</span> <span class="o">=</span> <span class="n">letter</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">answer</span>
+
+        <span class="k">if</span> <span class="n">is_miss</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">misses</span> <span class="o">=</span> <span class="n">letter</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">=</span> <span class="n">letter</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">misses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get misses.</span>
+
+<span class="sd">        :rtype list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_misses</span><span class="p">)</span>
+
+    <span class="nd">@misses.setter</span>
+    <span class="k">def</span> <span class="nf">misses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set misses.  Check for game over.</span>
+
+<span class="sd">        :param value: A single letter.</span>
+<span class="sd">        :raises: GameOver</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_misses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">remaining_turns</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GameOver</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get hits.</span>
+
+<span class="sd">        :rtype: list</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hits</span><span class="p">)</span>
+
+    <span class="nd">@hits.setter</span>
+    <span class="k">def</span> <span class="nf">hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set hits.  Check for game won.</span>
+
+<span class="sd">        :param value: A single letter.</span>
+<span class="sd">        :raises: GameWon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hits</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">answer</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GameWon</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">remaining_turns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate number of turns remaining.</span>
+
+<span class="sd">        :return: Number of turns remaining.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX_TURNS</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">misses</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build a string representation of status with letters for hits and _</span>
+<span class="sd">        for unknowns.</span>
+
+<span class="sd">        :return: game status as string</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">letter</span> <span class="k">if</span> <span class="n">letter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="k">else</span> <span class="s">&#39;_&#39;</span> <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">answer</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="GameWon"><a class="viewcode-back" href="../../index.html#hangman.hangman.GameWon">[docs]</a><span class="k">class</span> <span class="nc">GameWon</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Indicate conditions for winning have been met.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+</div>
+<div class="viewcode-block" id="GameOver"><a class="viewcode-back" href="../../index.html#hangman.hangman.GameOver">[docs]</a><span class="k">class</span> <span class="nc">GameOver</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Indicate conditions for losing have been met.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Manu Phatak.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
