@@ -1,4 +1,7 @@
 # coding=utf-8
+"""
+    Entry point for `hangman` command.
+"""
 import click
 
 from . import Commander
@@ -6,6 +9,9 @@ from . import Commander
 
 @click.command()
 def cli():
+    """
+    Start a new game.
+    """
     Commander.run()
 
 

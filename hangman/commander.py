@@ -1,15 +1,31 @@
 # coding=utf-8
+"""
+    This module is responsible for guiding the user throught the game.
+"""
 from . import Hangman, GameOver, GameWon
 from . import Presenter
 
 
 class Commander(object):
+    """
+    The commander guides the user through the game, by telling the presenter
+    what information to collect and what data to show and updating the status
+    of the game.
+    """
+
     def __init__(self, hangman=Hangman, presenter=Presenter):
         self.game = hangman()
         self.presenter = presenter()
 
     @classmethod
     def run(cls, hangman=Hangman, presenter=Presenter):
+        """
+        Start the tour.
+
+        :param hangman: Hangman dependency injection.
+        :param presenter: Presenter dependence injection.
+        :return: An instance of self.
+        """
         self = cls(hangman=hangman, presenter=presenter)
         flash = None
         play_again = False
