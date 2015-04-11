@@ -6,6 +6,7 @@ My first python agnostic, tox tested, travis-backed, program!
 Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
 
 **Compatibility**
+
 [![Supported Python versions](https://pypip.in/py_versions/python_hangman/badge.svg)](https://pypi.python.org/pypi/python_hangman/) 
 
 - Python 2.6
