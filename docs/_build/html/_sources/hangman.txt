@@ -1,0 +1,7 @@
+Hangman
+=======
+
+.. automodule:: hangman
+    :members:
+    :private-members:
+    :special-members:
