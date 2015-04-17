@@ -13,7 +13,7 @@ sensibly distinct logical purpose.
 
 __author__ = 'Manu Phatak'
 __email__ = 'bionikspoon@gmail.com'
-__version__ = '1.3.1'
+__version__ = '1.4.0'
 
 
 from .dictionary import Dictionary
