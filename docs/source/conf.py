@@ -137,7 +137,7 @@ html_static_path = ['_static']
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
-html_extra_path = ['../../assets/hangman.jpg', '../../assets/charts/basic-1000-dot.png']
+html_extra_path = ['../../hangman.jpg', '../../basic-1000-dot.png']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

@@ -30,7 +30,7 @@ Features
 
 TODO
 
-.. image:: assets/hangman.jpg
+.. image:: hangman.jpg
     :alt: Documentation Status
 
 Compatibility
@@ -120,5 +120,5 @@ This design pattern was the right choice, because it offers a sensible separatio
 Call Diagram
 ------------
 
-.. image:: assets/charts/basic-1000-dot.png
+.. image:: basic-1000-dot.png
     :alt: Call Diagram
