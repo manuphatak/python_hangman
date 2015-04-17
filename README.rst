@@ -2,14 +2,14 @@
 Python Hangman
 ==============
 .. image:: https://pypip.in/status/python-hangman/badge.svg
-    :target: https://pypi.python.org/pypi/python-hangman/
+    :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Development Status
 
 .. image:: https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop
     :target: https://travis-ci.org/bionikspoon/Hangman
 
 .. image:: https://pypip.in/version/python-hangman/badge.svg?branch=develop
-    :target: https://pypi.python.org/pypi/python-hangman?branch=develop
+    :target: https://pypi.python.org/pypi/python_hangman?branch=develop
 
 .. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop
     :target: https://coveralls.io/r/bionikspoon/Hangman?branch=develop
@@ -37,11 +37,11 @@ Compatibility
 -------------
 
 .. image:: https://pypip.in/py_versions/python-hangman/badge.svg
-    :target: https://pypi.python.org/pypi/python-hangman/
+    :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Supported Python versions
 
 .. image:: https://pypip.in/implementation/python-hangman/badge.svg
-    :target: https://pypi.python.org/pypi/python-hangman/
+    :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Supported Python implementations
 
 - Python 2.6
