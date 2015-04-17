@@ -12,7 +12,7 @@ env:
   - TOXENV=py34
   - TOXENV=pypy
 script:
-  - tox -e $TOXENV
+  - tox
   - coverage run --source=hangman setup.py test
 after_success:
   coveralls

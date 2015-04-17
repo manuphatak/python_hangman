@@ -35,10 +35,10 @@ class PyTest(TestCommand):
 _version_re = re.compile(r"(?<=^__version__ = \')[\w\.]+(?=\'$)", re.U | re.M)
 with open('hangman/__init__.py', 'rb') as f:
     version = _version_re.search(f.read().decode('utf-8')).group()
-# with open('README.rst') as f:
-#     readme = f.read()
-# with open('HISTORY.rst') as f:
-#     history = f.read().replace('.. :changelog:', '')
+with open('README.rst') as f:
+    readme = f.read()
+with open('HISTORY.rst') as f:
+    history = f.read().replace('.. :changelog:', '')
 
 # @:off
 setup(name='python_hangman',
@@ -51,6 +51,7 @@ setup(name='python_hangman',
       author_email='bionikspoon@gmail.com',
       description='Python hangman TDD demonstration.',
       keywords='python tdd hangman',
+      long_description=readme + '\n\n' + __doc__ + '\n\n' + history,
       install_requires=['click',
                         'future'],
       package_dir={'hangman': 'hangman'},
