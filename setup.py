@@ -1,13 +1,25 @@
+#!/usr/bin/env python
+# coding=utf-8
+"""
+Documentation
+-------------
+
+The full documentation is at https://python-hangman.readthedocs.org.
+"""
+import os
 import sys
 import re
 
-from setuptools import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
 from setuptools.command.test import test as TestCommand
 
-
-version_re = re.compile(r"(?<=^__version__ = \')[\w\.]+(?=\'$)", re.U | re.M)
-with open('hangman/__init__.py', 'rb') as f:
-    version = version_re.search(f.read().decode('utf-8')).group()
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    sys.exit()
 
 
 class PyTest(TestCommand):
@@ -22,23 +34,35 @@ class PyTest(TestCommand):
         errno = pytest.main(self.test_args)
         sys.exit(errno)
 
-# @f:off
+
+_version_re = re.compile(r"(?<=^__version__ = \')[\w\.]+(?=\'$)", re.U | re.M)
+with open('hangman/__init__.py', 'rb') as f:
+    version = _version_re.search(f.read().decode('utf-8')).group()
+
+with open('README.rst') as f:
+    readme = f.read()
+
+with open('HISTORY.rst') as f:
+    history = f.read().replace('.. :changelog:', '')
+
+# @:on
 setup(name='python_hangman',
       version=version,
-      packages=['hangman'],
-      url='https://github.com/bionikspoon/Hangman',
-      license='MIT',
-      author='Manu',
-      author_email='bionikspoon@gmail.com',
       description='Python hangman TDD demonstration.',
+      long_description=readme + '\n\n' + __doc__ + '\n\n' + history,
+      author='Manu Phatak',
+      author_email='bionikspoon@gmail.com',
+      url='https://github.com/bionikspoon/Hangman',
       keywords='python tdd hangman',
-      install_requires=['click',
-                        'future'],
+      packages=['hangman'],
+      package_dir={'python_hangman': 'python_hangman'},
+      include_package_data=True,
+      install_requires=['click', 'future'],
+      license='MIT',
+      zip_safe=False,
       use_2to3=True,
-      tests_require=['tox',
-                     'pytest',
-                     'mock'],
       cmdclass={'test': PyTest},
+      tests_require=['pytest', 'mock'],
       entry_points={'console_scripts': ['hangman = hangman.__main__:cli']},
       classifiers=['Development Status :: 5 - Production/Stable',
                    'Environment :: Console',
@@ -60,4 +84,4 @@ setup(name='python_hangman',
                    'Topic :: Games/Entertainment :: Puzzle Games',
                    'Topic :: Terminals'])
 
-# @f:on
+# @:off
