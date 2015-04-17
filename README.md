@@ -16,7 +16,7 @@ Has **very high** unit test coverage, with passing tests on every version of pyt
 - Python 3.4
 - PyPy
 
-![terminal](presents/hangman.jpg)
+
 
 ## Quick Start
 
