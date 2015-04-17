@@ -1,6 +1,9 @@
+
+
 ==============
 Python Hangman
 ==============
+
 .. image:: https://pypip.in/status/python-hangman/badge.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Development Status

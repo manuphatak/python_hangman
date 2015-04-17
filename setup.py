@@ -40,36 +40,33 @@ with open('hangman/__init__.py', 'rb') as f:
     version = _version_re.search(f.read().decode('utf-8')).group()
 
 with open('README.rst') as f:
-    readme = f.read()
+    readme = f.read().replace(':py:class:', '')
+    readme = readme.replace('.. image:: '
+                            'hangman.jpg', '.. image:: '
+                                           'https://hangman.readthedocs.org'
+                                           '/en/master/hangman.jpg')
+    readme = readme.replace('.. image:: '
+                            'basic-1000-dot.png', '.. image:: '
+                                                  'https://hangman.readthedocs.org'
+                                                  '/en/master/basic-1000-dot.png')
 
 with open('HISTORY.rst') as f:
     history = f.read().replace('.. :changelog:', '')
 
 # @:on
-setup(name='python_hangman',
-      version=version,
+setup(name='python_hangman', version=version,
       description='Python hangman TDD demonstration.',
-      long_description=readme + '\n\n' + __doc__ + '\n\n' + history,
-      author='Manu Phatak',
-      author_email='bionikspoon@gmail.com',
-      url='https://github.com/bionikspoon/Hangman',
-      keywords='python tdd hangman',
-      packages=['hangman'],
-      package_dir={'python_hangman': 'python_hangman'},
-      include_package_data=True,
-      install_requires=['click', 'future'],
-      license='MIT',
-      zip_safe=False,
-      use_2to3=True,
-      cmdclass={'test': PyTest},
-      tests_require=['pytest', 'mock'],
+      long_description=readme + '\n\n' + __doc__ + '\n\n' + history, author='Manu Phatak',
+      author_email='bionikspoon@gmail.com', url='https://github.com/bionikspoon/Hangman',
+      keywords='python tdd hangman', packages=['hangman'],
+      package_dir={'python_hangman': 'python_hangman'}, include_package_data=True,
+      install_requires=['click', 'future'], license='MIT', zip_safe=False, use_2to3=True,
+      cmdclass={'test': PyTest}, tests_require=['pytest', 'mock'],
       entry_points={'console_scripts': ['hangman = hangman.__main__:cli']},
       classifiers=['Development Status :: 5 - Production/Stable',
-                   'Environment :: Console',
-                   'Intended Audience :: End Users/Desktop',
+                   'Environment :: Console', 'Intended Audience :: End Users/Desktop',
                    'License :: OSI Approved :: MIT License',
-                   'Natural Language :: English',
-                   'Operating System :: OS Independent',
+                   'Natural Language :: English', 'Operating System :: OS Independent',
                    'Programming Language :: Python',
                    'Programming Language :: Python :: 2',
                    'Programming Language :: Python :: 2.6',
@@ -79,9 +76,7 @@ setup(name='python_hangman',
                    'Programming Language :: Python :: 3.3',
                    'Programming Language :: Python :: 3.4',
                    'Programming Language :: Python :: Implementation :: '
-                   'CPython',
-                   'Programming Language :: Python :: Implementation :: PyPy',
-                   'Topic :: Games/Entertainment :: Puzzle Games',
-                   'Topic :: Terminals'])
+                   'CPython', 'Programming Language :: Python :: Implementation :: PyPy',
+                   'Topic :: Games/Entertainment :: Puzzle Games', 'Topic :: Terminals'])
 
 # @:off
