@@ -1,16 +1,18 @@
 
 __pycache__/
+*.pyc
+htmlcov/
 
 build/
 
 dist/
 
+*.egg
 .eggs/
 lib/
 
 *.egg-info/
 
-*.egg
 
 
 .tox/
@@ -20,4 +22,3 @@ lib/
 
 target/
 .idea/
-coverage-report/
