@@ -51,34 +51,24 @@ Compatibility
 - Python 3.4
 - PyPy
 
-Installation
-------------
+Getting Started
+---------------
 
 At the command line either via easy_install or pip:
 
-.. code-block:: shell
+.. code-block:: sh
 
-    $ pip install python_hangman
+    mkvirtualenv hangman  # optional for venv users
+    pip install python_hangman
 
-.. code-block:: shell
+    hangman
 
-    $ easy_install python_hangman
 
 **Uninstall**
 
 .. code-block:: shell
 
     $ pip uninstall python_hangman
-
-
-Getting Started
----------------
-
-To use python_hangman:
-
-.. code-block:: shell
-
-    $ hangman
 
 
 Goal
@@ -99,9 +89,9 @@ Also, explored:
 Design
 ------
 
-There are 3 main components that run the game:  [hangman.Hangman](hangman/hangman.py#L7), [hangman.Commander](hangman/hangman.py#L7), and [hangman.Presenter](hangman/presenter.py#L6)
+There are 3 main components that run the game:  :py:class:`hangman.Hangman`,  :py:class:`hangman.Commander`, and :py:class:`hangman.Presenter`
 
-The entirety of the game logic is contained in [hangman.Hangman](hangman/hangman.py#L7).  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
+The entirety of the game logic is contained in :py:class:`hangman.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
 
 For example:
 
@@ -118,9 +108,9 @@ For example:
     >>> game.status, game.misses, game.remaining_turns
     ('_AN__AN', ['Z', 'E'], 8)
 
-[hangman.Presenter](hangman/presenter.py#L6) is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
+:py:class:`hangman.Presenter` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
 
-The  [hangman.Commander](hangman/hangman.py#L7) is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
+The  :py:class:`hangman.Commander` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
 
 Design Reasoning
 ----------------
