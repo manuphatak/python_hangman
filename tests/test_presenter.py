@@ -1,10 +1,10 @@
 # coding=utf-8
-import click
-import pytest
-from mock import Mock
+
 from builtins import map
 
-from hangman import Presenter, Hangman
+import pytest
+from mock import Mock
+
 
 try:
     import __pypy__
@@ -14,22 +14,44 @@ except ImportError:
 
 @pytest.fixture
 def game():
+    from hangman import Hangman
+
     mock_game = Mock(spec=Hangman)
     mock_game.return_value = mock_game
     mock_game.misses = []
     mock_game.status = '_______'
     mock_game.answer = 'HANGMAN'
+    mock_game.remaining_turns = 10
     return mock_game
 
 
 @pytest.fixture
-def presenter(monkeypatch):
-    monkeypatch.setattr('click.getchar', lambda: 'A')
-    monkeypatch.setattr('click.confirm', lambda _: True)
+def presenter():
+    from hangman import Presenter
+
     return Presenter()
 
 
+@pytest.fixture(autouse=True)
+def setup(monkeypatch):
+    import codecs
+
+    def is_ascii_encoding(encoding):
+        """Checks if a given encoding is ascii."""
+        try:
+
+            return codecs.lookup(encoding).name == 'ascii'
+        except (LookupError, TypeError):
+            return False
+
+    monkeypatch.setattr('click.getchar', lambda: 'A')
+    monkeypatch.setattr('click.confirm', lambda _: True)
+    monkeypatch.setattr('click._compat.is_ascii_encoding', is_ascii_encoding)
+
+
 def test_mock_init(presenter):
+    import click
+
     presenter.game = None
     presenter.click = click
 
@@ -148,8 +170,8 @@ def test_status_0_misses_full(presenter, game):
     presenter.game = game
     presenter.game.misses = []
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '',
+                '']
 
     assert actual == expected
 
@@ -159,8 +181,8 @@ def test_status_2_misses(presenter, game):
     presenter.game.misses = ['A', 'E']
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '', '', '',
+                '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
@@ -170,13 +192,13 @@ def test_status_10_misses(presenter, game):
     presenter.game.misses = list('QWERTYASDF')
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '', '', '',
+                '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-def test_write_output(game, capsys):
+def test_write_output(game, capsys, presenter):
     expected = """
                 HANGMAN GAME
     _____
@@ -190,16 +212,30 @@ ________|_
 
           _   _   _   _   _   _   _
 """
-    Presenter().write(game=game)
+    presenter.write(game=game)
     out, err = capsys.readouterr()
-    actual = [line.strip() for line in out.split('\n')]
-    assert actual == list(map(str.strip, expected.split('\n')))
+    actual_list = [line for line in out.split('\n')]
+    expected_list = expected.split('\n')
+    for actual, expected in zip(actual_list, expected_list):
+        assert actual.rstrip() == expected.rstrip()
     assert err == ''
 
 
-def test_flash_message(game, capsys):
+def test_flash_message(game, capsys, presenter):
     message = 'This test is a success'
-    Presenter().write(game=game, message=message)
+    presenter.write(game=game, message=message)
+    out, err = capsys.readouterr()
+    assert out.split('\n')[0] == '{0: <45}'.format(message)
+    assert err == ''
+
+
+def test_flash_message_handles_error_objects(game, capsys, presenter):
+    message = 'This test is a success'
+    try:
+        raise ValueError(message)
+    except ValueError as e:
+        presenter.write(game=game, message=str(e))
+
     out, err = capsys.readouterr()
     assert out.split('\n')[0] == '{0: <45}'.format(message)
     assert err == ''
@@ -207,7 +243,7 @@ def test_flash_message(game, capsys):
 
 def test_prompt_class_method(presenter):
     actual = presenter.prompt()
-    assert actual is 'A'
+    assert actual == 'A'
 
 
 def test_play_again_prompt_method_true(presenter):

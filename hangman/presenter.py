@@ -1,8 +1,5 @@
 # coding=utf-8
 """
-    hangman.presenter module
-    ========================
-
     This module handles user interaction. Printing and prompting.
 """
 from functools import wraps
@@ -171,7 +168,7 @@ class Presenter():
         :rtype: bool
         :return: bool response
         """
-        self.click.echo()
+        self.click.echo('')
         return self.click.confirm('Double or nothings?')
 
     def goodbye(self):
@@ -179,4 +176,4 @@ class Presenter():
         Write a goodbye message.
         """
         self.click.secho('Have a nice day!', bold=True, fg='green', blink=True)
-        self.click.echo()
+        self.click.echo('')

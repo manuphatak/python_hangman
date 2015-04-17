@@ -1,8 +1,5 @@
 # coding=utf-8
 """
-    hangman.commander module
-    ========================
-
     This module is responsible for guiding the user throught the game.
 """
 from . import Hangman, GameOver, GameWon
@@ -48,7 +45,7 @@ class Commander(object):
                 play_again = self.presenter.play_again_prompt()
                 break
             except ValueError as e:
-                flash = e.message
+                flash = e
                 continue
         if play_again:
             del self
