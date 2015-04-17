@@ -56,7 +56,7 @@ def test_game_won(presenter, capsys):
 def test_value_error(presenter, capsys, monkeypatch):
     mock = Mock()
     mock.return_value = mock
-    mock.guess.side_effect = [ValueError, GameWon]
+    mock.guess.side_effect = [ValueError('Test'), GameWon]
     Commander.run(hangman=mock, presenter=presenter())
 
     out, err = capsys.readouterr()

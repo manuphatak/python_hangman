@@ -1,8 +1,5 @@
 # coding=utf-8
 """
-    hangman.dictionary module
-    ========================
-
     This module is called to choose a random word for the game.
 """
 from random import choice
