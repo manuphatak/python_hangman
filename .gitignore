@@ -22,3 +22,5 @@ lib/
 
 target/
 .idea/
+
+.coverage
