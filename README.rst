@@ -4,14 +4,14 @@
 Python Hangman
 ==============
 
-.. image:: https://pypip.in/status/python-hangman/badge.svg
+.. image:: https://img.shields.io/badge/Status-Production%2FStable-brightgreen.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Development Status
 
 .. image:: https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop
     :target: https://travis-ci.org/bionikspoon/Hangman
 
-.. image:: https://pypip.in/version/python-hangman/badge.svg?branch=develop
+.. image:: https://img.shields.io/pypi/v/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman?branch=develop
 
 .. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop
@@ -39,13 +39,10 @@ TODO
 Compatibility
 -------------
 
-.. image:: https://pypip.in/py_versions/python-hangman/badge.svg
+.. image:: https://img.shields.io/badge/Python-2.6,_2.7,_3.2,_3.3,_3.4,_pypy-brightgreen.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Supported Python versions
 
-.. image:: https://pypip.in/implementation/python-hangman/badge.svg
-    :target: https://pypi.python.org/pypi/python_hangman/
-    :alt: Supported Python implementations
 
 - Python 2.6
 - Python 2.7

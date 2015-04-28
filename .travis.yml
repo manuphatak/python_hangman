@@ -15,4 +15,4 @@ script:
   - tox -e $TOXENV
   - coverage run --source=hangman setup.py test
 after_success:
-  coveralls
+  - coveralls
