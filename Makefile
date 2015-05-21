@@ -32,6 +32,7 @@ test:
 	py.test
 
 test-all:
+	pip install tox
 	tox
 
 coverage:

@@ -1,10 +1,7 @@
 # coding=utf-8
 
-from builtins import map
-
 import pytest
 from mock import Mock
-
 
 try:
     import __pypy__
@@ -39,7 +36,6 @@ def setup(monkeypatch):
     def is_ascii_encoding(encoding):
         """Checks if a given encoding is ascii."""
         try:
-
             return codecs.lookup(encoding).name == 'ascii'
         except (LookupError, TypeError):
             return False
@@ -170,8 +166,8 @@ def test_status_0_misses_full(presenter, game):
     presenter.game = game
     presenter.game.misses = []
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '',
-                '']
+    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '',
+                '', '', '']
 
     assert actual == expected
 
@@ -181,8 +177,8 @@ def test_status_2_misses(presenter, game):
     presenter.game.misses = ['A', 'E']
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '', '', '',
-                '']
+    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '',
+                '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
@@ -192,8 +188,8 @@ def test_status_10_misses(presenter, game):
     presenter.game.misses = list('QWERTYASDF')
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '', '', '',
-                '']
+    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '',
+                '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
