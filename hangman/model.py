@@ -22,9 +22,16 @@ class Hangman(object):
     >>> game.status, game.misses, game.remaining_turns
     ('_AN__AN', ['E', 'Z'], 8)
     """
+
+    # CLASS PROPERTIES
+    # -------------------------------------------------------------------
+
     MAX_TURNS = 10
     _re_answer_rules = re.compile('^[A-Z]{1,16}$')
     _re_guess_rules = re.compile('^[A-Z]$')
+
+    # CONSTRUCTOR
+    # -------------------------------------------------------------------
 
     def __init__(self, answer=None):
         """
@@ -44,27 +51,8 @@ class Hangman(object):
         self._misses = set()
         self._hits = set()
 
-    def guess(self, letter):
-        """
-        Check if guess is a hit or miss.
-
-        :param str letter: Letter to check
-        :return: self
-        :rtype: Hangman
-        :raises: ValueError
-        """
-        # validate input
-        if not self.is_valid_guess(letter):
-            raise ValueError('Must be a letter A-Z')
-
-        # add to hits or misses
-        is_miss = letter.upper() not in self.answer
-        if is_miss:
-            self.add_miss(letter)
-        else:
-            self.add_hit(letter)
-
-        return self
+    # INSTANCE PROPERTIES
+    # -------------------------------------------------------------------
 
     @property
     def misses(self):
@@ -88,17 +76,6 @@ class Hangman(object):
         if self.remaining_turns <= 0:
             raise GameOver
 
-    def add_miss(self, value):
-        """
-        Add a miss to the model.  Check for game over.
-
-        :param value: A single letter.
-        :raises: GameOver
-        """
-        self._misses.add(value.upper())
-        if self.remaining_turns <= 0:
-            raise GameOver
-
     @property
     def hits(self):
         """
@@ -118,17 +95,6 @@ class Hangman(object):
         """
 
         self._hits = set(value)
-        if self._hits == set(self.answer):
-            raise GameWon
-
-    def add_hit(self, value):
-        """
-        Add a hit to the model.  Check for game won.
-
-        :param value: A single letter.
-        :raises: GameWon
-        """
-        self._hits.add(value.upper())
         if self._hits == set(self.answer):
             raise GameWon
 
@@ -157,6 +123,56 @@ class Hangman(object):
             return letter if letter in hits else '_'
 
         return ''.join(fill_in(letter) for letter in self.answer)
+
+    # PUBLIC API
+    # -------------------------------------------------------------------
+
+    def guess(self, letter):
+        """
+        Check if guess is a hit or miss.
+
+        :param str letter: Letter to check
+        :return: self
+        :rtype: Hangman
+        :raises: ValueError
+        """
+        # validate input
+        if not self.is_valid_guess(letter):
+            raise ValueError('Must be a letter A-Z')
+
+        # add to hits or misses
+        is_miss = letter.upper() not in self.answer
+        if is_miss:
+            self.add_miss(letter)
+        else:
+            self.add_hit(letter)
+
+        return self
+
+    def add_miss(self, value):
+        """
+        Add a miss to the model.  Check for game over.
+
+        :param value: A single letter.
+        :raises: GameOver
+        """
+        self._misses.add(value.upper())
+        if self.remaining_turns <= 0:
+            raise GameOver
+
+    def add_hit(self, value):
+        """
+        Add a hit to the model.  Check for game won.
+
+        :param value: A single letter.
+        :raises: GameWon
+        """
+        self._hits.add(value.upper())
+        if self._hits == set(self.answer):
+            raise GameWon
+
+    # UTILITIES
+    # -------------------------------------------------------------------
 
     def is_valid_answer(self, word):
         """
