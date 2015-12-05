@@ -1,26 +1,22 @@
+.. highlight:: shell
+
 ============
 Installation
 ============
 
-At the command line either via easy_install or pip:
+At the command line either via easy_install or pip::
 
-.. code-block:: shell
+    $ pip install python_hangman
 
-    $ pip install hangman
+::
 
-.. code-block:: shell
+    $ easy_install python_hangman
 
-    $ easy_install hangman
-
-Or, if you have virtualenvwrapper installed:
-
-.. code-block:: shell
+Or, if you have virtualenvwrapper installed::
 
     $ mkvirtualenv hangman
-    $ pip install hangman
+    $ pip install python_hangman
 
-**Uninstall**
+**Uninstall**::
 
-.. code-block:: shell
-
-    $ pip uninstall hangman
+    $ pip uninstall python_hangman

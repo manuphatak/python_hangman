@@ -91,9 +91,9 @@ Also, explored:
 Design
 ------
 
-There are 3 main components that run the game:  :py:class:`hangman.Hangman`,  :py:class:`hangman.Commander`, and :py:class:`hangman.Presenter`
+There are 3 main components that run the game:  :py:class:`hangman.model.Hangman`,  :py:class:`hangman.controller`, and :py:class:`hangman.view`
 
-The entirety of the game logic is contained in :py:class:`hangman.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
+The entirety of the game logic is contained in :py:class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
 
 For example:
 
@@ -117,9 +117,9 @@ For example:
     8
 
 
-:py:class:`hangman.Presenter` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
+:py:class:`hangman.view` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
 
-The  :py:class:`hangman.Commander` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
+The  :py:class:`hangman.controller` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
 
 Design Reasoning
 ----------------
