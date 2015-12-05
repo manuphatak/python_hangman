@@ -3,10 +3,9 @@
 This module is responsible for guiding the user through the game.
 """
 from __future__ import absolute_import
-
-from hangman.utils import FlashMessage
+from hangman.utils import FlashMessage, GameOver, GameWon, GameFinished
 from . import view
-from .hangman import Hangman, GameOver, GameWon
+from .hangman import Hangman
 
 
 # class Commander(object):

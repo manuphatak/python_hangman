@@ -7,7 +7,7 @@ from __future__ import absolute_import
 import re
 from collections import namedtuple
 
-from hangman.utils import WordBank
+from hangman.utils import WordBank, GameOver, GameWon
 
 
 class Hangman(object):
@@ -197,11 +197,3 @@ class Hangman(object):
 
         return repr(namedtuple('hangman', ['status', 'misses', 'remaining_turns'])._make(
             (self.status, self.misses, self.remaining_turns)))
-
-
-class GameWon(Exception):
-    """Raised when answer has been guessed."""
-
-
-class GameOver(Exception):
-    """Raised when out of turns."""

@@ -8,7 +8,6 @@ test_hangman
 Tests for `hangman` module.
 """
 import pytest
-
 from hangman.hangman import GameWon, GameOver
 
 
@@ -140,10 +139,12 @@ def test_game_losing_guess(game):
 
 
 def test_game_populates_answer_if_not_provided(Hangman):
-    from hangman.utils import WORDS
+    from hangman.utils import WordBank
+
+    WordBank.set('TEST')
 
     _game = Hangman()
-    assert _game.answer in WORDS
+    assert _game.answer == 'TEST'
 
 
 def test_game_repr(game):

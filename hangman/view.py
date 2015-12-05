@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from builtins import zip
 import click
 
+from hangman.utils import FlashMessage, GameFinished
+
 
 def partial_picture(remaining_turns):
     """
@@ -89,7 +91,7 @@ def partial_header():
     return click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True, underline=True)
 
 
-def draw_board(game, message=None):
+def draw_board(game, message=FlashMessage()):
     """
     Present the game status with pictures.
 
@@ -98,9 +100,8 @@ def draw_board(game, message=None):
     Zip the two halves of the picture together.
 
     :param hangman.Hangman game: game instance
-    :param message: flash message
-    :param bool game_over: GameOver has been raised
-    :param bool game_won: GameWon has been raised
+    :param hangman.utils.FlashMessage message: flash message
+    :raises: hangman.utils.GameFinished
     :return: self
     """
 
@@ -118,6 +119,9 @@ def draw_board(game, message=None):
     status = deliminator.join(list(game.status))
     click.echo()
     click.echo('{0: ^45s}'.format(status))
+
+    if message.game_over or message.game_won:
+        raise GameFinished
 
 
 def prompt_guess():

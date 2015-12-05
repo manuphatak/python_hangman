@@ -3,9 +3,10 @@
 Collection of words to choose from.
 """
 from __future__ import absolute_import
+
 from random import choice
 
-__all__ = ['WordBank', 'FlashMessage']
+__all__ = ['WordBank', 'FlashMessage', 'GameOver', 'GameWon', 'GameFinished']
 
 
 class WordBank(object):
@@ -33,7 +34,6 @@ class WordBank(object):
         """
         Pick a word at random.
 
-        :param [str] choices: List of words to choose from.
         :return str: Random word.
         """
         return choice(cls.WORDS)
@@ -57,3 +57,18 @@ class FlashMessage(object):
 
     def __eq__(self, other):
         return bool(self.message) == other
+
+    def __format__(self, format_spec):
+        return format(str(self), format_spec)
+
+
+class GameWon(Exception):
+    """Raised when answer has been guessed."""
+
+
+class GameOver(Exception):
+    """Raised when out of turns."""
+
+
+class GameFinished(Exception):
+    """Raised when controller should break game loop."""

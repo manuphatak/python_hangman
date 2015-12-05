@@ -1,8 +1,11 @@
 # coding=utf-8
+from textwrap import dedent
 
 import pytest
 from mock import Mock
+
 from hangman import view
+from hangman.utils import GameFinished
 
 try:
     import __pypy__
@@ -44,13 +47,6 @@ def flash():
     from hangman.utils import FlashMessage
 
     return FlashMessage()
-
-
-def test_mock_init():
-    import click
-
-    view.game = None
-    view.click = click
 
 
 def test_picture_10_turns():
@@ -143,7 +139,7 @@ def test_picture_0_turns():
 
 def test_status_0_misses_full():
     misses = []
-    actual = [line for line in view.partial_status(misses)]
+    actual = list(view.partial_status(misses))
     expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '', '']
 
     assert actual == expected
@@ -167,8 +163,8 @@ def test_status_10_misses():
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-def test_write_output(game, capsys):
-    expected = """
+def test_write_output(game, capsys, flash):
+    expected_list = dedent("""
                 HANGMAN GAME
     _____
     |   |
@@ -180,13 +176,12 @@ def test_write_output(game, capsys):
 ________|_
 
           _   _   _   _   _   _   _
-"""
+""").split('\n')
     view.draw_board(game)
     out, err = capsys.readouterr()
-    actual_list = [line for line in out.split('\n')]
-    expected_list = expected.split('\n')
-    for actual, expected in zip(actual_list, expected_list):
-        assert actual.rstrip() == expected.rstrip()
+    actual_list = out.split('\n')
+    for actual_list, expected in zip(actual_list, expected_list):
+        assert actual_list.rstrip() == expected.rstrip()
     assert err == ''
 
 
@@ -213,36 +208,40 @@ def test_flash_message_handles_error_objects(game, capsys, flash):
     assert err == ''
 
 
-def test_prompt_class_method():
+def test_prompting_for_a_guess():
     actual = view.prompt_guess()
     assert actual == 'A'
 
 
-def test_play_again_prompt_method_true():
-    actual = view.prompt_play_again()
-    assert actual is True
+def test_prompt_play_again_method_true():
+    assert view.prompt_play_again() is True
 
 
-def test_goodbye_method(capsys):
+def test_say_goodbye_method(capsys):
     view.say_goodbye()
     out, err = capsys.readouterr()
     assert out == 'Have a nice day!\n\n'
     assert err == ''
 
 
-def test_game_won(capsys, game):
+def test_game_won(capsys, game, flash):
     expected = 'YOU ARE SO COOL'
+    flash.game_won = True
 
-    view.draw_board(game)
+    with pytest.raises(GameFinished):
+        view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
     assert out.split('\n')[0].strip() == expected
 
 
-def test_game_over(capsys, game):
+def test_game_over(capsys, game, flash):
     expected = "CAN'T EVEN WIN HANGMAN? THE ANSWER IS HANGMAN"
+    flash.game_over = True
+    flash.game_answer = 'HANGMAN'
 
-    view.draw_board(game)
+    with pytest.raises(GameFinished):
+        view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
     assert out.split('\n')[0].strip() == expected
