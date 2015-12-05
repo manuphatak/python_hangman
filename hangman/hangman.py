@@ -2,10 +2,12 @@
 """
 This module contains all of the game logic.
 """
+from __future__ import absolute_import
+
 import re
 from collections import namedtuple
 
-from . import word_bank
+from hangman.utils import WordBank
 
 
 class Hangman(object):
@@ -32,7 +34,7 @@ class Hangman(object):
         :raises: ValueError
         """
         if not answer:
-            answer = word_bank.get_random()
+            answer = WordBank.get()
 
         # Validate answer.
         if not self.is_valid_answer(answer):

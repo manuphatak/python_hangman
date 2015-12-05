@@ -2,9 +2,10 @@
 """
 Entry point for ``hangman`` command.
 """
+from __future__ import absolute_import
 import click
 
-from . import Commander
+from .controller import game_loop
 
 
 @click.command()
@@ -12,7 +13,7 @@ def cli():
     """
     Start a new game.
     """
-    Commander.run()
+    game_loop()
 
 
 if __name__ == '__main__':

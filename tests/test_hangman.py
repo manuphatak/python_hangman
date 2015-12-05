@@ -140,7 +140,7 @@ def test_game_losing_guess(game):
 
 
 def test_game_populates_answer_if_not_provided(Hangman):
-    from hangman.word_bank import WORDS
+    from hangman.utils import WORDS
 
     _game = Hangman()
     assert _game.answer in WORDS
