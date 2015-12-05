@@ -22,7 +22,7 @@ class Hangman(object):
     >>> game.guess('n').guess('z').guess('e')
     hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
     >>> game.status, game.misses, game.remaining_turns
-    ('_AN__AN', ['Z', 'E'], 8)
+    ('_AN__AN', ['E', 'Z'], 8)
     """
     MAX_TURNS = 10
 
@@ -73,7 +73,7 @@ class Hangman(object):
 
         :rtype: [str]
         """
-        return list(self._misses)
+        return sorted(list(self._misses))
 
     @misses.setter
     def misses(self, value):
@@ -106,7 +106,7 @@ class Hangman(object):
 
         :rtype: [str]
         """
-        return list(self._hits)
+        return sorted(list(self._hits))
 
     @hits.setter
     def hits(self, value):

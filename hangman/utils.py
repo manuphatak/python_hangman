@@ -1,38 +1,43 @@
 # coding=utf-8
 """
-Collection of words to choose from.
+App utilities.
 """
 from __future__ import absolute_import
-
 from random import choice
 
 __all__ = ['WordBank', 'FlashMessage', 'GameOver', 'GameWon', 'GameFinished']
 
 
 class WordBank(object):
-    WORDS = (
-        'ATTEMPT', 'DOLL', 'ELLEN', 'FLOATING', 'PRIDE', 'HEADING', 'FILM', 'KIDS', 'MONKEY', 'LUNGS', 'HABIT', 'SPIN',
-        'DISCUSSION', 'OFFICIAL', 'PHILADELPHIA', 'FACING', 'MARTIN', 'NORWAY', 'POLICEMAN', 'TOBACCO', 'VESSELS',
-        'TALES', 'VAPOR', 'INDEPENDENT', 'COOKIES', 'WEALTH', 'PENNSYLVANIA', 'EXPLANATION', 'DAMAGE', 'OCCASIONALLY',
-        'EXIST', 'SIMPLEST', 'PLATES', 'CANAL', 'NEIGHBORHOOD', 'PALACE', 'ADVICE', 'LABEL', 'DANNY', 'CLAWS', 'RUSH',
-        'CHOSE', 'EGYPT', 'POETRY', 'BREEZE', 'WOLF', 'MANUFACTURING', 'OURSELVES', 'SCARED', 'ARRANGEMENT', 'POSSIBLY',
-        'PROMISED', 'BRICK', 'ACRES', 'TREATED', 'SELECTION', 'POSITIVE', 'CONSTANTLY', 'SATISFIED', 'ZOO', 'CUSTOMS',
-        'UNIVERSITY', 'FIREPLACE', 'SHALLOW', 'INSTANT', 'SALE', 'PRACTICAL', 'SILLY', 'SATELLITES', 'SHAKING', 'ROCKY',
-        'SLOPE', 'CASEY', 'REMARKABLE', 'RUBBED', 'HAPPILY', 'MISSION', 'CAST', 'SHAKE', 'REQUIRE', 'DONKEY',
-        'EXCHANGE', 'JANUARY', 'MOUNT', 'AUTUMN', 'SLIP', 'BORDER', 'LEE', 'MELTED', 'TRAP', 'SOLAR', 'RECALL',
-        'MYSTERIOUS', 'SWUNG', 'CONTRAST', 'TOY', 'GRABBED', 'AUGUST', 'RELATIONSHIP', 'HUNTER', 'DEPTH', 'FOLKS',
-        'DEEPLY', 'IMAGE', 'STIFF', 'RHYME', 'ILLINOIS', 'SPECIES', 'ADULT', 'FINEST', 'THUMB', 'SLIGHT', 'GRANDMOTHER',
-        'SHOUT', 'HARRY', 'MATHEMATICS', 'MILL', 'ESSENTIAL', 'TUNE', 'FORT', 'COACH', 'NUTS', 'GARAGE', 'CALM',
-        'MEMORY', 'SOAP')
+    """Default collection of words to choose from"""
+
+    WORDS = ['ATTEMPT', 'DOLL', 'ELLEN', 'FLOATING', 'PRIDE', 'HEADING', 'FILM', 'KIDS', 'MONKEY', 'LUNGS', 'HABIT',
+             'SPIN', 'DISCUSSION', 'OFFICIAL', 'PHILADELPHIA', 'FACING', 'MARTIN', 'NORWAY', 'POLICEMAN', 'TOBACCO',
+             'VESSELS', 'TALES', 'VAPOR', 'INDEPENDENT', 'COOKIES', 'WEALTH', 'PENNSYLVANIA', 'EXPLANATION', 'DAMAGE',
+             'OCCASIONALLY', 'EXIST', 'SIMPLEST', 'PLATES', 'CANAL', 'NEIGHBORHOOD', 'PALACE', 'ADVICE', 'LABEL',
+             'DANNY', 'CLAWS', 'RUSH', 'CHOSE', 'EGYPT', 'POETRY', 'BREEZE', 'WOLF', 'MANUFACTURING', 'OURSELVES',
+             'SCARED', 'ARRANGEMENT', 'POSSIBLY', 'PROMISED', 'BRICK', 'ACRES', 'TREATED', 'SELECTION', 'POSITIVE',
+             'CONSTANTLY', 'SATISFIED', 'ZOO', 'CUSTOMS', 'UNIVERSITY', 'FIREPLACE', 'SHALLOW', 'INSTANT', 'SALE',
+             'PRACTICAL', 'SILLY', 'SATELLITES', 'SHAKING', 'ROCKY', 'SLOPE', 'CASEY', 'REMARKABLE', 'RUBBED',
+             'HAPPILY', 'MISSION', 'CAST', 'SHAKE', 'REQUIRE', 'DONKEY', 'EXCHANGE', 'JANUARY', 'MOUNT', 'AUTUMN',
+             'SLIP', 'BORDER', 'LEE', 'MELTED', 'TRAP', 'SOLAR', 'RECALL', 'MYSTERIOUS', 'SWUNG', 'CONTRAST', 'TOY',
+             'GRABBED', 'AUGUST', 'RELATIONSHIP', 'HUNTER', 'DEPTH', 'FOLKS', 'DEEPLY', 'IMAGE', 'STIFF', 'RHYME',
+             'ILLINOIS', 'SPECIES', 'ADULT', 'FINEST', 'THUMB', 'SLIGHT', 'GRANDMOTHER', 'SHOUT', 'HARRY',
+             'MATHEMATICS', 'MILL', 'ESSENTIAL', 'TUNE', 'FORT', 'COACH', 'NUTS', 'GARAGE', 'CALM', 'MEMORY', 'SOAP']
 
     @classmethod
-    def set(cls, *value):
-        cls.WORDS = value
+    def set(cls, *values):
+        """
+        Set `WordBank` word list.
+
+        :param tuple values:
+        """
+        cls.WORDS = list(values)
 
     @classmethod
     def get(cls):
         """
-        Pick a word at random.
+        Get a random word from word list.
 
         :return str: Random word.
         """
@@ -40,28 +45,44 @@ class WordBank(object):
 
 
 class FlashMessage(object):
+    """Basic "flash message" implementation."""
+
     message = ''
     game_over = False
     game_won = False
     game_answer = None
 
     def __call__(self, message):
-        self.message = message
+        """
+        Set message to be flashed.
+
+        :param str message:
+        """
+        self.message = str(message)
 
     def __str__(self):
+        """
+        Returns and clears the message
+
+        :return: Flashed message.
+        :rtype: str
+        """
         message, self.message = self.message, ''
         return str(message)
 
     def __bool__(self):
+        # Python3 compatibility
         return bool(self.message)
 
     def __nonzero__(self):
+        # Python2 compatibility
         return bool(self.message)
 
     def __eq__(self, other):
         return bool(self.message) == other
 
     def __format__(self, format_spec):
+        """Calls `str()` to clear flash message"""
         return format(str(self), format_spec)
 
 
