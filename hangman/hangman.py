@@ -5,7 +5,7 @@ This module contains all of the game logic.
 import re
 from collections import namedtuple
 
-from . import Dictionary
+from . import word_bank
 
 
 class Hangman(object):
@@ -24,80 +24,71 @@ class Hangman(object):
     """
     MAX_TURNS = 10
 
-    def __init__(self, answer=None, dictionary=Dictionary):
+    def __init__(self, answer=None):
         """
         Instantiate a new game. Populate answer if necessary.
 
         :param str answer: answer to game instance
-        :param hangman.Dictionary dictionary: class to generate answer
-        :return: self
+        :raises: ValueError
         """
         if not answer:
-            answer = dictionary()()
+            answer = word_bank.get_random()
 
         # Validate answer.
-        if not self.valid_answer(answer):
+        if not self.is_valid_answer(answer):
             raise ValueError("Word must be letters A-Z")
 
         self.answer = answer.upper()
         self._misses = set()
         self._hits = set()
 
-    def __repr__(self):
-        """
-        Build a human readable representation of self.
-
-        :return: namedtuple with status, misses, and remaining_turns
-        :rtype: namedtuple
-        """
-        return repr(namedtuple('hangman', ['status', 'misses', 'remaining_turns'])._make(
-            (self.status, self.misses, self.remaining_turns)))
-
-    @staticmethod
-    def valid_answer(word):
-        """
-        Validate word against game rules.  Letters only.  Max:16
-
-        :param str word: letters only, max 16, case insensitive
-        :return: true if valid
-        :rtype: bool
-        """
-        return bool(re.compile('^[a-z]{1,16}$', re.I).search(str(word)))
-
     def guess(self, letter):
         """
-        Validate guess against game rules.  Add guess to hit or miss.
+        Check if guess is a hit or miss.
 
-        :param str letter: Any letter a-Z.  Length exactly 1
+        :param str letter: Letter to check
         :return: self
+        :rtype: Hangman
+        :raises: ValueError
         """
-        valid_guess = re.compile('^[a-z]$', re.I).search(str(letter))
-
-        if not valid_guess:
+        if not self.is_valid_guess(letter):
             raise ValueError('Must be a letter A-Z')
 
-        is_miss = letter.upper() not in self.answer
+        letter = letter.upper()
+        is_miss = letter not in self.answer
 
         if is_miss:
-            self.misses = letter
+            self.add_miss(letter)
         else:
-            self.hits = letter
+            self.add_hit(letter)
 
         return self
 
     @property
     def misses(self):
         """
-        Get misses.
+        Get list of misses.
 
-        :rtype list
+        :rtype: [str]
         """
         return list(self._misses)
 
     @misses.setter
     def misses(self, value):
         """
-        Set misses.  Check for game over.
+        `self.misses` setter.  Check for game over.
+
+        :param value: A single letter.
+        :raises: GameOver
+        """
+
+        self._misses = set(value)
+        if self.remaining_turns <= 0:
+            raise GameOver
+
+    def add_miss(self, value):
+        """
+        Add a miss to the model.  Check for game over.
 
         :param value: A single letter.
         :raises: GameOver
@@ -109,17 +100,28 @@ class Hangman(object):
     @property
     def hits(self):
         """
-        Get hits.
+        Get list of hits.
 
-        :rtype: list
-        :return:
+        :rtype: [str]
         """
         return list(self._hits)
 
     @hits.setter
     def hits(self, value):
         """
-        Set hits.  Check for game won.
+        `self.hits` setter.  Check for game won.
+
+        :param value: A single letter.
+        :raises: GameWon
+        """
+
+        self._hits = set(value)
+        if self._hits == set(self.answer):
+            raise GameWon
+
+    def add_hit(self, value):
+        """
+        Add a hit to the model.  Check for game won.
 
         :param value: A single letter.
         :raises: GameWon
@@ -147,18 +149,57 @@ class Hangman(object):
         :return: game status as string
         :rtype: str
         """
-        result = [letter if letter in self.hits else '_' for letter in self.answer]
+        hits = self.hits
+
+        def fill_in(letter):
+            return letter if letter in hits else '_'
+
+        result = [fill_in(letter) for letter in self.answer]
 
         return ''.join(result)
 
+    @staticmethod
+    def is_valid_answer(word):
+        """
+        Validate answer.  Letters only.  Max:16
+
+        :param str word: Word to validate.
+        :return:
+        :rtype: bool
+        """
+        _re_answer_rules = re.compile('^[A-Z]{1,16}$')
+        word = str(word).upper()
+        return not not _re_answer_rules.search(word)
+
+    @staticmethod
+    def is_valid_guess(letter):
+        """
+        Validate guess.  Letters only.  Max:1
+
+        :param str letter: Letter to validate
+        :return:
+        :rtype: bool
+        """
+        _re_guess_rules = re.compile('^[a-z]$', re.I)
+        letter = str(letter).upper()
+
+        return not not _re_guess_rules.search(letter)
+
+    def __repr__(self):
+        """
+        Build a human readable representation of self.
+
+        :return: namedtuple with status, misses, and remaining_turns
+        :rtype: namedtuple
+        """
+
+        return repr(namedtuple('hangman', ['status', 'misses', 'remaining_turns'])._make(
+            (self.status, self.misses, self.remaining_turns)))
+
 
 class GameWon(Exception):
-    """
-    Indicate conditions for winning have been met.
-    """
+    """Raised when answer has been guessed."""
 
 
 class GameOver(Exception):
-    """
-    Indicate conditions for losing have been met.
-    """
+    """Raised when out of turns."""

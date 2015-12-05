@@ -9,11 +9,18 @@ Tests for `hangman` module.
 """
 import pytest
 
-from hangman import Hangman, GameWon, GameOver
+from hangman.hangman import GameWon, GameOver
 
 
 @pytest.fixture
-def game():
+def Hangman():
+    from hangman.hangman import Hangman
+
+    return Hangman
+
+
+@pytest.fixture
+def game(Hangman):
     return Hangman(answer='hangman')
 
 
@@ -33,7 +40,7 @@ def test_new_game_returns_game_instance_with_status(game):
     assert game.status == '_______'
 
 
-def test_answer_validation_rules():
+def test_answer_validation_rules(Hangman):
     with pytest.raises(ValueError):
         Hangman('1234567')
 
@@ -94,12 +101,12 @@ def test_guess_hit_updates_status(game):
 
 
 def test_guess_hit_leaves_remaining_turns_and_misses_untouched(game):
-    expected_misses = game.misses
+    expected_misses = game.add_miss
     expected_remaining_turns = game.remaining_turns
 
     game.guess('a')
 
-    assert expected_misses == game.misses
+    assert expected_misses == game.add_miss
     assert expected_remaining_turns == game.remaining_turns
 
 
@@ -132,13 +139,11 @@ def test_game_losing_guess(game):
     assert game.remaining_turns == 0
 
 
-def test_game_populates_answer_if_not_provided():
-    class MockDictionary(object):
-        def __call__(self):
-            return 'RANDOM'
+def test_game_populates_answer_if_not_provided(Hangman):
+    from hangman.word_bank import WORDS
 
-    game = Hangman(dictionary=MockDictionary)
-    assert game.answer == 'RANDOM'
+    _game = Hangman()
+    assert _game.answer in WORDS
 
 
 def test_game_repr(game):

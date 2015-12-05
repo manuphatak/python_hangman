@@ -2,8 +2,8 @@
 """
 This module is responsible for guiding the user through the game.
 """
-from . import Hangman, GameOver, GameWon
-from . import Presenter
+from .hangman import Hangman, GameOver, GameWon
+from .presenter import Presenter
 
 
 class Commander(object):

@@ -11,7 +11,7 @@ except ImportError:
 
 @pytest.fixture
 def game():
-    from hangman import Hangman
+    from hangman.hangman import Hangman
 
     mock_game = Mock(spec=Hangman)
     mock_game.return_value = mock_game
@@ -24,7 +24,7 @@ def game():
 
 @pytest.fixture
 def presenter():
-    from hangman import Presenter
+    from hangman.presenter import Presenter
 
     return Presenter()
 

@@ -3,7 +3,9 @@
 import pytest
 from mock import Mock
 
-from hangman import Hangman, Presenter, Commander, GameOver, GameWon
+from hangman.commander import Commander
+from hangman.hangman import Hangman, GameOver, GameWon
+from hangman.presenter import Presenter
 
 
 @pytest.fixture

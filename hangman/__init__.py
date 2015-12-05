@@ -15,7 +15,3 @@ __author__ = 'Manu Phatak'
 __email__ = 'bionikspoon@gmail.com'
 __version__ = '2.0.0'
 
-from .dictionary import Dictionary  # noqa
-from .hangman import Hangman, GameOver, GameWon  # noqa
-from .presenter import Presenter  # noqa
-from .commander import Commander  # noqa
