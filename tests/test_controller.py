@@ -1,11 +1,6 @@
 # coding=utf-8
-from functools import partial
-
 import pytest
 from mock import Mock
-
-from hangman.controller import game_loop
-from hangman.hangman import Hangman, GameOver, GameWon
 
 
 @pytest.fixture
@@ -16,7 +11,6 @@ def view():
     mock.prompt_play_again.return_value = False
     mock.prompt_guess.return_value = 'A'
     return mock
-
 
 # @pytest.fixture
 # def game_loop():

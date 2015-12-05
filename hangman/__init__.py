@@ -14,4 +14,3 @@ sensibly distinct logical purpose.
 __author__ = 'Manu Phatak'
 __email__ = 'bionikspoon@gmail.com'
 __version__ = '2.0.0'
-
