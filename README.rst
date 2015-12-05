@@ -2,8 +2,8 @@
 Hangman
 =======
 
-.. image:: https://badge.fury.io/py/hangman.svg
-    :target: https://pypi.python.org/pypi/hangman/
+.. image:: https://badge.fury.io/py/python_hangman.svg
+    :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Latest Version
 
 .. image:: https://img.shields.io/pypi/status/python_hangman.svg
@@ -107,8 +107,15 @@ For example:
     >>> game.guess('n').guess('z').guess('e')
     hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
 
-    >>> game.status, game.misses, game.remaining_turns
-    ('_AN__AN', ['Z', 'E'], 8)
+    >>> game.status
+    '_AN__AN'
+
+    >>> game.misses
+    ['E', 'Z']
+
+    >>> game.remaining_turns
+    8
+
 
 :py:class:`hangman.Presenter` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
 
