@@ -6,9 +6,10 @@ History
 
 Next Release
 ------------
-* TODO
+* Remove support for Python3.2
+* Add support for Python3.5
 
 2.0.0 (2015-12-04)
 ------------------
 
-* First release on PyPI.
+* Establishing a changelog.

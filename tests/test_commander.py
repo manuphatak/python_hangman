@@ -30,7 +30,6 @@ def test_init(commander, presenter):
 
 
 def test_game_over(presenter, capsys):
-    # TODO report bug to pytest.  This monkeypatch is persisting to test_hangman
     # Hangman.guess = Mock(side_effect=GameOver)
     mock = Mock()
     mock.return_value = mock

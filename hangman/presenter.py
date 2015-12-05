@@ -2,6 +2,7 @@
 """
 This module handles user interaction. Printing and prompting.
 """
+# noinspection PyCompatibility
 from builtins import zip
 from functools import wraps
 
@@ -26,7 +27,7 @@ def delete_game(func):
     return wrapper
 
 
-class Presenter():
+class Presenter(object):
     """
     Print and prompt.  This class is used by the commander to collect and
     present data.  Makes extensive use of click's library.

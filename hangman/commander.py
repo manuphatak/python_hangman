@@ -22,7 +22,7 @@ class Commander(object):
         """
         Start the tour.
 
-        :param hangman.Hangman: Hangman dependency injection.
+        :param hangman: Hangman dependency injection.
         :param presenter: Presenter dependence injection.
         :return: An instance of self.
         """
