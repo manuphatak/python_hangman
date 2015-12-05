@@ -1,7 +1,7 @@
 # coding=utf-8
 
-from mock import Mock
 import pytest
+from mock import Mock
 
 from hangman import Hangman, Presenter, Commander, GameOver, GameWon
 

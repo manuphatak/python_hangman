@@ -1,9 +1,9 @@
 # coding=utf-8
 """
-    This module contains all of the game logic.
+This module contains all of the game logic.
 """
-from collections import namedtuple
 import re
+from collections import namedtuple
 
 from . import Dictionary
 
@@ -50,8 +50,7 @@ class Hangman(object):
         :return: namedtuple with status, misses, and remaining_turns
         :rtype: namedtuple
         """
-        return repr(namedtuple('hangman',
-                               ['status', 'misses', 'remaining_turns'])._make(
+        return repr(namedtuple('hangman', ['status', 'misses', 'remaining_turns'])._make(
             (self.status, self.misses, self.remaining_turns)))
 
     @staticmethod
@@ -148,8 +147,7 @@ class Hangman(object):
         :return: game status as string
         :rtype: str
         """
-        result = [letter if letter in self.hits else '_' for letter in
-                  self.answer]
+        result = [letter if letter in self.hits else '_' for letter in self.answer]
 
         return ''.join(result)
 

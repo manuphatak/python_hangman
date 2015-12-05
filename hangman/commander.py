@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-    This module is responsible for guiding the user throught the game.
+This module is responsible for guiding the user through the game.
 """
 from . import Hangman, GameOver, GameWon
 from . import Presenter

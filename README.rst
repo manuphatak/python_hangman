@@ -1,25 +1,27 @@
+===============================
+Hangman
+===============================
 
+.. image:: https://badge.fury.io/py/hangman.svg
+    :target: https://pypi.python.org/pypi/hangman/
+    :alt: Latest Version
 
-==============
-Python Hangman
-==============
-
-.. image:: https://img.shields.io/badge/Status-Production%2FStable-brightgreen.svg
+.. image:: https://img.shields.io/pypi/status/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Development Status
 
 .. image:: https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop
-    :target: https://travis-ci.org/bionikspoon/Hangman
-
-.. image:: https://img.shields.io/pypi/v/python_hangman.svg
-    :target: https://pypi.python.org/pypi/python_hangman?branch=develop
+    :target: https://travis-ci.org/bionikspoon/Hangman?branch=develop
+    :alt: Build Status
 
 .. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop
     :target: https://coveralls.io/r/bionikspoon/Hangman?branch=develop
+    :alt: Coverage Status
 
 .. image:: https://readthedocs.org/projects/hangman/badge/?version=develop
-    :target: https://hangman.readthedocs.org
+    :target: https://hangman.readthedocs.org/en/develop/?badge=develop
     :alt: Documentation Status
+
 
 
 **A Python TDD Experiment**
@@ -122,3 +124,16 @@ Call Diagram
 
 .. image:: basic-1000-dot.png
     :alt: Call Diagram
+
+
+Credits
+-------
+
+Tools used in rendering this package:
+
+*  Cookiecutter_
+*  `bionikspoon/cookiecutter-pypackage`_ forked from `audreyr/cookiecutter-pypackage`_
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`bionikspoon/cookiecutter-pypackage`: https://github.com/bionikspoon/cookiecutter-pypackage
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage

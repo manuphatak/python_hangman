@@ -1,4 +1,12 @@
+#!/usr/bin/env python
 # coding=utf-8
+
+"""
+test_hangman
+----------------------------------
+
+Tests for `hangman` module.
+"""
 import pytest
 
 from hangman import Hangman, GameWon, GameOver

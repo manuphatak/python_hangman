@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-    Entry point for ``hangman`` command.
+Entry point for ``hangman`` command.
 """
 import click
 

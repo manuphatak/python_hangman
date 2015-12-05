@@ -1,11 +1,11 @@
 # coding=utf-8
 """
-    This module handles user interaction. Printing and prompting.
+This module handles user interaction. Printing and prompting.
 """
+from builtins import zip
 from functools import wraps
 
 import click
-from builtins import zip
 
 
 def delete_game(func):
@@ -128,8 +128,7 @@ class Presenter():
         if message:
             self.click.secho('{0:45s}'.format(message), bold=True, fg='yellow')
         elif game_over:
-            message = "YOU'RE AN IDIOT. THE ANSWER IS {0}".format(
-                self.game.answer)
+            message = "YOU'RE AN IDIOT. THE ANSWER IS {0}".format(self.game.answer)
             self.click.secho('{0:45s}'.format(message), bold=True, fg='red')
         elif game_won:
             message = "YOU ARE SO COOL"
@@ -137,8 +136,7 @@ class Presenter():
         else:
             self.click.echo()
 
-        self.click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True,
-                         underline=True)
+        self.click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True, underline=True)
 
         iterate_this = list(zip(self.picture(), self.status()))
         for picture, details in iterate_this:

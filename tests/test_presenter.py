@@ -57,8 +57,7 @@ def test_picture_10_turns(presenter, game):
     presenter.game.remaining_turns = 10
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '        |', '        |', '        |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '        |', '        |', '        |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -67,8 +66,7 @@ def test_picture_9_turns(presenter, game):
     presenter.game.remaining_turns = 9
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '        |', '        |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '        |', '        |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -77,8 +75,7 @@ def test_picture_8_turns(presenter, game):
     presenter.game.remaining_turns = 8
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '        |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '        |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -87,8 +84,7 @@ def test_picture_7_turns(presenter, game):
     presenter.game.remaining_turns = 7
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '    |   |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '    |   |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -97,8 +93,7 @@ def test_picture_6_turns(presenter, game):
     presenter.game.remaining_turns = 6
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|   |', '    |   |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|   |', '    |   |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -107,8 +102,7 @@ def test_picture_5_turns(presenter, game):
     presenter.game.remaining_turns = 5
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '        |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '        |', '        |', '________|_']
     assert actual == expected
 
 
@@ -117,8 +111,7 @@ def test_picture_4_turns(presenter, game):
     presenter.game.remaining_turns = 4
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '    |   |', '        |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '        |', '________|_']
     assert actual == expected
 
 
@@ -127,8 +120,7 @@ def test_picture_3_turns(presenter, game):
     presenter.game.remaining_turns = 3
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '    |   |', '   /    |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '   /    |', '________|_']
     assert actual == expected
 
 
@@ -137,8 +129,7 @@ def test_picture_2_turns(presenter, game):
     presenter.game.remaining_turns = 2
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '    |   |', '   / \  |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '   / \  |', '________|_']
     assert actual == expected
 
 
@@ -147,8 +138,7 @@ def test_picture_1_turns(presenter, game):
     presenter.game.remaining_turns = 1
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '    |   |', '  _/ \  |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '  _/ \  |', '________|_']
     assert actual == expected
 
 
@@ -157,8 +147,7 @@ def test_picture_0_turns(presenter, game):
     presenter.game.remaining_turns = 0
 
     actual = [line for line in presenter.picture()]
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |',
-                '    |   |', '  _/ \  |', '________|_']
+    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '  _/ \  |', '________|_']
     assert actual == expected
 
 
@@ -166,8 +155,7 @@ def test_status_0_misses_full(presenter, game):
     presenter.game = game
     presenter.game.misses = []
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '', '']
 
     assert actual == expected
 
@@ -177,8 +165,7 @@ def test_status_2_misses(presenter, game):
     presenter.game.misses = ['A', 'E']
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '', '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
@@ -188,8 +175,7 @@ def test_status_10_misses(presenter, game):
     presenter.game.misses = list('QWERTYASDF')
 
     actual = [line for line in presenter.status()]
-    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '',
-                '', '', '']
+    expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '', '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
