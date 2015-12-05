@@ -55,6 +55,9 @@ class FlashMessage(object):
     def __bool__(self):
         return bool(self.message)
 
+    def __nonzero__(self):
+        return bool(self.message)
+
     def __eq__(self, other):
         return bool(self.message) == other
 

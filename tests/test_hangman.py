@@ -12,15 +12,15 @@ from hangman.hangman import GameWon, GameOver
 
 
 @pytest.fixture
-def Hangman():
+def hangman():
     from hangman.hangman import Hangman
 
     return Hangman
 
 
 @pytest.fixture
-def game(Hangman):
-    return Hangman(answer='hangman')
+def game(hangman):
+    return hangman(answer='hangman')
 
 
 def test_new_game_returns_game_instance_with_answer(game):
@@ -39,23 +39,23 @@ def test_new_game_returns_game_instance_with_status(game):
     assert game.status == '_______'
 
 
-def test_answer_validation_rules(Hangman):
+def test_answer_validation_rules(hangman):
     with pytest.raises(ValueError):
-        Hangman('1234567')
+        hangman('1234567')
 
     with pytest.raises(ValueError):
-        Hangman('hangman12')
+        hangman('hangman12')
 
     with pytest.raises(ValueError):
-        Hangman(1232145678995462313)
+        hangman(1232145678995462313)
 
     with pytest.raises(ValueError):
-        Hangman('a' * 100)
+        hangman('a' * 100)
     with pytest.raises(ValueError):
-        Hangman('a' * 17)
+        hangman('a' * 17)
 
     with pytest.raises(ValueError):
-        Hangman('hand-work')
+        hangman('hand-work')
 
 
 def test_guess_miss_removes_1_turn(game):
@@ -138,12 +138,12 @@ def test_game_losing_guess(game):
     assert game.remaining_turns == 0
 
 
-def test_game_populates_answer_if_not_provided(Hangman):
+def test_game_populates_answer_if_not_provided(hangman):
     from hangman.utils import WordBank
 
     WordBank.set('TEST')
 
-    _game = Hangman()
+    _game = hangman()
     assert _game.answer == 'TEST'
 
 

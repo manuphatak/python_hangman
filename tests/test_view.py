@@ -28,18 +28,18 @@ def game():
 
 @pytest.fixture(autouse=True)
 def setup(monkeypatch):
-    # import codecs
+    import codecs
 
-    # def is_ascii_encoding(encoding):
-    #     """Checks if a given encoding is ascii."""
-    #     try:
-    #         return codecs.lookup(encoding).name == 'ascii'
-    #     except (LookupError, TypeError):
-    #         return False
+    def is_ascii_encoding(encoding):
+        """Checks if a given encoding is ascii."""
+        try:
+            return codecs.lookup(encoding).name == 'ascii'
+        except (LookupError, TypeError):
+            return False
 
     monkeypatch.setattr('click.getchar', lambda: 'A')
     monkeypatch.setattr('click.confirm', lambda _: True)
-    # monkeypatch.setattr('click._compat.is_ascii_encoding', is_ascii_encoding)
+    monkeypatch.setattr('click._compat.is_ascii_encoding', is_ascii_encoding)
 
 
 @pytest.fixture
@@ -163,7 +163,7 @@ def test_status_10_misses():
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-def test_write_output(game, capsys, flash):
+def test_write_output(game, capsys):
     expected_list = dedent("""
                 HANGMAN GAME
     _____
@@ -232,7 +232,7 @@ def test_game_won(capsys, game, flash):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
-    assert out.split('\n')[0].strip() == expected
+    assert out.startswith(expected)
 
 
 def test_game_over(capsys, game, flash):
@@ -244,4 +244,4 @@ def test_game_over(capsys, game, flash):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
-    assert out.split('\n')[0].strip() == expected
+    assert out.startswith(expected)

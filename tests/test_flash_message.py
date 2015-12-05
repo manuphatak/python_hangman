@@ -47,11 +47,11 @@ def test_can_be_formatted_when_empty(flash):
 
 def test_can_be_formatted_to_string(flash):
     flash('TEST')
-    assert 'Hello {}'.format(flash) == 'Hello TEST'
+    assert 'Hello {0}'.format(flash) == 'Hello TEST'
 
 
 def test_formatting_consumes_flash_message(flash):
     flash('TEST')
-    'Hello {}'.format(flash)
+    'Hello {0}'.format(flash)
 
-    assert 'Hello {}'.format(flash) == 'Hello '
+    assert 'Hello {0}'.format(flash) == 'Hello '
