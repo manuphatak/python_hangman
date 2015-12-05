@@ -5,7 +5,7 @@ This module is responsible for guiding the user through the game.
 from __future__ import absolute_import
 from hangman.utils import FlashMessage, GameOver, GameWon, GameFinished
 from . import view
-from .hangman import Hangman
+from .model import Hangman
 
 
 # noinspection PyPep8Naming
@@ -13,7 +13,7 @@ def game_loop(game=Hangman(), flash=FlashMessage()):
     """
     Main game loop.
 
-    :param hangman.hangman.Hangman game: Hangman game instance.
+    :param hangman.model.Hangman game: Hangman game instance.
     :param hangman.utils.FlashMessage flash: FlashMessage utility
     :return:
     """

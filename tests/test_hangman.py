@@ -5,22 +5,15 @@
 test_hangman
 ----------------------------------
 
-Tests for `hangman` module.
+Tests for `Hangman` model.
 """
 import pytest
-from hangman.hangman import GameWon, GameOver
+from hangman.model import Hangman, GameWon, GameOver
 
 
 @pytest.fixture
-def hangman():
-    from hangman.hangman import Hangman
-
-    return Hangman
-
-
-@pytest.fixture
-def game(hangman):
-    return hangman(answer='hangman')
+def game():
+    return Hangman(answer='hangman')
 
 
 def test_new_game_returns_game_instance_with_answer(game):
@@ -39,23 +32,23 @@ def test_new_game_returns_game_instance_with_status(game):
     assert game.status == '_______'
 
 
-def test_answer_validation_rules(hangman):
+def test_answer_validation_rules():
     with pytest.raises(ValueError):
-        hangman('1234567')
+        Hangman('1234567')
 
     with pytest.raises(ValueError):
-        hangman('hangman12')
+        Hangman('hangman12')
 
     with pytest.raises(ValueError):
-        hangman(1232145678995462313)
+        Hangman(1232145678995462313)
 
     with pytest.raises(ValueError):
-        hangman('a' * 100)
+        Hangman('a' * 100)
     with pytest.raises(ValueError):
-        hangman('a' * 17)
+        Hangman('a' * 17)
 
     with pytest.raises(ValueError):
-        hangman('hand-work')
+        Hangman('hand-work')
 
 
 def test_guess_miss_removes_1_turn(game):
@@ -138,12 +131,12 @@ def test_game_losing_guess(game):
     assert game.remaining_turns == 0
 
 
-def test_game_populates_answer_if_not_provided(hangman):
+def test_game_populates_answer_if_not_provided():
     from hangman.utils import WordBank
 
     WordBank.set('TEST')
 
-    _game = hangman()
+    _game = Hangman()
     assert _game.answer == 'TEST'
 
 

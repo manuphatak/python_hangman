@@ -3,10 +3,8 @@
 This module contains all of the game logic.
 """
 from __future__ import absolute_import
-
 import re
 from collections import namedtuple
-
 from hangman.utils import WordBank, GameOver, GameWon
 
 
@@ -15,7 +13,7 @@ class Hangman(object):
     The hangman game object contains the logic for managing the status of the
     game and raising key game related events.
 
-    >>> from hangman.hangman import Hangman
+    >>> from hangman.model import Hangman
     >>> game = Hangman(answer='hangman')
     >>> game.guess('a')
     hangman(status='_A___A_', misses=[], remaining_turns=10)
@@ -25,6 +23,8 @@ class Hangman(object):
     ('_AN__AN', ['E', 'Z'], 8)
     """
     MAX_TURNS = 10
+    _re_answer_rules = re.compile('^[A-Z]{1,16}$')
+    _re_guess_rules = re.compile('^[A-Z]$')
 
     def __init__(self, answer=None):
         """
@@ -53,12 +53,12 @@ class Hangman(object):
         :rtype: Hangman
         :raises: ValueError
         """
+        # validate input
         if not self.is_valid_guess(letter):
             raise ValueError('Must be a letter A-Z')
 
-        letter = letter.upper()
-        is_miss = letter not in self.answer
-
+        # add to hits or misses
+        is_miss = letter.upper() not in self.answer
         if is_miss:
             self.add_miss(letter)
         else:
@@ -156,12 +156,9 @@ class Hangman(object):
         def fill_in(letter):
             return letter if letter in hits else '_'
 
-        result = [fill_in(letter) for letter in self.answer]
+        return ''.join(fill_in(letter) for letter in self.answer)
 
-        return ''.join(result)
-
-    @staticmethod
-    def is_valid_answer(word):
+    def is_valid_answer(self, word):
         """
         Validate answer.  Letters only.  Max:16
 
@@ -169,12 +166,10 @@ class Hangman(object):
         :return:
         :rtype: bool
         """
-        _re_answer_rules = re.compile('^[A-Z]{1,16}$')
         word = str(word).upper()
-        return not not _re_answer_rules.search(word)
+        return not not self._re_answer_rules.search(word)
 
-    @staticmethod
-    def is_valid_guess(letter):
+    def is_valid_guess(self, letter):
         """
         Validate guess.  Letters only.  Max:1
 
@@ -182,10 +177,8 @@ class Hangman(object):
         :return:
         :rtype: bool
         """
-        _re_guess_rules = re.compile('^[a-z]$', re.I)
         letter = str(letter).upper()
-
-        return not not _re_guess_rules.search(letter)
+        return not not self._re_guess_rules.search(letter)
 
     def __repr__(self):
         """
