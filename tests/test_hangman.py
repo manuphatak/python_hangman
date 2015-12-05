@@ -114,6 +114,11 @@ def test_game_winning_guess(game):
     assert game.status == 'HANGMAN'
 
 
+def test_setting_hits_can_raise_game_won(game):
+    with pytest.raises(GameWon):
+        game.hits = list('HANGMAN')
+
+
 def test_game_losing_guess(game):
     game.guess('b')
     game.guess('c')
@@ -129,6 +134,11 @@ def test_game_losing_guess(game):
         game.guess('o')
     assert game.status == '_______'
     assert game.remaining_turns == 0
+
+
+def test_setting_misses_can_raise_game_over(game):
+    with pytest.raises(GameOver):
+        game.misses = list('BCDEFIJKLO')
 
 
 def test_game_populates_answer_if_not_provided():

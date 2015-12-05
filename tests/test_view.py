@@ -201,6 +201,13 @@ def test_prompting_for_a_guess():
     assert actual == 'A'
 
 
+def test_keyboard_interrupt(monkeypatch):
+    monkeypatch.setattr('click.getchar', lambda: '\x03')
+
+    with pytest.raises(KeyboardInterrupt):
+        view.prompt_guess()
+
+
 def test_prompt_play_again_method_true():
     assert view.prompt_play_again() is True
 

@@ -74,7 +74,7 @@ class FlashMessage(object):
         # Python3 compatibility
         return bool(self.message)
 
-    def __nonzero__(self):
+    def __nonzero__(self):  # pragma: no cover
         # Python2 compatibility
         return bool(self.message)
 
