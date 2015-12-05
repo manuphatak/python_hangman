@@ -58,12 +58,12 @@ Getting Started
 
 At the command line either via easy_install or pip:
 
-.. code-block:: sh
+.. code-block:: shell
 
-    mkvirtualenv hangman  # optional for venv users
-    pip install python_hangman
+    $ mkvirtualenv hangman  # optional for venv users
+    $ pip install python_hangman
 
-    hangman
+    $ hangman
 
 
 **Uninstall**
