@@ -38,5 +38,5 @@ deploy:
     secure: dMZxOD6Wg36X2txHY6/5solsCpkMeoiiC/s/jIJaV0T65tVsRjDTwOzyaV8evTrYmq4ZtvUpQhQnH0A1EtFNKzoZV8wlV2ohdJdYhI4AVI5DWXLNsnVcxQ3RpQT2HZAJ0FwnozIZpN8sntkG0kCO2IYtJEMWH+/SJHsEm5oy+Pk=
   on:
     tags: true
-    repo: python_hangman
+    repo: bionikspoon/Hangman
     condition: $TOXENV == py27
