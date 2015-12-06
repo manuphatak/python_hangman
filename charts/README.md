@@ -6,14 +6,14 @@ It uses the `Mock` library to patch the user input.  Currently it's set to run t
 ## Charts
 
 
-![ ](basic-1000-dot.png)
+![dot](images/basic-1000-dot-v2.0.0.png)
 
-![ ](basic-100-neato.png)
+![neato](images/basic-100-neato-v2.0.0.png)
 
-![ ](basic-100-fdp.png)
+![fdp](images/basic-100-fdp-v2.0.0.png)
 
-![ ](basic-100-sfdp.png)
+<!-- ![sfdp](images/basic-100-sfdp-v2.0.0.png) -->
 
-![ ](basic-100-circo.png)
+![circo](images/basic-100-circo-v2.0.0.png)
 
-![ ](basic-100-twopi.png)
+![twopi](images/basic-100-twopi-v2.0.0.png)

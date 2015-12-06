@@ -13,10 +13,4 @@ sensibly distinct logical purpose.
 
 __author__ = 'Manu Phatak'
 __email__ = 'bionikspoon@gmail.com'
-__version__ = '1.4.0'
-
-
-from .dictionary import Dictionary
-from .hangman import Hangman, GameOver, GameWon
-from .presenter import Presenter
-from .commander import Commander
+__version__ = '2.0.0'

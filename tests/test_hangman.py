@@ -1,7 +1,14 @@
+#!/usr/bin/env python
 # coding=utf-8
-import pytest
 
-from hangman import Hangman, GameWon, GameOver
+"""
+test_hangman
+----------------------------------
+
+Tests for `Hangman` model.
+"""
+import pytest
+from hangman.model import Hangman, GameWon, GameOver
 
 
 @pytest.fixture
@@ -86,12 +93,12 @@ def test_guess_hit_updates_status(game):
 
 
 def test_guess_hit_leaves_remaining_turns_and_misses_untouched(game):
-    expected_misses = game.misses
+    expected_misses = game.add_miss
     expected_remaining_turns = game.remaining_turns
 
     game.guess('a')
 
-    assert expected_misses == game.misses
+    assert expected_misses == game.add_miss
     assert expected_remaining_turns == game.remaining_turns
 
 
@@ -105,6 +112,11 @@ def test_game_winning_guess(game):
         game.guess('m')
 
     assert game.status == 'HANGMAN'
+
+
+def test_setting_hits_can_raise_game_won(game):
+    with pytest.raises(GameWon):
+        game.hits = list('HANGMAN')
 
 
 def test_game_losing_guess(game):
@@ -124,13 +136,18 @@ def test_game_losing_guess(game):
     assert game.remaining_turns == 0
 
 
-def test_game_populates_answer_if_not_provided():
-    class MockDictionary(object):
-        def __call__(self):
-            return 'RANDOM'
+def test_setting_misses_can_raise_game_over(game):
+    with pytest.raises(GameOver):
+        game.misses = list('BCDEFIJKLO')
 
-    game = Hangman(dictionary=MockDictionary)
-    assert game.answer == 'RANDOM'
+
+def test_game_populates_answer_if_not_provided():
+    from hangman.utils import WordBank
+
+    WordBank.set('TEST')
+
+    _game = Hangman()
+    assert _game.answer == 'TEST'
 
 
 def test_game_repr(game):
