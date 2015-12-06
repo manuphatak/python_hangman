@@ -93,12 +93,12 @@ def test_guess_hit_updates_status(game):
 
 
 def test_guess_hit_leaves_remaining_turns_and_misses_untouched(game):
-    expected_misses = game.add_miss
+    expected_misses = game.misses
     expected_remaining_turns = game.remaining_turns
 
     game.guess('a')
 
-    assert expected_misses == game.add_miss
+    assert expected_misses == game.misses
     assert expected_remaining_turns == game.remaining_turns
 
 

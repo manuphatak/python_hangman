@@ -39,4 +39,4 @@ deploy:
   on:
     tags: true
     repo: bionikspoon/Hangman
-    condition: $TOXENV == py27
+    condition: $TOXENV == py35

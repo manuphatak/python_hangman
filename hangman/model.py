@@ -157,6 +157,9 @@ class Hangman(object):
 
         return self
 
+    # UTILITIES
+    # -------------------------------------------------------------------
+
     def add_miss(self, value):
         """
         Add a miss to the model.  Check for game over.
@@ -178,9 +181,6 @@ class Hangman(object):
         self._hits.add(value.upper())
         if self._hits == set(self.answer):
             raise GameWon
-
-    # UTILITIES
-    # -------------------------------------------------------------------
 
     def is_valid_answer(self, word):
         """

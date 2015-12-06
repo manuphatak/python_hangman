@@ -150,7 +150,7 @@ def test_status_10_misses():
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
 
 
-def test_write_output(game, capsys):
+def test_draw_board(game, capsys):
     expected_list = dedent("""
                         HANGMAN GAME
             _____
