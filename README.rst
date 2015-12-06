@@ -1,7 +1,7 @@
-.. role:: literal(mod)
-.. role:: literal(class)
-.. role:: literal(method)
-.. role:: literal(func)
+.. role:: mod(literal)
+.. role:: class(literal)
+.. role:: method(literal)
+.. role:: func(literal)
 
 =======
 Hangman
