@@ -1,7 +1,7 @@
-.. role:: mod
-.. role:: class
-.. role:: meth
-.. role:: func
+.. role:: literal(mod)
+.. role:: literal(class)
+.. role:: literal(method)
+.. role:: literal(func)
 
 =======
 Hangman
@@ -124,7 +124,7 @@ Model
 
 The model is very simply the hangman game instance--:class:`hangman.model.Hangman`.  It's a class.  Every class should have "state" and the methods of that class should manage that state.  In this case, the "state" is the current "state of the game".  The public API are for manageing that state.
 
-The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :meth:`hangman.model.Hangman.guess` and printing the game state.
+The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :method:`hangman.model.Hangman.guess` and printing the game state.
 
 For example:
 
