@@ -104,3 +104,4 @@ requirements:
 	pip install --quiet -r requirements.txt
 	pip wheel --quiet -r requirements.txt
 	pip wheel --quiet -r requirements_dev.txt
+	git diff requirements.txt requirements_dev.txt > .requirements.diff

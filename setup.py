@@ -6,6 +6,10 @@ Documentation
 
 The full documentation is at https://python-hangman.readthedocs.org.
 
+.. role:: mod(literal)
+.. role:: class(literal)
+.. role:: method(literal)
+.. role:: func(literal)
 """
 
 try:
@@ -46,7 +50,7 @@ setup(  # :off
     name='python_hangman',
     version='2.0.4',
     description='Python Hangman TDD demonstration.',
-    long_description=readme + '\n\n' + history,
+    long_description='\n\n'.join([__doc__, readme, history]),
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',
     url='https://github.com/bionikspoon/Hangman',

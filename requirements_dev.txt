@@ -19,18 +19,21 @@ idna==2.0                 # via cryptography
 jinja2==2.8               # via sphinx
 markupsafe==0.23          # via jinja2
 mccabe==0.3.1             # via flake8
+mock==1.3.0
 pathtools==0.1.2          # via watchdog
+pbr==1.8.1                # via mock
 pep8==1.5.7               # via flake8
 pip-tools==1.2.0
 pluggy==0.3.1             # via tox
-py==1.4.31                # via tox
+py==1.4.31                # via pytest, tox
 pyasn1==0.1.9             # via cryptography
 pycparser==2.14           # via cffi
 pyflakes==1.0.0           # via flake8
 pygments==2.0.2           # via sphinx
+pytest==2.8.4
 pytz==2015.7              # via babel
 pyyaml==3.11
-six==1.10.0               # via cryptography, pip-tools, sphinx
+six==1.10.0               # via cryptography, mock, pip-tools, sphinx
 snowballstemmer==1.2.0    # via sphinx
 sphinx-rtd-theme==0.1.9   # via sphinx
 sphinx==1.3.3

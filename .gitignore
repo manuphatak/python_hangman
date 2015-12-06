@@ -65,6 +65,8 @@ target/
 # pip wheels
 wheelhouse/
 
-# Travis deploy key script
+# scripts
 travis_pypi_setup.py
 rst_to_markdown.py
+
+.requirements.diff
