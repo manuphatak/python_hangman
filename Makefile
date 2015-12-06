@@ -9,7 +9,10 @@ except:
 webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
 endef
 export BROWSER_PYSCRIPT
-BROWSER := python -c "$$BROWSER_PYSCRIPT"
+
+BROWSER 		:= python -c "$$BROWSER_PYSCRIPT"
+DOCSBUILDDIR	= docs/_build
+DOCSSOURCEDIR	= docs/source
 
 help:
 	@echo "clean			remove all build, test, coverage and Python artifacts"
@@ -32,7 +35,7 @@ help:
 clean: clean-build clean-pyc clean-test
 
 clean-build:
-	rm -fr build/
+	rm -fr $(DOCSBUILDDIR)/
 	rm -fr dist/
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
@@ -50,8 +53,8 @@ clean-test:
 	rm -fr htmlcov/
 
 clean-docs:
-	rm -f docs/source/lanyrd.rst
-	rm -f docs/source/modules.rst
+	rm -f $(DOCSBUILDDIR)/lanyrd.rst
+	rm -f $(DOCSBUILDDIR)/modules.rst
 	$(MAKE) -C docs clean
 
 lint:
@@ -71,9 +74,9 @@ coverage:
 	$(MAKE) -C docs coverage
 
 docs: clean-docs
-	sphinx-apidoc -o docs/source/ hangman
+	sphinx-apidoc -o $(DOCSSOURCEDIR)/ hangman
 	$(MAKE) -C docs html
-	$(BROWSER) docs/build/html/index.html
+	$(BROWSER) $(DOCSBUILDDIR)/html/index.html
 
 servedocs: docs
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
