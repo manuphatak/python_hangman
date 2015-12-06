@@ -35,8 +35,9 @@ deploy:
   distributions: sdist bdist_wheel
   user: bionikspoon
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: dMZxOD6Wg36X2txHY6/5solsCpkMeoiiC/s/jIJaV0T65tVsRjDTwOzyaV8evTrYmq4ZtvUpQhQnH0A1EtFNKzoZV8wlV2ohdJdYhI4AVI5DWXLNsnVcxQ3RpQT2HZAJ0FwnozIZpN8sntkG0kCO2IYtJEMWH+/SJHsEm5oy+Pk=
   on:
     tags: true
     repo: bionikspoon/hangman
     condition: $TOXENV == py27
+    branch: master

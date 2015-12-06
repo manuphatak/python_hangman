@@ -20,7 +20,7 @@ except ImportError:
     # noinspection PyCompatibility
     from urllib.request import urlopen
 
-GITHUB_REPO = 'bionikspoon/hangman'
+GITHUB_REPO = 'bionikspoon/Hangman'
 TRAVIS_CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.travis.yml')
 
 
