@@ -15,7 +15,7 @@ Hangman
     :alt: Build Status
 
 .. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop&service=github
-    :target: https://coveralls.io/r/bionikspoon/Hangman?branch=develop
+    :target: https://coveralls.io/github/bionikspoon/Hangman?branch=develop
     :alt: Coverage Status
 
 .. image:: https://readthedocs.org/projects/hangman/badge/?version=develop
