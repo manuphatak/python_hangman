@@ -40,7 +40,7 @@ Features
 - Demonstrates MVC design out of the scope of web development.
 - Documentation.
 
-.. image:: hangman.jpg
+.. image:: https://cloud.githubusercontent.com/assets/5052422/11611464/00822c5c-9b95-11e5-9fcb-8c10fd9be7df.jpg
     :alt: Screenshot
 
 Compatibility
@@ -159,7 +159,7 @@ The controller tells the view later what to print and what data to collect.  It 
 Call Diagram
 ------------
 
-.. image:: basic-1000-dot.png
+.. image:: https://cloud.githubusercontent.com/assets/5052422/11611466/1da52e06-9b95-11e5-9d68-b6bab56beca8.png
     :alt: Call Diagram
 
 

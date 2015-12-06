@@ -5,6 +5,7 @@ Documentation
 -------------
 
 The full documentation is at https://python-hangman.readthedocs.org.
+
 """
 
 try:
@@ -30,9 +31,7 @@ class PyTest(TestCommand):
 
 
 with open('README.rst') as readme_file:
-    img_source = 'https://hangman.readthedocs.org/en/master/'
     readme = readme_file.read()
-    readme = readme.replace('.. image:: ', '.. image:: %s' % img_source)
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
