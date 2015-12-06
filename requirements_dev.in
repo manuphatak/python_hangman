@@ -1,0 +1,12 @@
+bumpversion
+wheel
+flake8
+tox
+coverage
+Sphinx
+pip-tools
+watchdog
+
+# required by `travis_pypi_setup.py`
+cryptography
+PyYAML

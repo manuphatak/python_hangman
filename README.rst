@@ -1,25 +1,27 @@
+=======
+Hangman
+=======
 
+.. image:: https://badge.fury.io/py/python_hangman.svg
+    :target: https://pypi.python.org/pypi/python_hangman/
+    :alt: Latest Version
 
-==============
-Python Hangman
-==============
-
-.. image:: https://img.shields.io/badge/Status-Production%2FStable-brightgreen.svg
+.. image:: https://img.shields.io/pypi/status/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Development Status
 
 .. image:: https://travis-ci.org/bionikspoon/Hangman.svg?branch=develop
-    :target: https://travis-ci.org/bionikspoon/Hangman
+    :target: https://travis-ci.org/bionikspoon/Hangman?branch=develop
+    :alt: Build Status
 
-.. image:: https://img.shields.io/pypi/v/python_hangman.svg
-    :target: https://pypi.python.org/pypi/python_hangman?branch=develop
-
-.. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop
+.. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop&service=github
     :target: https://coveralls.io/r/bionikspoon/Hangman?branch=develop
+    :alt: Coverage Status
 
 .. image:: https://readthedocs.org/projects/hangman/badge/?version=develop
-    :target: https://hangman.readthedocs.org
+    :target: https://hangman.readthedocs.org/en/develop/?badge=develop
     :alt: Documentation Status
+
 
 
 **A Python TDD Experiment**
@@ -39,16 +41,16 @@ TODO
 Compatibility
 -------------
 
-.. image:: https://img.shields.io/badge/Python-2.6,_2.7,_3.2,_3.3,_3.4,_pypy-brightgreen.svg
+.. image:: https://img.shields.io/badge/Python-2.6,_2.7,_3.3,_3.4,_3.5,_pypy-brightgreen.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Supported Python versions
 
 
 - Python 2.6
 - Python 2.7
-- Python 3.2
 - Python 3.3
 - Python 3.4
+- Python 3.5
 - PyPy
 
 Getting Started
@@ -56,12 +58,12 @@ Getting Started
 
 At the command line either via easy_install or pip:
 
-.. code-block:: sh
+.. code-block:: shell
 
-    mkvirtualenv hangman  # optional for venv users
-    pip install python_hangman
+    $ mkvirtualenv hangman  # optional for venv users
+    $ pip install python_hangman
 
-    hangman
+    $ hangman
 
 
 **Uninstall**
@@ -89,9 +91,9 @@ Also, explored:
 Design
 ------
 
-There are 3 main components that run the game:  :py:class:`hangman.Hangman`,  :py:class:`hangman.Commander`, and :py:class:`hangman.Presenter`
+There are 3 main components that run the game:  :py:class:`hangman.model.Hangman`,  :py:class:`hangman.controller`, and :py:class:`hangman.view`
 
-The entirety of the game logic is contained in :py:class:`hangman.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
+The entirety of the game logic is contained in :py:class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
 
 For example:
 
@@ -105,12 +107,19 @@ For example:
     >>> game.guess('n').guess('z').guess('e')
     hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
 
-    >>> game.status, game.misses, game.remaining_turns
-    ('_AN__AN', ['Z', 'E'], 8)
+    >>> game.status
+    '_AN__AN'
 
-:py:class:`hangman.Presenter` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
+    >>> game.misses
+    ['E', 'Z']
 
-The  :py:class:`hangman.Commander` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
+    >>> game.remaining_turns
+    8
+
+
+:py:class:`hangman.view` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
+
+The  :py:class:`hangman.controller` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
 
 Design Reasoning
 ----------------
@@ -122,3 +131,16 @@ Call Diagram
 
 .. image:: basic-1000-dot.png
     :alt: Call Diagram
+
+
+Credits
+-------
+
+Tools used in rendering this package:
+
+*  Cookiecutter_
+*  `bionikspoon/cookiecutter-pypackage`_ forked from `audreyr/cookiecutter-pypackage`_
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`bionikspoon/cookiecutter-pypackage`: https://github.com/bionikspoon/cookiecutter-pypackage
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
