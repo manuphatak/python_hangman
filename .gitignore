@@ -67,3 +67,6 @@ wheelhouse/
 
 # TODO remove
 .old/
+
+# Travis deploy key script
+travis_pypi_setup.py
