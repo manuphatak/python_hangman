@@ -105,7 +105,7 @@ For example:
     hangman(status='_A___A_', misses=[], remaining_turns=10)
 
     >>> game.guess('n').guess('z').guess('e')
-    hangman(status='_AN__AN', misses=['Z', 'E'], remaining_turns=8)
+    hangman(status='_AN__AN', misses=['E', 'Z'], remaining_turns=8)
 
     >>> game.status
     '_AN__AN'
