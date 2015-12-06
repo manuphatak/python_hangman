@@ -67,6 +67,14 @@ if __name__ == '__main__':
     # add project folder to PATH
     sys.path.append(LocalConfig.ROOT)
 
+    LocalConfig.ITERATIONS = 1000
+    try:
+        main('dot')
+    except PyCallGraphException as e:
+        print('<%r> Failed.' % tool)
+        print(e)
+
+    LocalConfig.ITERATIONS = 100
     for tool in ['dot', 'neato', 'fdp', 'sfdp', 'twopi', 'circo']:
         try:
             main(tool)
