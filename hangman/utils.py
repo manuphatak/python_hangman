@@ -50,7 +50,7 @@ class FlashMessage(object):
     message = ''
     game_over = False
     game_won = False
-    game_answer = None
+    game_answer = ''
 
     def __call__(self, message):
         """
