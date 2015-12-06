@@ -4,34 +4,34 @@ hangman package
 Submodules
 ----------
 
-hangman.commander module
-------------------------
-
-.. automodule:: hangman.commander
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-hangman.dictionary module
+hangman.controller module
 -------------------------
 
-.. automodule:: hangman.dictionary
+.. automodule:: hangman.controller
     :members:
     :undoc-members:
     :show-inheritance:
 
-hangman.hangman module
-----------------------
+hangman.model module
+--------------------
 
-.. automodule:: hangman.hangman
+.. automodule:: hangman.model
     :members:
     :undoc-members:
     :show-inheritance:
 
-hangman.presenter module
-------------------------
+hangman.utils module
+--------------------
 
-.. automodule:: hangman.presenter
+.. automodule:: hangman.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hangman.view module
+-------------------
+
+.. automodule:: hangman.view
     :members:
     :undoc-members:
     :show-inheritance:

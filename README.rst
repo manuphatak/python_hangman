@@ -28,15 +28,20 @@ Hangman
 
 A python version agnostic, tox tested, travis-backed program! Documented and distributed.
 
-Has **very high** unit test coverage, with passing tests on every version of python including PyPy.
+Has **very high** unit test coverage, with passing tests on every relevant version of python including PyPy.
 
 Features
 --------
 
-TODO
+- Hangman!
+- Idiomatic code.
+- Thoroughly tested with very high coverage.
+- Python version agnostic.
+- Demonstrates MVC design out of the scope of web development.
+- Documentation.
 
 .. image:: hangman.jpg
-    :alt: Documentation Status
+    :alt: Screenshot
 
 Compatibility
 -------------
@@ -76,7 +81,18 @@ At the command line either via easy_install or pip:
 Goal
 ----
 
-Learning!  Python in this case.  I'm particularly interested in testing and Test Driven Development.  This was a TDD exercise.
+2.0.0
+~~~~~
+
+**MVC pattern**.  The goal was to explicitely demonstrate an MVC pattern out of the scope of web development.
+
+**Idiomatic code**.  In this overhaul there's a big emphasis on idiomatic code.  The code should be describing its' own intention with the clarity your grandmother could read.
+
+
+1.0.0
+~~~~~
+
+Learning!  This was a Test Driven Development(TDD) exercise.
 
 Also, explored:
 
@@ -87,13 +103,23 @@ Also, explored:
 - Publishing on pip
 - Coverage via coveralls
 - Documentation with sphinx and ReadTheDocs
+- Cookiecutter development
 
 Design
 ------
 
-There are 3 main components that run the game:  :py:class:`hangman.model.Hangman`,  :py:class:`hangman.controller`, and :py:class:`hangman.view`
+MVC Intro
+~~~~~~~~~
+This game roughly follows the **Model-View-Controller(MVC)** pattern.  In the latest overhaul, these roles have been explicitely named: :mod:`hangman.model`, :mod:`hangman.view`, :mod:`hangman.controller`.
 
-The entirety of the game logic is contained in :py:class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with `Hangman.guess(self, letter)` and printing the game state.
+Traditionally in MVC the ``controller`` is the focal point.  It tells the ``view`` what information to collect from the user and what to show.  It uses that information to communicate with the ``model``--also, the data persistence later--and determine the next step.  This Hangman MVC adheres to these principals
+
+Model
+~~~~~
+
+The model is very simply the hangman game instance--:class:`hangman.model.Hangman`.  It's a class.  Every class should have "state" and the methods of that class should manage that state.  In this case, the "state" is the current "state of the game".  The public API are for manageing that state.
+
+The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :meth:`hangman.model.Hangman.guess` and printing the game state.
 
 For example:
 
@@ -117,14 +143,18 @@ For example:
     8
 
 
-:py:class:`hangman.view` is a simple presentation layer.  It handles printing the art to the console, and collecting input from the user
+View
+~~~~
 
-The  :py:class:`hangman.controller` is exactly that, the commander, the director, the maestro, the tour guide.  It guides you, the user, through the game.  It tells the presenter module what to print and what data to collect.  The commander updates the state of the game and handles game events.
+:mod:`hangman.view` is a collection of stateless functions that represent the presentation layer.  When called these functions handles printing the art to the console, and collecting input from the user.
 
-Design Reasoning
-----------------
+Controller
+~~~~~~~~~~
 
-This design pattern was the right choice, because it offers a sensible separation between the game logic and presentation layer.  I did not know in advance how the game was going to interact with the user.  Curses was on the table, it still is.  But, following TDD, there needed to be an immediate working solution that could be swapped out in the future.  And that's what this design allows.  The presenter class can changed to any other presentation layer with out changing the game.
+In this program, the ``controller`` is actually the "game_loop"--:func:`hangman.controller.game_loop`.  I still think of it as a ``controller`` because the role it plays--communicating I/O from the view with the model-persistence layer.
+
+The controller tells the view later what to print and what data to collect.  It uses that information update the state of the game (model) and handle game events.
+
 
 Call Diagram
 ------------
