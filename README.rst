@@ -159,7 +159,7 @@ The controller tells the view later what to print and what data to collect.  It 
 Call Diagram
 ------------
 
-.. image:: https://cloud.githubusercontent.com/assets/5052422/11611466/1da52e06-9b95-11e5-9d68-b6bab56beca8.png
+.. image:: https://cloud.githubusercontent.com/assets/5052422/11611800/bfc9ec20-9ba5-11e5-9b18-95d361e7ba23.png
     :alt: Call Diagram
 
 
