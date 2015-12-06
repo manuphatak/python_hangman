@@ -47,7 +47,7 @@ def test_setup():
     assert view.draw_board(Hangman()) == 'View draws board'
     assert view.say_goodbye() == 'Have a nice day!'
     assert view.prompt_guess() == 'A'
-    assert view.prompt_play_again() == False
+    assert not view.prompt_play_again()
 
 
 def test_game_over(game, game_loop, monkeypatch, flash):
