@@ -11,23 +11,22 @@ except ImportError:
     __pypy__ = None
 
 
+@pytest.fixture(autouse=True)
+def setup(monkeypatch):
+    monkeypatch.setattr('click.getchar', lambda: 'A')
+    monkeypatch.setattr('click.confirm', lambda _: True)
+
+
 @pytest.fixture
 def game():
     from hangman.model import Hangman
 
     mock_game = Mock(spec=Hangman)
-    mock_game.return_value = mock_game
     mock_game.misses = []
     mock_game.status = '_______'
     mock_game.answer = 'HANGMAN'
     mock_game.remaining_turns = 10
     return mock_game
-
-
-@pytest.fixture(autouse=True)
-def setup(monkeypatch):
-    monkeypatch.setattr('click.getchar', lambda: 'A')
-    monkeypatch.setattr('click.confirm', lambda _: True)
 
 
 @pytest.fixture

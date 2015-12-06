@@ -41,7 +41,3 @@ def game_loop(game=Hangman(), flash=FlashMessage()):
         return game_loop(game=GameClass(), flash=FlashClass())
 
     return view.say_goodbye()
-
-
-if __name__ == '__main__':
-    game_loop()
