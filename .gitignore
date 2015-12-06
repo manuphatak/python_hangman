@@ -65,8 +65,6 @@ target/
 # pip wheels
 wheelhouse/
 
-# TODO remove
-.old/
-
 # Travis deploy key script
 travis_pypi_setup.py
+rst_to_markdown.py

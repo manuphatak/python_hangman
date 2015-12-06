@@ -53,8 +53,8 @@ clean-test:
 	rm -fr htmlcov/
 
 clean-docs:
-	rm -f $(DOCSBUILDDIR)/lanyrd.rst
-	rm -f $(DOCSBUILDDIR)/modules.rst
+	rm -f $(DOCSSOURCEDIR)/lanyrd.rst
+	rm -f $(DOCSSOURCEDIR)/modules.rst
 	$(MAKE) -C docs clean
 
 lint:
@@ -98,8 +98,8 @@ register:
 
 requirements:
 	pip install --quiet pip-tools
-	pip-compile requirements_dev.in > /dev/null
 	pip-compile requirements.in > /dev/null
+	pip-compile requirements_dev.in > /dev/null
 	pip-sync requirements_dev.txt > /dev/null
 	pip install --quiet -r requirements.txt
 	pip wheel --quiet -r requirements.txt
