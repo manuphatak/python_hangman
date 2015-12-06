@@ -1,3 +1,8 @@
+.. role:: mod
+.. role:: class
+.. role:: meth
+.. role:: func
+
 =======
 Hangman
 =======
