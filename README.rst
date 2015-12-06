@@ -14,7 +14,7 @@ Hangman
     :target: https://travis-ci.org/bionikspoon/Hangman?branch=develop
     :alt: Build Status
 
-.. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop
+.. image:: https://coveralls.io/repos/bionikspoon/Hangman/badge.svg?branch=develop&service=github
     :target: https://coveralls.io/r/bionikspoon/Hangman?branch=develop
     :alt: Coverage Status
 
