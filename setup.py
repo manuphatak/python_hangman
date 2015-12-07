@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
+=============
 Documentation
--------------
+=============
 
 The full documentation is at https://python-hangman.readthedocs.org.
 
+.. role:: mod(literal)
+.. role:: class(literal)
+.. role:: method(literal)
+.. role:: func(literal)
 """
 
 try:
@@ -44,9 +49,9 @@ test_requirements = ['pytest', 'mock']
 
 setup(  # :off
     name='python_hangman',
-    version='2.0.4',
+    version='2.0.5',
     description='Python Hangman TDD demonstration.',
-    long_description=readme + '\n\n' + history,
+    long_description='\n\n'.join([readme, __doc__, history]),
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',
     url='https://github.com/bionikspoon/Hangman',

@@ -1,12 +1,34 @@
+# GIT UTILITIES
+# -------------------------------------
 bumpversion
+
+# PIP UTILITIES
+# -------------------------------------
 wheel
+pip-tools
+
+# LINT UTILITIES
+# -------------------------------------
 flake8
+
+# TEST UTILITIES
+# -------------------------------------
+pytest
+mock
 tox
 coverage
-Sphinx
-pip-tools
+
+# DOC UTILITIES
+# -------------------------------------
+sphinx
 watchdog
 
+# DIST UTILITIES
+# -------------------------------------
 # required by `travis_pypi_setup.py`
 cryptography
 PyYAML
+
+
+# DEV UTILITIES (Your stuff here)
+# -------------------------------------
