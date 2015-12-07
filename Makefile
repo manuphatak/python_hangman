@@ -53,7 +53,7 @@ clean-test:
 	rm -fr htmlcov/
 
 clean-docs:
-	rm -f $(DOCSSOURCEDIR)/lanyrd.rst
+	rm -f $(DOCSSOURCEDIR)/hangman.rst
 	rm -f $(DOCSSOURCEDIR)/modules.rst
 	$(MAKE) -C docs clean
 
@@ -74,7 +74,7 @@ coverage:
 	$(MAKE) -C docs coverage
 
 docs: clean-docs
-	sphinx-apidoc -o $(DOCSSOURCEDIR)/ hangman
+	sphinx-apidoc -PMTE -o $(DOCSSOURCEDIR)/ hangman
 	$(MAKE) -C docs html
 	$(BROWSER) $(DOCSBUILDDIR)/html/index.html
 

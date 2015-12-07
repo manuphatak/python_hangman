@@ -1,5 +1,8 @@
 # coding=utf-8
 """
+hangman.controller
+~~~~~~~~~~~~~~~~~~
+
 This module is responsible for guiding the user through the game.
 """
 from __future__ import absolute_import

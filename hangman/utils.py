@@ -1,5 +1,8 @@
 # coding=utf-8
 """
+hangman.utils
+~~~~~~~~~~~~~
+
 App utilities.
 """
 from __future__ import absolute_import

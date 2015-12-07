@@ -1,5 +1,8 @@
 # coding=utf-8
 """
+hangman.view
+~~~~~~~~~~~~
+
 This module handles user interaction. Printing and prompting.
 """
 from __future__ import absolute_import

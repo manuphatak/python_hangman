@@ -13,7 +13,7 @@ Contents:
    Contributing <contributing>
    Authors <authors>
    History <history>
-   Modules <modules>
+   API Docs <hangman>
 
 Feedback
 ========

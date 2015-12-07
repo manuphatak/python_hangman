@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
-==============
-Python Hangman
-==============
+Hangman
+~~~~~~~
 
 A well tested, cli, python version-agnostic, multi-platform hangman game.
 It's built following TDD principles and each component services a
