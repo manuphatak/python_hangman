@@ -48,7 +48,7 @@ test_requirements = ['pytest', 'mock']
 
 setup(  # :off
     name='python_hangman',
-    version='2.0.5',
+    version='2.0.6',
     description='Python Hangman TDD demonstration.',
     long_description='\n\n'.join([__doc__, readme, history]),
     author='Manu Phatak',
