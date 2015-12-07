@@ -7,7 +7,7 @@ History
 Next Release
 ------------
 
-* Coming soon.
+* Updated docs.
 
 
 2.0.0 (2015-12-05)

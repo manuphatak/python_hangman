@@ -2,6 +2,10 @@
 Hangman
 =======
 
+.. image:: https://img.shields.io/github/downloads/bionikspoon/Hangman/total.svg
+    :target: https://github.com/bionikspoon/Hangman
+    :alt: Github Downloads
+
 .. image:: https://badge.fury.io/py/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Latest Version
@@ -119,7 +123,7 @@ Model
 
 The model is very simply the hangman game instance--:class:`hangman.model.Hangman`.  It's a class.  Every class should have "state" and the methods of that class should manage that state.  In this case, the "state" is the current "state of the game".  The public API are for manageing that state.
 
-The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :method:`hangman.model.Hangman.guess` and printing the game state.
+The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :meth:`hangman.model.Hangman.guess` and printing the game state.
 
 For example:
 
