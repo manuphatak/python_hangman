@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
+=============
 Documentation
--------------
+=============
 
 The full documentation is at https://python-hangman.readthedocs.org.
 
@@ -50,7 +51,7 @@ setup(  # :off
     name='python_hangman',
     version='2.0.4',
     description='Python Hangman TDD demonstration.',
-    long_description='\n\n'.join([__doc__, readme, history]),
+    long_description='\n\n'.join([readme, __doc__, history]),
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',
     url='https://github.com/bionikspoon/Hangman',
