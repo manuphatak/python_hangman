@@ -4,7 +4,7 @@ Hangman
 
 .. image:: https://img.shields.io/github/downloads/bionikspoon/Hangman/total.svg
     :target: https://github.com/bionikspoon/Hangman
-    :alt: Gitub Downloads
+    :alt: Github Downloads
 
 .. image:: https://badge.fury.io/py/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
