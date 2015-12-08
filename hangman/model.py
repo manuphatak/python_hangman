@@ -40,6 +40,7 @@ class Hangman(object):
     MAX_TURNS = 10
     _re_answer_rules = re.compile('^[A-Z]{1,16}$')
     _re_guess_rules = re.compile('^[A-Z]$')
+    _repr = namedtuple('hangman', ['status', 'misses', 'remaining_turns'])
 
     # CONSTRUCTOR
     # -------------------------------------------------------------------
@@ -215,5 +216,4 @@ class Hangman(object):
         :rtype: namedtuple
         """
 
-        return repr(namedtuple('hangman', ['status', 'misses', 'remaining_turns'])._make(
-            (self.status, self.misses, self.remaining_turns)))
+        return repr(self._repr(self.status, self.misses, self.remaining_turns))
