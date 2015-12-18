@@ -2,8 +2,6 @@
 """
 hangman.model
 ~~~~~~~~~~~~~
-
-This module contains all of the game logic.
 """
 from __future__ import absolute_import
 import re

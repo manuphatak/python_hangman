@@ -14,9 +14,6 @@ from hangman import controller
 
 @click.command()
 def cli():
-    """
-    Start a new game.
-    """
     controller.run()
 
 

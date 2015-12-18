@@ -39,7 +39,7 @@ test_requirements = ['pytest', 'mock']
 setup(  # :off
     name='python_hangman',
     version='2.2.0',
-    description='Python Hangman TDD demonstration.',
+    description='Python Hangman TDD/MVC demonstration.',
     long_description='\n\n'.join([readme, history]),
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',

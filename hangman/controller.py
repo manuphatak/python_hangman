@@ -2,8 +2,6 @@
 """
 hangman.controller
 ~~~~~~~~~~~~~~~~~~
-
-This module is responsible for guiding the user through the game.
 """
 from __future__ import absolute_import
 
@@ -31,9 +29,9 @@ def game_loop(game=Hangman(), flash=FlashMessage()):
 
 def run(game=Hangman(), flash=FlashMessage()):
     """
-    Run ``game_loop``, handle exit.
+    Run ``game_loop`` and handle exiting.
 
-    Logic is separated from game_loop to cleanly avoid recursion limits.
+    Logic is separated from game_loop to cleanly avoid python recursion limits.
 
     :param hangman.model.Hangman game: Hangman game instance.
     :param hangman.utils.FlashMessage flash: FlashMessage utility
@@ -45,7 +43,7 @@ def run(game=Hangman(), flash=FlashMessage()):
         try:
             game_loop(game=game, flash=flash)
         except KeyboardInterrupt:
-            # Exit immediately
+            # exit immediately
             return view.say_goodbye()
 
         if not view.prompt_play_again():

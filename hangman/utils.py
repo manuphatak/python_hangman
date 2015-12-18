@@ -33,6 +33,8 @@ class WordBank(object):
         """
         Set `WordBank` word list.
 
+        Useful for testing.
+
         :param tuple values:
         """
         cls.WORDS = list(values)
@@ -56,28 +58,21 @@ class FlashMessage(object):
     game_answer = ''
 
     def __call__(self, message):
-        """
-        Set message to be flashed.
+        """Set message to be flashed."""
 
-        :param str message:
-        """
         self.message = str(message)
 
     def __str__(self):
-        """
-        Returns and clears the message
+        """Returns and clears the message"""
 
-        :return: Flashed message.
-        :rtype: str
-        """
         message, self.message = self.message, ''
         return str(message)
 
     def __bool__(self):
         # Python3 compatibility
-        return bool(self.message)
+        return self.__nonzero__()
 
-    def __nonzero__(self):  # pragma: no cover
+    def __nonzero__(self):
         # Python2 compatibility
         return bool(self.message)
 
