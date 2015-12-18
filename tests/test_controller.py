@@ -1,11 +1,11 @@
 # coding=utf-8
 from functools import partial
 
-import pytest
 from mock import Mock
+from pytest import fixture
 
 
-@pytest.fixture(autouse=True)
+@fixture(autouse=True)
 def setup(monkeypatch):
     from hangman.utils import GameOverNotificationComplete, FlashMessage
 
@@ -20,21 +20,21 @@ def setup(monkeypatch):
     monkeypatch.setattr('hangman.view.prompt_play_again', lambda: False)
 
 
-@pytest.fixture(autouse=True)
+@fixture(autouse=True)
 def game():
     from hangman.model import Hangman
 
     return Hangman(answer='hangman')
 
 
-@pytest.fixture
+@fixture
 def flash():
     from hangman.utils import FlashMessage
 
     return FlashMessage()
 
 
-@pytest.fixture
+@fixture
 def run(game, flash):
     from hangman.controller import run
 

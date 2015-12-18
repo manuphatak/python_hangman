@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 # coding=utf-8
-import pytest
 from mock import Mock
+from pytest import fixture
 
 
-@pytest.fixture(autouse=True)
+@fixture(autouse=True)
 def setup(monkeypatch, game_loop):
     monkeypatch.setattr('hangman.controller.game_loop', game_loop)
 
 
-@pytest.fixture
+@fixture
 def game_loop():
     return Mock()
 
 
-@pytest.fixture
+@fixture
 def runner():
     from click.testing import CliRunner
 

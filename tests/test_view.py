@@ -1,9 +1,8 @@
 # coding=utf-8
 from textwrap import dedent
 
-from _pytest.python import raises
 from mock import Mock
-from pytest import fixture
+from pytest import fixture, raises
 
 from hangman import view
 from hangman.utils import GameOverNotificationComplete
