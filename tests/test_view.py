@@ -5,12 +5,6 @@ from mock import Mock
 from pytest import fixture, raises
 
 from hangman import view
-from hangman.utils import GameOverNotificationComplete
-
-try:
-    import __pypy__
-except ImportError:
-    __pypy__ = None
 
 
 @fixture(autouse=True)
@@ -47,96 +41,192 @@ def flash():
 def test_picture_10_turns():
     remaining_turns = 10
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '        |', '        |', '        |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+                |
+                |
+                |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_9_turns():
     remaining_turns = 9
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '        |', '        |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+                |
+                |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_8_turns():
     remaining_turns = 8
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '        |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+            |   |
+                |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_7_turns():
     remaining_turns = 7
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '    |   |', '    |   |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+            |   |
+            |   |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_6_turns():
     remaining_turns = 6
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|   |', '    |   |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|   |
+            |   |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_5_turns():
     remaining_turns = 5
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '        |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+                |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_4_turns():
     remaining_turns = 4
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '        |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+            |   |
+                |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_3_turns():
     remaining_turns = 3
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '   /    |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+            |   |
+           /    |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_2_turns():
     remaining_turns = 2
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '   / \  |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+            |   |
+           / \  |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_1_turns():
     remaining_turns = 1
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '  _/ \  |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+            |   |
+          _/ \  |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_picture_0_turns():
     remaining_turns = 0
 
-    actual = list(view.build_partial_picture(remaining_turns))
-    expected = ['    _____', '    |   |', '   (_)  |', '   \|/  |', '    |   |', '    |   |', '  _/ \  |', '________|_']
+    actual = '\n'.join(view.build_partial_picture(remaining_turns))
+    expected = dedent("""
+            _____
+            |   |
+           (_)  |
+           \|/  |
+            |   |
+            |   |
+          _/ \_ |
+        ________|_"""[1:])
+    assert actual.splitlines() == expected.splitlines()
     assert actual == expected
 
 
 def test_status_0_misses_full():
-    from hangman import view
-
     misses = []
-    view.build_partial_misses([])
     actual = list(view.build_partial_misses(misses))
     expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '', '']
 
@@ -230,6 +320,8 @@ def test_say_goodbye_method(capsys):
 
 
 def test_game_won(capsys, game, flash):
+    from hangman.utils import GameOverNotificationComplete
+
     expected = 'YOU ARE SO COOL'
     flash.game_won = True
 
@@ -241,6 +333,8 @@ def test_game_won(capsys, game, flash):
 
 
 def test_game_lost(capsys, game, flash):
+    from hangman.utils import GameOverNotificationComplete
+
     expected = "YOU LOSE! THE ANSWER IS HANGMAN"
     flash.game_lost = True
     flash.game_answer = 'HANGMAN'

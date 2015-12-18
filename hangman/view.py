@@ -145,7 +145,9 @@ def build_partial_picture(remaining_turns):
     else:
         yield '        |'
 
-    if remaining_turns <= 1:
+    if remaining_turns <= 0:
+        yield '  _/ \_ |'
+    elif remaining_turns <= 1:
         yield '  _/ \  |'
     elif remaining_turns <= 2:
         yield '   / \  |'
