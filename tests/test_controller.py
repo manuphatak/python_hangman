@@ -34,10 +34,10 @@ def flash():
 
 
 @pytest.fixture
-def game_loop(game, flash):
-    from hangman.controller import game_loop
+def run(game, flash):
+    from hangman.controller import run
 
-    return partial(game_loop, game=game, flash=flash)
+    return partial(run, game=game, flash=flash)
 
 
 def test_setup():
@@ -50,38 +50,38 @@ def test_setup():
     assert not view.prompt_play_again()
 
 
-def test_game_over(game, game_loop, monkeypatch, flash):
+def test_game_over(game, run, monkeypatch, flash):
     monkeypatch.setattr('hangman.view.prompt_guess', lambda: 'O')
     game.misses = list('BCDEFIJKL')
 
-    assert game_loop() == 'Have a nice day!'
+    assert run() == 'Have a nice day!'
     assert flash.game_over is True
     assert flash.game_answer == 'HANGMAN'
 
 
-def test_game_won(game, game_loop, flash):
+def test_game_won(game, run, flash):
     game.hits = list('HNGMN')
 
-    assert game_loop() == 'Have a nice day!'
+    assert run() == 'Have a nice day!'
     assert flash.game_won is True
 
 
-def test_value_error(game, game_loop, monkeypatch):
+def test_value_error(game, run, monkeypatch):
     monkeypatch.setattr('hangman.view.prompt_guess', Mock(side_effect=['1', 'A']))
     game.hits = list('HNGMN')
 
-    assert game_loop() == 'Have a nice day!'
+    assert run() == 'Have a nice day!'
 
 
-def test_keyboard_interupt(game_loop, monkeypatch):
+def test_keyboard_interupt(run, monkeypatch):
     monkeypatch.setattr('hangman.view.prompt_guess', Mock(side_effect=KeyboardInterrupt))
 
-    assert game_loop() == 'Have a nice day!'
+    assert run() == 'Have a nice day!'
 
 
-def test_game_finished(game_loop, monkeypatch):
+def test_game_finished(run, monkeypatch):
     monkeypatch.setattr('hangman.view.prompt_guess',
                         Mock(side_effect=['H', 'A', 'N', 'G', 'M', 'N', KeyboardInterrupt]))
     monkeypatch.setattr('hangman.view.prompt_play_again', Mock(side_effect=[True, False]))
 
-    assert game_loop() == 'Have a nice day!'
+    assert run() == 'Have a nice day!'

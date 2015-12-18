@@ -6,6 +6,13 @@ Next Release
 
 * Stay Posted
 
+2.2.0 (2015-18-05)
+------------------
+
+* Fixed max recursion issue with game loop.
+* Updated requirements.
+* Removed gratuitous docs -- less is more.
+
 
 2.1.0 (2015-18-05)
 ------------------

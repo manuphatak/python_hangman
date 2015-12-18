@@ -13,8 +13,7 @@ from hangman.utils import WordBank, GameOver, GameWon
 
 class Hangman(object):
     """
-    The hangman game object contains the logic for managing the status of the
-    game and raising key game related events.
+    The the logic for managing the status of the game and raising key game related events.
 
     >>> from hangman.model import Hangman
     >>> game = Hangman(answer='hangman')
@@ -46,13 +45,9 @@ class Hangman(object):
     # -------------------------------------------------------------------
 
     def __init__(self, answer=None):
-        """
-        Instantiate a new game. Populate answer if necessary.
 
-        :param str answer: answer to game instance
-        :raises: ValueError
-        """
         if not answer:
+            # Populate answer
             answer = WordBank.get()
 
         # Validate answer.
@@ -68,67 +63,31 @@ class Hangman(object):
 
     @property
     def misses(self):
-        """
-        Get list of misses.
-
-        :rtype: [str]
-        """
         return sorted(list(self._misses))
 
     @misses.setter
-    def misses(self, value):
-        """
-        `self.misses` setter.  Check for game over.
-
-        :param value: A single letter.
-        :raises: GameOver
-        """
-
-        self._misses = set(value)
-        if self.remaining_turns <= 0:
-            raise GameOver
+    def misses(self, letters):
+        for letter in letters:
+            self._add_miss(letter)
 
     @property
     def hits(self):
-        """
-        Get list of hits.
-
-        :rtype: [str]
-        """
         return sorted(list(self._hits))
 
     @hits.setter
-    def hits(self, value):
-        """
-        `self.hits` setter.  Check for game won.
-
-        :param value: A single letter.
-        :raises: GameWon
-        """
-
-        self._hits = set(value)
-        if self._hits == set(self.answer):
-            raise GameWon
+    def hits(self, letters):
+        for letter in letters:
+            self._add_hit(letter)
 
     @property
     def remaining_turns(self):
-        """
-        Calculate number of turns remaining.
+        """Calculate number of turns remaining."""
 
-        :return: Number of turns remaining.
-        :rtype: int
-        """
         return self.MAX_TURNS - len(self.misses)
 
     @property
     def status(self):
-        """
-        Build a string representation of status with letters for hits and _
-        for unknowns.
-
-        :return: game status as string
-        :rtype: str
-        """
+        """Build a string representation of status."""
         hits = self.hits
 
         def fill_in(letter):
@@ -140,14 +99,8 @@ class Hangman(object):
     # -------------------------------------------------------------------
 
     def guess(self, letter):
-        """
-        Check if guess is a hit or miss.
+        """Add letter to hits or misses."""
 
-        :param str letter: Letter to check
-        :return: self
-        :rtype: Hangman
-        :raises: ValueError
-        """
         # validate input
         if not self.is_valid_guess(letter):
             raise ValueError('Must be a letter A-Z')
@@ -155,65 +108,40 @@ class Hangman(object):
         # add to hits or misses
         is_miss = letter.upper() not in self.answer
         if is_miss:
-            self.add_miss(letter)
+            self._add_miss(letter)
         else:
-            self.add_hit(letter)
+            self._add_hit(letter)
 
         return self
 
     # UTILITIES
     # -------------------------------------------------------------------
 
-    def add_miss(self, value):
-        """
-        Add a miss to the model.  Check for game over.
+    def _add_miss(self, value):
+        """Add a letter to misses.  Check for game over."""
 
-        :param value: A single letter.
-        :raises: GameOver
-        """
         self._misses.add(value.upper())
         if self.remaining_turns <= 0:
             raise GameOver
 
-    def add_hit(self, value):
-        """
-        Add a hit to the model.  Check for game won.
+    def _add_hit(self, value):
+        """Add a letter to hits. Check for game won"""
 
-        :param value: A single letter.
-        :raises: GameWon
-        """
         self._hits.add(value.upper())
         if self._hits == set(self.answer):
             raise GameWon
 
     def is_valid_answer(self, word):
-        """
-        Validate answer.  Letters only.  Max:16
+        """Validate answer.  Letters only.  Max:16"""
 
-        :param str word: Word to validate.
-        :return:
-        :rtype: bool
-        """
         word = str(word).upper()
         return not not self._re_answer_rules.search(word)
 
     def is_valid_guess(self, letter):
-        """
-        Validate guess.  Letters only.  Max:1
+        """Validate guess.  Letters only.  Max:1"""
 
-        :param str letter: Letter to validate
-        :return:
-        :rtype: bool
-        """
         letter = str(letter).upper()
         return not not self._re_guess_rules.search(letter)
 
     def __repr__(self):
-        """
-        Build a human readable representation of self.
-
-        :return: namedtuple with status, misses, and remaining_turns
-        :rtype: namedtuple
-        """
-
         return repr(self._repr(self.status, self.misses, self.remaining_turns))
