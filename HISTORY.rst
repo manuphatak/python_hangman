@@ -5,6 +5,7 @@ Next Release
 ------------
 
 * Stay Posted
+* 2.1.x Update requirements
 
 
 2.1.0 (2015-18-05)
