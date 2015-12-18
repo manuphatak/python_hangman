@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# coding=utf-8
 import sys
 from os.path import abspath, relpath
 import sphinx.environment
@@ -7,7 +7,9 @@ import sphinx.environment
 
 def _warn_node(func):
     def wrapper(self, msg, node):
-        if not msg.startswith('nonlocal image URI found:'):
+        if msg.startswith('nonlocal image URI found:'):
+            return
+
             return func(self, msg, node)
 
     return wrapper
@@ -30,7 +32,7 @@ source_encoding = 'utf-8-sig'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Hangman'
+project = 'python_hangman'
 copyright = '2015, Manu Phatak'
 author = hangman.__author__
 version = hangman.__version__
@@ -70,7 +72,7 @@ html_static_path = ['_static']
 # html_show_copyright = True
 # html_use_opensearch = ''
 # html_file_suffix = None
-htmlhelp_basename = 'hangmandoc'
+htmlhelp_basename = 'python_hangmandoc'
 
 # -- Options for LaTeX output ------------------------------------------
 
@@ -81,8 +83,8 @@ latex_elements = {}
 
 latex_documents = [(  # :off
     'index',
-    'hangman.tex',
-    'Hangman Documentation',
+    'python_hangman.tex',
+    'python_hangman Documentation',
     'Manu Phatak',
     'manual',
 )]  # :on
@@ -98,8 +100,8 @@ latex_documents = [(  # :off
 
 man_pages = [(  # :off
     'index',
-    'hangman',
-    'Hangman Documentation',
+    'python_hangman',
+    'python_hangman Documentation',
     ['Manu Phatak'],
     1
 )]  # :on
@@ -109,10 +111,10 @@ man_pages = [(  # :off
 
 texinfo_documents = [(  # :off
     'index',
-    'hangman',
-    'Hangman Documentation',
+    'python_hangman',
+    'python_hangman Documentation',
     'Manu Phatak',
-    'hangman',
+    'python_hangman',
     'One line description of project.',
     'Miscellaneous'
 )]  # :on

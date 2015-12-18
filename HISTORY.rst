@@ -1,6 +1,3 @@
-.. :changelog:
-
-=======
 History
 =======
 

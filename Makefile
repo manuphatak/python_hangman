@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test clean-docs lint test test-all coverage coverage docs servedocs release dist install register requirements
+.PHONY: clean clean-build clean-pyc clean-test clean-docs lint test test-all coverage coverage github docs builddocs servedocs release dist install register requirements
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
 try:
@@ -24,6 +24,7 @@ help:
 	@echo "test        		run tests quickly with the default Python"
 	@echo "test-all    		run tests on every Python version with tox"
 	@echo "coverage    		check code coverage quickly with the default Python"
+	@echo "github      		generate github's docs (i.e. README)"
 	@echo "docs        		generate Sphinx HTML documentation, including API docs"
 	@echo "servedocs   		semi-live edit docs"
 	@echo "release     		package and upload a release"
@@ -53,7 +54,7 @@ clean-test:
 	rm -fr htmlcov/
 
 clean-docs:
-	rm -f $(DOCSSOURCEDIR)/hangman.rst
+	rm -f $(DOCSSOURCEDIR)/python_hangman.rst
 	rm -f $(DOCSSOURCEDIR)/modules.rst
 	$(MAKE) -C docs clean
 
@@ -68,18 +69,33 @@ test-all: lint
 
 coverage:
 	coverage run --source hangman setup.py test
-	coverage report -m
+	coverage report --show-missing
 	coverage html
 	$(BROWSER) htmlcov/index.html
 	$(MAKE) -C docs coverage
 
-docs: clean-docs
-	sphinx-apidoc -PMTE -o $(DOCSSOURCEDIR)/ hangman
+github:
+	python docs/github_docs.py
+
+docs: clean-docs builddocs github
+
+builddocs:
+	sphinx-apidoc \
+		--private \
+		--no-toc \
+		--module-first \
+		--no-headings \
+		--output-dir=$(DOCSSOURCEDIR)/ hangman
 	$(MAKE) -C docs html
-	$(BROWSER) $(DOCSBUILDDIR)/html/index.html
 
 servedocs: docs
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+	$(BROWSER) $(DOCSBUILDDIR)/html/index.html
+	watchmedo shell-command \
+		--pattern '*.rst;*.py' \
+		--command '$(MAKE) builddocs' \
+		--ignore-pattern '$(DOCSBUILDDIR)/*;$(DOCSSOURCEDIR)/python_hangman.rst' \
+		--ignore-directories \
+		--recursive
 
 release: clean docs
 	python setup.py sdist upload
@@ -97,11 +113,11 @@ register:
 	python setup.py register
 
 requirements:
-	pip install --quiet pip-tools
-	pip-compile requirements.in > /dev/null
+	pip install --quiet --upgrade setuptools pip wheel pip-tools
 	pip-compile requirements_dev.in > /dev/null
+	pip-compile requirements.in > /dev/null
 	pip-sync requirements_dev.txt > /dev/null
 	pip install --quiet -r requirements.txt
-	pip wheel --quiet -r requirements.txt
 	pip wheel --quiet -r requirements_dev.txt
-	git diff --word-diff requirements.txt requirements_dev.txt &> .requirements.diff
+	pip wheel --quiet -r requirements.txt
+	git diff requirements.txt requirements_dev.txt 2>&1 | tee .requirements.diff
