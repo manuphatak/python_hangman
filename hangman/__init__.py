@@ -19,4 +19,4 @@ logging.getLogger(__name__).addHandler(NullHandler())
 
 __author__ = 'Manu Phatak'
 __email__ = 'bionikspoon@gmail.com'
-__version__ = '2.1.1'
+__version__ = '2.2.0'
