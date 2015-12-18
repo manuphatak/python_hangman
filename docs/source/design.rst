@@ -1,9 +1,6 @@
-======
 Design
 ======
 
-MVC Intro
----------
 This game roughly follows the **Model-View-Controller(MVC)** pattern.  In the latest overhaul, these roles have been explicitely named: :mod:`hangman.model`, :mod:`hangman.view`, :mod:`hangman.controller`.
 
 Traditionally in MVC the ``controller`` is the focal point.  It tells the ``view`` what information to collect from the user and what to show.  It uses that information to communicate with the ``model``--also, the data persistence later--and determine the next step.  This Hangman MVC adheres to these principals

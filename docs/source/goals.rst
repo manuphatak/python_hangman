@@ -1,9 +1,8 @@
-=====
 Goals
 =====
 
 2.0.0
-~~~~~
+-----
 
 **MVC pattern**.  The goal was to explicitely demonstrate an MVC pattern out of the scope of web development.
 
@@ -11,7 +10,7 @@ Goals
 
 
 1.0.0
-~~~~~
+-----
 
 Learning!  This was a Test Driven Development(TDD) exercise.
 

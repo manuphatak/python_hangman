@@ -23,7 +23,6 @@
 .. __END__ Source defined in docs/github_docs.py
 .. __START__ Source defined in docs/source/readme_title.rst
 
-
 ==============
 python_hangman
 ==============
@@ -53,9 +52,6 @@ python_hangman
     :alt: Documentation Status
 
 
-
-**A Python TDD Experiment**
-
 A python version agnostic, tox tested, travis-backed program! Documented and distributed.
 
 Has **very high** unit test coverage, with passing tests on every relevant version of python including PyPy.
@@ -64,9 +60,8 @@ Has **very high** unit test coverage, with passing tests on every relevant versi
 .. __END__ Source defined in docs/source/readme_title.rst
 .. __START__ Source defined in docs/source/readme_features.rst
 
-
 Features
---------
+========
 
 - Free software: MIT license
 - Documentation: https://python_hangman.readthedocs.org.
@@ -75,7 +70,6 @@ Features
 - Thoroughly tested with very high coverage.
 - Python version agnostic.
 - Demonstrates MVC design out of the scope of web development.
-- Documentation.
 
 .. image:: https://cloud.githubusercontent.com/assets/5052422/11611464/00822c5c-9b95-11e5-9fcb-8c10fd9be7df.jpg
     :alt: Screenshot
@@ -84,9 +78,8 @@ Features
 .. __END__ Source defined in docs/source/readme_features.rst
 .. __START__ Source defined in docs/source/readme_compatibility.rst
 
-
 Compatibility
--------------
+=============
 
 .. image:: https://img.shields.io/badge/Python-2.6,_2.7,_3.3,_3.4,_3.5,_pypy-brightgreen.svg
     :target: https://pypi.python.org/pypi/python_hangman/
@@ -105,12 +98,8 @@ Compatibility
 .. __START__ Source defined in docs/source/installation.rst
 
 
-============
 Installation
 ============
-
-Getting Started
----------------
 
 At the command line either via easy_install or pip
 
@@ -131,12 +120,11 @@ At the command line either via easy_install or pip
 .. __END__ Source defined in docs/source/installation.rst
 .. __START__ Source defined in docs/source/goals.rst
 
-=====
 Goals
 =====
 
 2.0.0
-~~~~~
+-----
 
 **MVC pattern**.  The goal was to explicitely demonstrate an MVC pattern out of the scope of web development.
 
@@ -144,7 +132,7 @@ Goals
 
 
 1.0.0
-~~~~~
+-----
 
 Learning!  This was a Test Driven Development(TDD) exercise.
 
@@ -163,12 +151,9 @@ Also, explored:
 .. __END__ Source defined in docs/source/goals.rst
 .. __START__ Source defined in docs/source/design.rst
 
-======
 Design
 ======
 
-MVC Intro
----------
 This game roughly follows the **Model-View-Controller(MVC)** pattern.  In the latest overhaul, these roles have been explicitely named: :mod:`hangman.model`, :mod:`hangman.view`, :mod:`hangman.controller`.
 
 Traditionally in MVC the ``controller`` is the focal point.  It tells the ``view`` what information to collect from the user and what to show.  It uses that information to communicate with the ``model``--also, the data persistence later--and determine the next step.  This Hangman MVC adheres to these principals
@@ -219,9 +204,8 @@ The controller tells the view later what to print and what data to collect.  It 
 .. __END__ Source defined in docs/source/design.rst
 .. __START__ Source defined in docs/source/readme_call_diagram.rst
 
-
 Call Diagram
-------------
+============
 
 .. image:: https://cloud.githubusercontent.com/assets/5052422/11611800/bfc9ec20-9ba5-11e5-9b18-95d361e7ba23.png
     :alt: Call Diagram
@@ -230,9 +214,8 @@ Call Diagram
 .. __END__ Source defined in docs/source/readme_call_diagram.rst
 .. __START__ Source defined in docs/source/readme_credits.rst
 
-
 Credits
--------
+=======
 
 Tools used in rendering this package:
 

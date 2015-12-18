@@ -1,5 +1,3 @@
-:orphan:
-
 ==============
 python_hangman
 ==============
@@ -28,9 +26,6 @@ python_hangman
     :target: https://python_hangman.readthedocs.org/en/develop/?badge=develop
     :alt: Documentation Status
 
-
-
-**A Python TDD Experiment**
 
 A python version agnostic, tox tested, travis-backed program! Documented and distributed.
 

@@ -24,7 +24,6 @@
 .. __START__ Source defined in docs/source/contributing.rst
 
 
-============
 Contributing
 ============
 

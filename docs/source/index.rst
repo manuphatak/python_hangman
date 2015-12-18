@@ -1,5 +1,5 @@
 Welcome to python_hangman's documentation!
-======================================
+==========================================
 
 Contents:
 =========
@@ -9,7 +9,8 @@ Contents:
 
    Readme <readme>
    Installation <installation>
-   Usage <usage>
+   Design <design>
+   Goals <goals>
    Contributing <contributing>
    Authors <authors>
    History <history>
