@@ -6,6 +6,7 @@ hangman.utils
 App utilities.
 """
 from __future__ import absolute_import
+
 from random import choice
 
 __all__ = ['WordBank', 'FlashMessage', 'GameLost', 'GameWon', 'GameOverNotificationComplete']

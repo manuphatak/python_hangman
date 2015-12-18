@@ -1,7 +1,9 @@
 # coding=utf-8
 from textwrap import dedent
+
 import pytest
 from mock import Mock
+
 from hangman import view
 from hangman.utils import GameOverNotificationComplete
 

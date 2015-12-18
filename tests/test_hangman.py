@@ -8,6 +8,7 @@ test_hangman
 Tests for `Hangman` model.
 """
 import pytest
+
 from hangman.model import Hangman, GameWon, GameLost
 
 
