@@ -1,15 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
-.. role:: mod(literal)
-.. role:: class(literal)
-.. role:: func(literal)
-
-=============
-Documentation
-=============
-
-The full documentation is at https://python-hangman.readthedocs.org.
+The full documentation is at https://python_hangman.readthedocs.org.
 """
 
 try:
@@ -38,22 +30,20 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
-    history = history_file.read().replace('.. :changelog:', '')
+    history = history_file.read()
 
-# TODO: put package requirements here
 requirements = ['click', 'future']
 
-# TODO: put package test requirements here
 test_requirements = ['pytest', 'mock']
 
 setup(  # :off
     name='python_hangman',
-    version='2.0.6',
+    version='2.1.0',
     description='Python Hangman TDD demonstration.',
-    long_description='\n\n'.join([__doc__, readme, history]),
+    long_description='\n\n'.join([readme, history]),
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',
-    url='https://github.com/bionikspoon/Hangman',
+    url='https://github.com/bionikspoon/python_hangman',
     packages=['hangman',],
     package_dir={'hangman':'hangman'},
     include_package_data=True,
@@ -62,7 +52,7 @@ setup(  # :off
     zip_safe=False,
     use_2to3=True,
     cmdclass={'test': PyTest},
-    keywords='python tdd hangman',
+    keywords='python_hangman Manu Phatak',
     entry_points={'console_scripts': ['hangman = hangman.__main__:cli']},
     classifiers=[
         'Development Status :: 5 - Production/Stable',

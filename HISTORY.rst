@@ -1,13 +1,11 @@
-.. :changelog:
-
-=======
 History
 =======
 
-Next Release
-------------
+2.1.0 (2015-18-05)
+------------------
 
-* Updated docs.
+* Updated docs, divided and automated in a more reasonable way.
+* renamed the github repo to mirror pypi name.
 
 
 2.0.0 (2015-12-05)

@@ -1,21 +1,14 @@
 .. highlight:: shell
 
-============
 Installation
 ============
 
 At the command line either via easy_install or pip::
 
+    $ mkvirtualenv hangman  # optional for venv users
     $ pip install python_hangman
+    $ hangman
 
-::
-
-    $ easy_install python_hangman
-
-Or, if you have virtualenvwrapper installed::
-
-    $ mkvirtualenv hangman
-    $ pip install python_hangman
 
 **Uninstall**::
 

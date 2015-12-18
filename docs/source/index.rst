@@ -1,5 +1,5 @@
-Welcome to Hangman's documentation!
-======================================
+Welcome to python_hangman's documentation!
+==========================================
 
 Contents:
 =========
@@ -9,7 +9,8 @@ Contents:
 
    Readme <readme>
    Installation <installation>
-   Usage <usage>
+   Design <design>
+   Goals <goals>
    Contributing <contributing>
    Authors <authors>
    History <history>
@@ -17,10 +18,10 @@ Contents:
 
 Feedback
 ========
-If you have any suggestions or questions about **Hangman** feel free to email me at bionikspoon@gmail.com.
+If you have any suggestions or questions about **python_hangman** feel free to email me at bionikspoon@gmail.com.
 
-If you encounter any errors or problems with **Hangman**, please let me know!
-Open an Issue at the GitHub https://github.com/bionikspoon/Hangman main repository.
+If you encounter any errors or problems with **python_hangman**, please let me know!
+Open an Issue at the GitHub https://github.com/bionikspoon/python_hangman main repository.
 
 Indices and tables
 ==================

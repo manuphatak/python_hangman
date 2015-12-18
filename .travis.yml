@@ -6,10 +6,8 @@ language: python
 python:
   - "3.5"
 
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-  - pip install tox
-  - pip install coveralls
+  - pip install tox coveralls
 
 env:
   - TOXENV=py26
@@ -18,7 +16,7 @@ env:
   - TOXENV=py34
   - TOXENV=py35
   - TOXENV=pypy
-  - TOXENV=docs
+  # - TOXENV=docs
 
 # command to run tests, e.g. python setup.py test
 script:
@@ -38,5 +36,5 @@ deploy:
     secure: dMZxOD6Wg36X2txHY6/5solsCpkMeoiiC/s/jIJaV0T65tVsRjDTwOzyaV8evTrYmq4ZtvUpQhQnH0A1EtFNKzoZV8wlV2ohdJdYhI4AVI5DWXLNsnVcxQ3RpQT2HZAJ0FwnozIZpN8sntkG0kCO2IYtJEMWH+/SJHsEm5oy+Pk=
   on:
     tags: true
-    repo: bionikspoon/Hangman
+    repo: bionikspoon/python_hangman
     condition: $TOXENV == py34
