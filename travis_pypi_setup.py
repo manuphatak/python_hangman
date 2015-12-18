@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# coding=utf-8
 """
 Update encrypted deploy password in Travis config file
 """
@@ -20,7 +20,7 @@ except ImportError:
     # noinspection PyCompatibility
     from urllib.request import urlopen
 
-GITHUB_REPO = 'bionikspoon/Hangman'
+GITHUB_REPO = 'bionikspoon/python_hangman'
 TRAVIS_CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.travis.yml')
 
 
@@ -56,7 +56,7 @@ def fetch_public_key(repo):
     Travis API docs: http://docs.travis-ci.com/api/#repository-keys
     """
     keyurl = 'https://api.travis-ci.org/repos/{0}/key'.format(repo)
-    data = json.loads(urlopen(keyurl).read())
+    data = json.loads(urlopen(keyurl).read().decode())
     if 'key' not in data:
         errmsg = "Could not find public key for repo: {}.\n".format(repo)
         errmsg += "Have you already added your GitHub repo to Travis?"
@@ -104,7 +104,7 @@ def update_travis_deploy_password(encrypted_password):
 def main(args):
     public_key = fetch_public_key(args.repo)
     password = args.password or getpass('PyPI password: ')
-    update_travis_deploy_password(encrypt(public_key, password))
+    update_travis_deploy_password(encrypt(public_key, password.encode()))
     print("Wrote encrypted password to .travis.yml -- you're ready to deploy")
 
 

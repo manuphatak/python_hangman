@@ -13,10 +13,10 @@ flake8
 
 # TEST UTILITIES
 # -------------------------------------
-pytest
-mock
 tox
 coverage
+pytest
+mock
 
 # DOC UTILITIES
 # -------------------------------------
