@@ -45,6 +45,21 @@ def draw_board(game, message=FlashMessage()):
     Dare to pick a letter:
     _
 
+    Example:
+
+                    HANGMAN GAME
+        _____
+        |   |
+            |
+            |      MISSES:
+            |      _ _ _ _ _ _ _ _ _ _
+            |
+            |
+    ________|_
+              _   _   _   _   _   _   _
+    Dare to pick a letter:
+    _
+
 
     :param hangman.Hangman game: game instance
     :param hangman.utils.FlashMessage message: flash message
