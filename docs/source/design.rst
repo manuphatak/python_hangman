@@ -17,6 +17,7 @@ The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  
 
 For example:
 
+
 .. code-block:: python
 
     >>> from hangman.hangman import Hangman
