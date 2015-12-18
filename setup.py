@@ -44,7 +44,7 @@ setup(  # :off
     author='Manu Phatak',
     author_email='bionikspoon@gmail.com',
     url='https://github.com/bionikspoon/python_hangman',
-    packages=['python_hangman',],
+    packages=['hangman',],
     package_dir={'hangman':'hangman'},
     include_package_data=True,
     install_requires=requirements,
