@@ -45,7 +45,7 @@ setup(  # :off
     author_email='bionikspoon@gmail.com',
     url='https://github.com/bionikspoon/python_hangman',
     packages=['python_hangman',],
-    package_dir={'python_hangman':'python_hangman'},
+    package_dir={'hangman':'hangman'},
     include_package_data=True,
     install_requires=requirements,
     license='MIT',
