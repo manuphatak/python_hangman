@@ -1,11 +1,18 @@
 History
 =======
 
+Next Release
+------------
+
+* Stay Posted
+
+
 2.1.0 (2015-18-05)
 ------------------
 
 * Updated docs, divided and automated in a more reasonable way.
 * renamed the github repo to mirror pypi name.
+* 2.1.1 Fix pypi's rst render
 
 
 2.0.0 (2015-12-05)
