@@ -6,20 +6,13 @@ hangman.controller
 This module is responsible for guiding the user through the game.
 """
 from __future__ import absolute_import
+
 from hangman.utils import FlashMessage, GameOver, GameWon, GameFinished
 from . import view
 from .model import Hangman
 
 
-# noinspection PyPep8Naming
 def game_loop(game=Hangman(), flash=FlashMessage()):
-    """
-    Main game loop.
-
-    :param hangman.model.Hangman game: Hangman game instance.
-    :param hangman.utils.FlashMessage flash: FlashMessage utility
-    :return:
-    """
     while True:
         try:
             view.draw_board(game, message=flash)
@@ -32,15 +25,33 @@ def game_loop(game=Hangman(), flash=FlashMessage()):
             flash.game_won = True
         except ValueError as msg:
             flash(msg)
-        except KeyboardInterrupt:
-            return view.say_goodbye()
         except GameFinished:
             break
 
-    if view.prompt_play_again():
-        # reuse classes originally passed into function
-        GameClass, FlashClass = game.__class__, flash.__class__
 
-        return game_loop(game=GameClass(), flash=FlashClass())
+def run(game=Hangman(), flash=FlashMessage()):
+    """
+    Run ``game_loop``, handle exit.
+
+    Logic is separated from game_loop to cleanly avoid recursion limits.
+
+    :param hangman.model.Hangman game: Hangman game instance.
+    :param hangman.utils.FlashMessage flash: FlashMessage utility
+    """
+
+    # noinspection PyPep8Naming
+    GameClass, FlashClass = game.__class__, flash.__class__
+    while True:
+        try:
+            game_loop(game=game, flash=flash)
+        except KeyboardInterrupt:
+            # Exit immediately
+            return view.say_goodbye()
+
+        if not view.prompt_play_again():
+            break
+
+        # reuse classes passed in from arguments
+        game, flash = GameClass(), FlashClass()
 
     return view.say_goodbye()

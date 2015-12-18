@@ -17,7 +17,7 @@ def cli():
     """
     Start a new game.
     """
-    controller.game_loop()
+    controller.run()
 
 
 if __name__ == '__main__':
