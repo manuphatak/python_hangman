@@ -20,45 +20,49 @@ def draw_board(game, message=FlashMessage()):
     """
     Present the game status with pictures.
 
-    Clears the screen.
-    Flashes any messages.
-    Zip the two halves of the picture together.
+    - Clears the screen.
+    - Flashes any messages.
+    - Zip the two halves of the picture together.
 
-    +---------------------------------------------+
-    |              message 45 x 1                 |
-    +---------------------------------------------+
-    |              title 45 x 1                   |
-    +----------+----------------------------------+
-    |          |                                  |
-    |          |                                  |
-    |          |                                  |
-    |          |                                  |
-    | picture  |             misses               |
-    | 10 x 10  |             35 x 10              |
-    |          |                                  |
-    |          |                                  |
-    |          |                                  |
-    |          |                                  |
-    +----------+----------------------------------+
-    |              hits 45 x 1                    |
-    +---------------------------------------------+
-    Dare to pick a letter:
-    _
+    .. code-block:: text
 
-    Example:
+        +---------------------------------------------+
+        |              message 45 x 1                 |
+        +---------------------------------------------+
+        |              title 45 x 1                   |
+        +----------+----------------------------------+
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        | picture  |             misses               |
+        | 10 x 10  |             35 x 10              |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        +----------+----------------------------------+
+        |              hits 45 x 1                    |
+        +---------------------------------------------+
+        Dare to pick a letter:
+        _
 
-                    HANGMAN GAME
-        _____
-        |   |
-            |
-            |      MISSES:
-            |      _ _ _ _ _ _ _ _ _ _
-            |
-            |
-    ________|_
-              _   _   _   _   _   _   _
-    Dare to pick a letter:
-    _
+    **Example output:**
+
+    .. code-block:: text
+
+                        HANGMAN GAME
+            _____
+            |   |
+                |
+                |      MISSES:
+                |      _ _ _ _ _ _ _ _ _ _
+                |
+                |
+        ________|_
+                  _   _   _   _   _   _   _
+        Dare to pick a letter:
+        _
 
 
     :param hangman.Hangman game: game instance
