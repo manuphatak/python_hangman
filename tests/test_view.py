@@ -1,8 +1,9 @@
 # coding=utf-8
 from textwrap import dedent
 
-import pytest
+from _pytest.python import raises
 from mock import Mock
+from pytest import fixture
 
 from hangman import view
 from hangman.utils import GameOverNotificationComplete
@@ -13,13 +14,19 @@ except ImportError:
     __pypy__ = None
 
 
-@pytest.fixture(autouse=True)
+@fixture(autouse=True)
 def setup(monkeypatch):
     monkeypatch.setattr('click.getchar', lambda: 'A')
     monkeypatch.setattr('click.confirm', lambda _: True)
 
 
-@pytest.fixture
+@fixture
+def patch_click_output(monkeypatch):
+    monkeypatch.setattr('click.secho', lambda *args, **_: None)
+    monkeypatch.setattr('click.echo', lambda *args, **_: None)
+
+
+@fixture
 def game():
     from hangman.model import Hangman
 
@@ -31,7 +38,7 @@ def game():
     return mock_game
 
 
-@pytest.fixture
+@fixture
 def flash():
     from hangman.utils import FlashMessage
 
@@ -127,8 +134,11 @@ def test_picture_0_turns():
 
 
 def test_status_0_misses_full():
+    from hangman import view
+
     misses = []
-    actual = list(view.build_partial_status(misses))
+    view.build_partial_misses([])
+    actual = list(view.build_partial_misses(misses))
     expected = ['', '', '', '     MISSES:', '     _ _ _ _ _ _ _ _ _ _', '', '', '', '', '']
 
     assert actual == expected
@@ -137,7 +147,7 @@ def test_status_0_misses_full():
 def test_status_2_misses():
     misses = ['A', 'E']
 
-    actual = list(view.build_partial_status(misses))
+    actual = list(view.build_partial_misses(misses))
     expected = ['', '', '', '     MISSES:', '     A E _ _ _ _ _ _ _ _', '', '', '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
@@ -146,7 +156,7 @@ def test_status_2_misses():
 def test_status_10_misses():
     misses = list('QWERTYASDF')
 
-    actual = list(view.build_partial_status(misses))
+    actual = list(view.build_partial_misses(misses))
     expected = ['', '', '', '     MISSES:', '     A E D F Q S R T W Y', '', '', '', '', '']
 
     assert set(actual[4].split(' ')) == set(expected[4].split(' '))
@@ -205,7 +215,7 @@ def test_prompting_for_a_guess():
 def test_keyboard_interrupt(monkeypatch):
     monkeypatch.setattr('click.getchar', lambda: '\x03')
 
-    with pytest.raises(KeyboardInterrupt):
+    with raises(KeyboardInterrupt):
         view.prompt_guess()
 
 
@@ -224,7 +234,7 @@ def test_game_won(capsys, game, flash):
     expected = 'YOU ARE SO COOL'
     flash.game_won = True
 
-    with pytest.raises(GameOverNotificationComplete):
+    with raises(GameOverNotificationComplete):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
@@ -236,7 +246,7 @@ def test_game_lost(capsys, game, flash):
     flash.game_lost = True
     flash.game_answer = 'HANGMAN'
 
-    with pytest.raises(GameOverNotificationComplete):
+    with raises(GameOverNotificationComplete):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 

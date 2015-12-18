@@ -8,7 +8,7 @@ from __future__ import absolute_import
 import re
 from collections import namedtuple
 
-from hangman.utils import WordBank, GameLost, GameWon
+from .utils import WordBank, GameLost, GameWon
 
 
 class Hangman(object):

@@ -3,36 +3,14 @@
 hangman.view
 ~~~~~~~~~~~~
 
-This module handles user interaction. Printing and prompting.
+View layer, printing and prompting.
 """
 from __future__ import absolute_import
-# noinspection PyCompatibility
-from builtins import zip
-import click
-from hangman.utils import FlashMessage, GameOverNotificationComplete
 
-"""
-+---------------------------------------------+
-| message 45 x 1                              |
-+---------------------------------------------+
-| header 45 x 1                               |
-+---------------------------------------------+
-|          |                                  |
-|          |                                  |
-|          |                                  |
-|          |                                  |
-| picture  | misses                           |
-| 10 x 10  | 35 x 10                          |
-|          |                                  |
-|          |                                  |
-|          |                                  |
-|          |                                  |
-+----------+----------------------------------+
-| footer 45 x 1                               |
-+---------------------------------------------+
-Dare to pick a letter:
-_
-"""
+import click
+
+from ._compat import zip
+from .utils import FlashMessage, GameOverNotificationComplete
 
 
 # DRAW COMPONENT BLOCK
@@ -46,6 +24,26 @@ def draw_board(game, message=FlashMessage()):
     Flashes any messages.
     Zip the two halves of the picture together.
 
+    +---------------------------------------------+
+    |              message 45 x 1                 |
+    +---------------------------------------------+
+    |              title 45 x 1                   |
+    +----------+----------------------------------+
+    |          |                                  |
+    |          |                                  |
+    |          |                                  |
+    |          |                                  |
+    | picture  |             misses               |
+    | 10 x 10  |             35 x 10              |
+    |          |                                  |
+    |          |                                  |
+    |          |                                  |
+    |          |                                  |
+    +----------+----------------------------------+
+    |              hits 45 x 1                    |
+    +---------------------------------------------+
+    Dare to pick a letter:
+    _
 
 
     :param hangman.Hangman game: game instance
@@ -57,13 +55,13 @@ def draw_board(game, message=FlashMessage()):
     # setup
     click.clear()
     partial_picture = build_partial_picture(game.remaining_turns)
-    partial_status = build_partial_status(game.misses)
+    partial_misses = build_partial_misses(game.misses)
 
     # print
     print_partial_message(message, game.answer)
-    print_partial_header()
-    print_partial_body(partial_picture, partial_status)
-    print_partial_footer(game.status)
+    print_partial_title()
+    print_partial_body(partial_picture, partial_misses)
+    print_partial_hits(game.status)
 
     # raise to break game loop
     if message.game_lost or message.game_won:
@@ -159,7 +157,7 @@ def build_partial_picture(remaining_turns):
     yield '________|_'
 
 
-def build_partial_status(misses_block):
+def build_partial_misses(misses_block):
     """
     Generator. Draw game status.
 
@@ -194,7 +192,7 @@ def print_partial_message(flash, answer):
     return print_spacer()
 
 
-def print_partial_header():
+def print_partial_title():
     return click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True, underline=True)
 
 
@@ -203,7 +201,7 @@ def print_partial_body(picture, status):
         click.echo('{0:10s}{1:35s}'.format(*line))
 
 
-def print_partial_footer(game_status):
+def print_partial_hits(game_status):
     space_between_letters = '   ' if len(game_status) < 45 / 4 else '  '
     formatted_game_status = space_between_letters.join(game_status)
 
