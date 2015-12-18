@@ -1,16 +1,17 @@
 # coding=utf-8
 from functools import partial
+
 import pytest
 from mock import Mock
 
 
 @pytest.fixture(autouse=True)
 def setup(monkeypatch):
-    from hangman.utils import GameFinished, FlashMessage
+    from hangman.utils import GameOverNotificationComplete, FlashMessage
 
     def draw_board(_, message=FlashMessage()):
-        if message.game_over or message.game_won:
-            raise GameFinished
+        if message.game_lost or message.game_won:
+            raise GameOverNotificationComplete
         return 'View draws board'
 
     monkeypatch.setattr('hangman.view.draw_board', draw_board)
@@ -50,13 +51,12 @@ def test_setup():
     assert not view.prompt_play_again()
 
 
-def test_game_over(game, run, monkeypatch, flash):
+def test_game_lost(game, run, monkeypatch, flash):
     monkeypatch.setattr('hangman.view.prompt_guess', lambda: 'O')
     game.misses = list('BCDEFIJKL')
 
     assert run() == 'Have a nice day!'
-    assert flash.game_over is True
-    assert flash.game_answer == 'HANGMAN'
+    assert flash.game_lost is True
 
 
 def test_game_won(game, run, flash):

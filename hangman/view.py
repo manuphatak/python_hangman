@@ -9,7 +9,30 @@ from __future__ import absolute_import
 # noinspection PyCompatibility
 from builtins import zip
 import click
-from hangman.utils import FlashMessage, GameFinished
+from hangman.utils import FlashMessage, GameOverNotificationComplete
+
+"""
++---------------------------------------------+
+| message 45 x 1                              |
++---------------------------------------------+
+| header 45 x 1                               |
++---------------------------------------------+
+|          |                                  |
+|          |                                  |
+|          |                                  |
+|          |                                  |
+| picture  | misses                           |
+| 10 x 10  | 35 x 10                          |
+|          |                                  |
+|          |                                  |
+|          |                                  |
+|          |                                  |
++----------+----------------------------------+
+| footer 45 x 1                               |
++---------------------------------------------+
+Dare to pick a letter:
+_
+"""
 
 
 # DRAW COMPONENT BLOCK
@@ -23,9 +46,11 @@ def draw_board(game, message=FlashMessage()):
     Flashes any messages.
     Zip the two halves of the picture together.
 
+
+
     :param hangman.Hangman game: game instance
     :param hangman.utils.FlashMessage message: flash message
-    :raises: hangman.utils.GameFinished
+    :raises: hangman.utils.GameOverNotificationComplete
     :return: self
     """
 
@@ -35,14 +60,14 @@ def draw_board(game, message=FlashMessage()):
     partial_status = build_partial_status(game.misses)
 
     # print
-    print_partial_message(message)
+    print_partial_message(message, game.answer)
     print_partial_header()
     print_partial_body(partial_picture, partial_status)
     print_partial_footer(game.status)
 
     # raise to break game loop
-    if message.game_over or message.game_won:
-        raise GameFinished
+    if message.game_lost or message.game_won:
+        raise GameOverNotificationComplete
 
 
 def say_goodbye():
@@ -156,9 +181,9 @@ def build_partial_status(misses_block):
 # PRINT PARTIAL BLOCKS
 # -------------------------------------------------------------------
 
-def print_partial_message(flash):
-    if flash.game_over:
-        message = "YOU LOSE! THE ANSWER IS {0}".format(flash.game_answer)
+def print_partial_message(flash, answer):
+    if flash.game_lost:
+        message = "YOU LOSE! THE ANSWER IS {0}".format(answer)
         return click.secho('{0:45s}'.format(message), bold=True, fg='red')
     if flash.game_won:
         message = "YOU ARE SO COOL"

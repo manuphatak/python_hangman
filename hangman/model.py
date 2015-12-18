@@ -4,9 +4,11 @@ hangman.model
 ~~~~~~~~~~~~~
 """
 from __future__ import absolute_import
+
 import re
 from collections import namedtuple
-from hangman.utils import WordBank, GameOver, GameWon
+
+from hangman.utils import WordBank, GameLost, GameWon
 
 
 class Hangman(object):
@@ -56,6 +58,24 @@ class Hangman(object):
         self._misses = set()
         self._hits = set()
 
+    # PUBLIC API
+    # -------------------------------------------------------------------
+    def guess(self, letter):
+        """Add letter to hits or misses."""
+
+        # validate input
+        if not self.is_valid_guess(letter):
+            raise ValueError('Must be a letter A-Z')
+
+        # add to hits or misses
+        is_miss = letter.upper() not in self.answer
+        if is_miss:
+            self._add_miss(letter)
+        else:
+            self._add_hit(letter)
+
+        return self
+
     # INSTANCE PROPERTIES
     # -------------------------------------------------------------------
 
@@ -93,25 +113,6 @@ class Hangman(object):
 
         return ''.join(fill_in(letter) for letter in self.answer)
 
-    # PUBLIC API
-    # -------------------------------------------------------------------
-
-    def guess(self, letter):
-        """Add letter to hits or misses."""
-
-        # validate input
-        if not self.is_valid_guess(letter):
-            raise ValueError('Must be a letter A-Z')
-
-        # add to hits or misses
-        is_miss = letter.upper() not in self.answer
-        if is_miss:
-            self._add_miss(letter)
-        else:
-            self._add_hit(letter)
-
-        return self
-
     # UTILITIES
     # -------------------------------------------------------------------
 
@@ -120,7 +121,7 @@ class Hangman(object):
 
         self._misses.add(value.upper())
         if self.remaining_turns <= 0:
-            raise GameOver
+            raise GameLost
 
     def _add_hit(self, value):
         """Add a letter to hits. Check for game won"""

@@ -8,7 +8,7 @@ test_hangman
 Tests for `Hangman` model.
 """
 import pytest
-from hangman.model import Hangman, GameWon, GameOver
+from hangman.model import Hangman, GameWon, GameLost
 
 
 @pytest.fixture
@@ -130,14 +130,14 @@ def test_game_losing_guess(game):
     game.guess('k')
     game.guess('l')
 
-    with pytest.raises(GameOver):
+    with pytest.raises(GameLost):
         game.guess('o')
     assert game.status == '_______'
     assert game.remaining_turns == 0
 
 
 def test_setting_misses_can_raise_game_over(game):
-    with pytest.raises(GameOver):
+    with pytest.raises(GameLost):
         game.misses = list('BCDEFIJKLO')
 
 

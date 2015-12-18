@@ -3,7 +3,7 @@ from textwrap import dedent
 import pytest
 from mock import Mock
 from hangman import view
-from hangman.utils import GameFinished
+from hangman.utils import GameOverNotificationComplete
 
 try:
     import __pypy__
@@ -222,19 +222,19 @@ def test_game_won(capsys, game, flash):
     expected = 'YOU ARE SO COOL'
     flash.game_won = True
 
-    with pytest.raises(GameFinished):
+    with pytest.raises(GameOverNotificationComplete):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 
     assert out.startswith(expected)
 
 
-def test_game_over(capsys, game, flash):
+def test_game_lost(capsys, game, flash):
     expected = "YOU LOSE! THE ANSWER IS HANGMAN"
-    flash.game_over = True
+    flash.game_lost = True
     flash.game_answer = 'HANGMAN'
 
-    with pytest.raises(GameFinished):
+    with pytest.raises(GameOverNotificationComplete):
         view.draw_board(game, message=flash)
     out, err = capsys.readouterr()
 

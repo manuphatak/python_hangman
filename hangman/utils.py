@@ -8,7 +8,7 @@ App utilities.
 from __future__ import absolute_import
 from random import choice
 
-__all__ = ['WordBank', 'FlashMessage', 'GameOver', 'GameWon', 'GameFinished']
+__all__ = ['WordBank', 'FlashMessage', 'GameLost', 'GameWon', 'GameOverNotificationComplete']
 
 
 class WordBank(object):
@@ -53,9 +53,8 @@ class FlashMessage(object):
     """Basic "flash message" implementation."""
 
     message = ''
-    game_over = False
+    game_lost = False
     game_won = False
-    game_answer = ''
 
     def __call__(self, message):
         """Set message to be flashed."""
@@ -88,9 +87,9 @@ class GameWon(Exception):
     """Raised when answer has been guessed."""
 
 
-class GameOver(Exception):
+class GameLost(Exception):
     """Raised when out of turns."""
 
 
-class GameFinished(Exception):
+class GameOverNotificationComplete(Exception):
     """Raised when controller should break game loop."""
