@@ -47,8 +47,8 @@ python_hangman
     :target: https://coveralls.io/github/bionikspoon/python_hangman?branch=develop&service=github
     :alt: Coverage Status
 
-.. image:: https://readthedocs.org/projects/python_hangman/badge/?version=develop
-    :target: https://python_hangman.readthedocs.org/en/develop/?badge=develop
+.. image:: https://readthedocs.org/projects/python-hangman/badge/?version=develop
+    :target: https://python-hangman.readthedocs.org/en/develop/?badge=develop
     :alt: Documentation Status
 
 
