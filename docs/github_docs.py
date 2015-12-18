@@ -37,8 +37,8 @@ PROJECT = partial(DOCS, '..')
 README = PROJECT('README.rst')
 CONTRIBUTING = PROJECT('CONTRIBUTING.rst')
 TODAY = datetime.now().strftime('%A, %B %d, %Y')  # %A, %B %d, %Y -> Friday, December 11, 2015
-FILE_HEADER = '.. __START__ Source defined in %s\n\n'
-FILE_FOOTER = '\n\n.. __END__ Source defined in %s'
+FILE_HEADER = '.. START Source defined in %s\n\n'
+FILE_FOOTER = '\n\n.. END Source defined in %s'
 
 # SOURCE DEFINITIONS
 # ----------------------------------------------------------------------------
