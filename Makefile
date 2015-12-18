@@ -85,7 +85,7 @@ builddocs:
 		--no-toc \
 		--module-first \
 		--no-headings \
-		--output-dir=$(DOCSSOURCEDIR)/ cache_requests
+		--output-dir=$(DOCSSOURCEDIR)/ hangman
 	$(MAKE) -C docs html
 
 servedocs: docs
