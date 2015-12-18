@@ -52,9 +52,9 @@ python_hangman
     :alt: Documentation Status
 
 
-A python version agnostic, tox tested, travis-backed program! Documented and distributed.
 
-Has **very high** unit test coverage, with passing tests on every relevant version of python including PyPy.
+
+A well tested, cli, python version-agnostic, multi-platform hangman game. It's built following a TDD workflow and a MVC design pattern. Each component services a sensibly distinct logical purpose.  Python Hangman is a version agnostic, tox tested, travis-backed program! Documented and distributed.
 
 
 .. END Source defined in docs/source/readme_title.rst
