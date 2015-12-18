@@ -1,14 +1,14 @@
 Design
 ======
 
-This game roughly follows the **Model-View-Controller(MVC)** pattern.  In the latest overhaul, these roles have been explicitely named: :mod:`hangman.model`, :mod:`hangman.view`, :mod:`hangman.controller`.
+This game roughly follows the **Model-View-Controller(MVC)** pattern.  In the latest overhaul, these roles have been explicitly named: :mod:`hangman.model`, :mod:`hangman.view`, :mod:`hangman.controller`.
 
 Traditionally in MVC the ``controller`` is the focal point.  It tells the ``view`` what information to collect from the user and what to show.  It uses that information to communicate with the ``model``--also, the data persistence later--and determine the next step.  This Hangman MVC adheres to these principals
 
 Model
 -----
 
-The model is very simply the hangman game instance--:class:`hangman.model.Hangman`.  It's a class.  Every class should have "state" and the methods of that class should manage that state.  In this case, the "state" is the current "state of the game".  The public API are for manageing that state.
+The model is very simply the hangman game instance--:class:`hangman.model.Hangman`.  It's a class.  Every class should have "state" and the methods of that class should manage that state.  In this case, the "state" is the current "state of the game".  The public API are for managing that state.
 
 The entirety of the game logic is contained in :class:`hangman.model.Hangman`.  You could technically play the game in the python console by instantiating the class, submitting guesses with the method :meth:`hangman.model.Hangman.guess` and printing the game state.
 
@@ -17,7 +17,7 @@ For example:
 
 .. code-block:: python
 
-    >>> from hangman.hangman import Hangman
+    >>> from hangman.model import Hangman
     >>> game = Hangman(answer='hangman')
     >>> game.guess('a')
     hangman(status='_A___A_', misses=[], remaining_turns=10)

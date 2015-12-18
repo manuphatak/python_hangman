@@ -4,7 +4,7 @@ Goals
 2.0.0
 -----
 
-**MVC pattern**.  The goal was to explicitely demonstrate an MVC pattern out of the scope of web development.
+**MVC pattern**.  The goal was to explicitly demonstrate an MVC pattern out of the scope of web development.
 
 **Idiomatic code**.  In this overhaul there's a big emphasis on idiomatic code.  The code should be describing its' own intention with the clarity your grandmother could read.
 
