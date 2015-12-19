@@ -51,7 +51,7 @@ clean-pyc:
 clean-test:
 	rm -fr .tox/
 	rm -f .coverage
-	rm -fr htmlcov/
+	rm -fr .htmlcov/
 
 clean-docs:
 	rm -f $(DOCSSOURCEDIR)/python_hangman.rst
@@ -68,10 +68,10 @@ test-all: lint
 	tox
 
 coverage:
-	coverage run --source hangman setup.py test
-	coverage report --show-missing
+	coverage run setup.py test
+	coverage report
 	coverage html
-	$(BROWSER) htmlcov/index.html
+	$(BROWSER) .htmlcov/index.html
 	$(MAKE) -C docs coverage
 
 github:

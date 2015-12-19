@@ -2,7 +2,7 @@
 from textwrap import dedent
 
 from mock import Mock
-from pytest import fixture, raises
+from pytest import fixture, raises, mark
 
 from hangman import view
 
@@ -11,12 +11,15 @@ from hangman import view
 def setup(monkeypatch):
     monkeypatch.setattr('click.getchar', lambda: 'A')
     monkeypatch.setattr('click.confirm', lambda _: True)
+    monkeypatch.setattr('click.clear', lambda: None)
 
 
 @fixture
-def patch_click_output(monkeypatch):
-    monkeypatch.setattr('click.secho', lambda *args, **_: None)
-    monkeypatch.setattr('click.echo', lambda *args, **_: None)
+def patch_echo(monkeypatch):
+    noop = lambda *__, **_: None  # noqa
+
+    monkeypatch.setattr('click.secho', noop)
+    monkeypatch.setattr('click.echo', noop)
 
 
 @fixture
@@ -296,11 +299,13 @@ def test_flash_message_handles_error_objects(game, capsys, flash):
     assert err == ''
 
 
+@mark.usefixtures('patch_echo')
 def test_prompting_for_a_guess():
     actual = view.prompt_guess()
     assert actual == 'A'
 
 
+@mark.usefixtures('patch_echo')
 def test_keyboard_interrupt(monkeypatch):
     monkeypatch.setattr('click.getchar', lambda: '\x03')
 
@@ -308,6 +313,7 @@ def test_keyboard_interrupt(monkeypatch):
         view.prompt_guess()
 
 
+@mark.usefixtures('patch_echo')
 def test_prompt_play_again_method_true():
     assert view.prompt_play_again() is True
 
