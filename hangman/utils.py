@@ -31,22 +31,14 @@ class WordBank(object):
 
     @classmethod
     def set(cls, *values):
-        """
-        Set `WordBank` word list.
+        """Set word list."""
 
-        Useful for testing.
-
-        :param tuple values:
-        """
         cls.WORDS = list(values)
 
     @classmethod
     def get(cls):
-        """
-        Get a random word from word list.
+        """Get a random word from word list."""
 
-        :return str: Random word.
-        """
         return choice(cls.WORDS)
 
 
@@ -80,7 +72,8 @@ class FlashMessage(object):
         return bool(self.message) == other
 
     def __format__(self, format_spec):
-        """Calls `str()` to clear flash message"""
+        """Format and clear flash message"""
+
         return format(str(self), format_spec)
 
 

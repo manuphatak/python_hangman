@@ -43,7 +43,6 @@ class Hangman(object):
 
     # CONSTRUCTOR
     # -------------------------------------------------------------------
-
     def __init__(self, answer=None):
 
         if not answer:
@@ -78,9 +77,10 @@ class Hangman(object):
 
     # INSTANCE PROPERTIES
     # -------------------------------------------------------------------
-
     @property
     def misses(self):
+        """List of misses."""
+
         return sorted(list(self._misses))
 
     @misses.setter
@@ -90,6 +90,8 @@ class Hangman(object):
 
     @property
     def hits(self):
+        """List of hits."""
+
         return sorted(list(self._hits))
 
     @hits.setter
@@ -106,16 +108,18 @@ class Hangman(object):
     @property
     def status(self):
         """Build a string representation of status."""
-        hits = self.hits
+
+        hits = self.hits  # calculated property
 
         def fill_in(letter):
+            """Replace non-hits with `_`."""
+
             return letter if letter in hits else '_'
 
         return ''.join(fill_in(letter) for letter in self.answer)
 
     # UTILITIES
     # -------------------------------------------------------------------
-
     def _add_miss(self, value):
         """Add a letter to misses.  Check for game over."""
 

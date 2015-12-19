@@ -97,32 +97,23 @@ def say_goodbye():
 # PROMPT USER INPUT
 # -------------------------------------------------------------------
 def prompt_guess():
-    """
-    Get a single letter.
-
-    :return: a single letter
-    :raises: KeyboardInterrupt
-    """
+    """Get a single letter."""
 
     print_spacer()
 
     click.secho('Dare to pick a letter: ', dim=True, bold=True)
     letter = click.getchar()
 
+    # \x03 = ctrl+c, \x04 = ctrl+d
     if letter in ['\x03', '\x04']:
         raise KeyboardInterrupt
     return letter
 
 
 def prompt_play_again():
-    """
-    Prompt user to play again.
+    """Prompt user to play again."""
 
-    :rtype: bool
-    :return: bool response
-    """
     print_spacer()
-
     return click.confirm('Double or nothings?')
 
 
@@ -130,12 +121,8 @@ def prompt_play_again():
 # -------------------------------------------------------------------
 
 def build_partial_picture(remaining_turns):
-    """
-    Generator. Draw the iconic hangman game status.
+    """Generator, build the iconic hangman game status."""
 
-    :param int remaining_turns: Number of turns remaining.
-    :return: Line of picture.
-    """
     yield '    _____'
     yield '    |   |'
     if remaining_turns <= 9:
@@ -176,13 +163,10 @@ def build_partial_picture(remaining_turns):
     yield '________|_'
 
 
-def build_partial_misses(misses_block):
-    """
-    Generator. Draw game status.
+def build_partial_misses(game_misses):
+    """Generator, build game misses block."""
 
-    :return: Line of status.
-    """
-    misses_block = ' '.join('{0:_<10s}'.format(''.join(misses_block)))
+    misses_block = ' '.join('{0:_<10s}'.format(''.join(game_misses)))
     yield ''
     yield ''
     yield ''
@@ -202,9 +186,11 @@ def print_partial_message(flash, answer):
     if flash.game_lost:
         message = "YOU LOSE! THE ANSWER IS {0}".format(answer)
         return click.secho('{0:45s}'.format(message), bold=True, fg='red')
+
     if flash.game_won:
         message = "YOU ARE SO COOL"
         return click.secho('{0:45s}'.format(message), bold=True, fg='cyan')
+
     if flash.message:
         return click.secho('{0:45s}'.format(flash), bold=True, fg='yellow')
 
@@ -221,6 +207,7 @@ def print_partial_body(picture, status):
 
 
 def print_partial_hits(game_status):
+    # Dynamically space hits to fill line
     space_between_letters = '   ' if len(game_status) < 45 / 4 else '  '
     formatted_game_status = space_between_letters.join(game_status)
 
@@ -229,4 +216,5 @@ def print_partial_hits(game_status):
 
 
 def print_spacer():
+    """Print empty line"""
     return click.echo()

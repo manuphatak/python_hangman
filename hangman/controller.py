@@ -11,6 +11,13 @@ from .model import Hangman
 
 
 def game_loop(game=Hangman(), flash=FlashMessage()):
+    """
+    Run a single game.
+
+    :param hangman.model.Hangman game: Hangman game instance.
+    :param hangman.utils.FlashMessage flash: FlashMessage utility
+    """
+
     while True:
         try:
             # Draw -> prompt -> guess
@@ -45,8 +52,8 @@ def run(game=Hangman(), flash=FlashMessage()):
     while True:
         try:
             game_loop(game=game, flash=flash)
-        except KeyboardInterrupt:
-            break  # exit immediately
+        except KeyboardInterrupt:  # exit immediately
+            break
 
         if not view.prompt_play_again():
             break
