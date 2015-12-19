@@ -11,13 +11,15 @@ from hangman import view
 def setup(monkeypatch):
     monkeypatch.setattr('click.getchar', lambda: 'A')
     monkeypatch.setattr('click.confirm', lambda _: True)
-    monkeypatch.setattr('click.clear', lambda: False)
+    monkeypatch.setattr('click.clear', lambda: None)
 
 
 @fixture
 def patch_echo(monkeypatch):
-    monkeypatch.setattr('click.secho', lambda *args, **_: None)
-    monkeypatch.setattr('click.echo', lambda *args, **_: None)
+    noop = lambda *__, **_: None  # noqa
+
+    monkeypatch.setattr('click.secho', noop)
+    monkeypatch.setattr('click.echo', noop)
 
 
 @fixture
