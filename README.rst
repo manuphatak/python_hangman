@@ -27,10 +27,6 @@
 python_hangman
 ==============
 
-.. image:: https://img.shields.io/github/downloads/bionikspoon/python_hangman/total.svg
-    :target: https://github.com/bionikspoon/python_hangman
-    :alt: Github Downloads
-
 .. image:: https://badge.fury.io/py/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Latest Version
@@ -63,13 +59,14 @@ A well tested, cli, python version-agnostic, multi-platform hangman game. It's b
 Features
 ========
 
-- Free software: MIT license
-- Documentation: https://python_hangman.readthedocs.org.
 - Hangman!
+- Documentation: https://python_hangman.readthedocs.org
+- Open Source: https://github.com/bionikspoon/python_hangman
 - Idiomatic code.
 - Thoroughly tested with very high coverage.
 - Python version agnostic.
 - Demonstrates MVC design out of the scope of web development.
+- MIT license
 
 .. image:: https://cloud.githubusercontent.com/assets/5052422/11611464/00822c5c-9b95-11e5-9fcb-8c10fd9be7df.jpg
     :alt: Screenshot

@@ -2,10 +2,6 @@
 python_hangman
 ==============
 
-.. image:: https://img.shields.io/github/downloads/bionikspoon/python_hangman/total.svg
-    :target: https://github.com/bionikspoon/python_hangman
-    :alt: Github Downloads
-
 .. image:: https://badge.fury.io/py/python_hangman.svg
     :target: https://pypi.python.org/pypi/python_hangman/
     :alt: Latest Version
