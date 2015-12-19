@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # coding=utf-8
-import pytest
+from pytest import fixture
 
 from hangman.utils import FlashMessage
 
 
-@pytest.fixture
+@fixture
 def flash():
     return FlashMessage()
 

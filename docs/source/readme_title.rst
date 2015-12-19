@@ -22,11 +22,11 @@ python_hangman
     :target: https://coveralls.io/github/bionikspoon/python_hangman?branch=develop&service=github
     :alt: Coverage Status
 
-.. image:: https://readthedocs.org/projects/python_hangman/badge/?version=develop
-    :target: https://python_hangman.readthedocs.org/en/develop/?badge=develop
+.. image:: https://readthedocs.org/projects/python-hangman/badge/?version=develop
+    :target: https://python-hangman.readthedocs.org/en/develop/?badge=develop
     :alt: Documentation Status
 
 
-A python version agnostic, tox tested, travis-backed program! Documented and distributed.
 
-Has **very high** unit test coverage, with passing tests on every relevant version of python including PyPy.
+
+A well tested, cli, python version-agnostic, multi-platform hangman game. It's built following a TDD workflow and a MVC design pattern. Each component services a sensibly distinct logical purpose.  Python Hangman is a version agnostic, tox tested, travis-backed program! Documented and distributed.

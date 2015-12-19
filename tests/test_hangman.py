@@ -7,11 +7,12 @@ test_hangman
 
 Tests for `Hangman` model.
 """
-import pytest
-from hangman.model import Hangman, GameWon, GameOver
+from pytest import fixture, raises
+
+from hangman.model import Hangman, GameWon, GameLost
 
 
-@pytest.fixture
+@fixture
 def game():
     return Hangman(answer='hangman')
 
@@ -33,21 +34,21 @@ def test_new_game_returns_game_instance_with_status(game):
 
 
 def test_answer_validation_rules():
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman('1234567')
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman('hangman12')
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman(1232145678995462313)
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman('a' * 100)
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman('a' * 17)
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         Hangman('hand-work')
 
 
@@ -68,13 +69,13 @@ def test_guess_miss_does_not_change_status(game):
 
 
 def test_guess_validation_must_be_a_single_letter_number(game):
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         game.guess(1)
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         game.guess('EE')
 
-    with pytest.raises(ValueError):
+    with raises(ValueError):
         game.guess('')
 
 
@@ -108,14 +109,14 @@ def test_game_winning_guess(game):
     game.guess('n')
     game.guess('g')
 
-    with pytest.raises(GameWon):
+    with raises(GameWon):
         game.guess('m')
 
     assert game.status == 'HANGMAN'
 
 
 def test_setting_hits_can_raise_game_won(game):
-    with pytest.raises(GameWon):
+    with raises(GameWon):
         game.hits = list('HANGMAN')
 
 
@@ -130,14 +131,14 @@ def test_game_losing_guess(game):
     game.guess('k')
     game.guess('l')
 
-    with pytest.raises(GameOver):
+    with raises(GameLost):
         game.guess('o')
     assert game.status == '_______'
     assert game.remaining_turns == 0
 
 
 def test_setting_misses_can_raise_game_over(game):
-    with pytest.raises(GameOver):
+    with raises(GameLost):
         game.misses = list('BCDEFIJKLO')
 
 

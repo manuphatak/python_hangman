@@ -1,8 +1,8 @@
 # coding=utf-8
-import pytest
+from pytest import fixture
 
 
-@pytest.fixture
+@fixture
 def mock_word_bank_get():
     from hangman.utils import WordBank
 

@@ -10,3 +10,8 @@ except ImportError:  # pragma: no cover
     class NullHandler(logging.Handler):
         def emit(self, record):
             pass
+
+# noinspection PyCompatibility
+from builtins import zip
+
+__all__ = ['NullHandler', 'zip']

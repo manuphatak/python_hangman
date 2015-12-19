@@ -2,13 +2,13 @@
 """
 hangman.model
 ~~~~~~~~~~~~~
-
-This module contains all of the game logic.
 """
 from __future__ import absolute_import
+
 import re
 from collections import namedtuple
-from hangman.utils import WordBank, GameOver, GameWon
+
+from .utils import WordBank, GameLost, GameWon
 
 
 class Hangman(object):
@@ -43,7 +43,6 @@ class Hangman(object):
 
     # CONSTRUCTOR
     # -------------------------------------------------------------------
-
     def __init__(self, answer=None):
 
         if not answer:
@@ -58,46 +57,8 @@ class Hangman(object):
         self._misses = set()
         self._hits = set()
 
-    # INSTANCE PROPERTIES
-    # -------------------------------------------------------------------
-
-    @property
-    def misses(self):
-        return sorted(list(self._misses))
-
-    @misses.setter
-    def misses(self, letters):
-        for letter in letters:
-            self._add_miss(letter)
-
-    @property
-    def hits(self):
-        return sorted(list(self._hits))
-
-    @hits.setter
-    def hits(self, letters):
-        for letter in letters:
-            self._add_hit(letter)
-
-    @property
-    def remaining_turns(self):
-        """Calculate number of turns remaining."""
-
-        return self.MAX_TURNS - len(self.misses)
-
-    @property
-    def status(self):
-        """Build a string representation of status."""
-        hits = self.hits
-
-        def fill_in(letter):
-            return letter if letter in hits else '_'
-
-        return ''.join(fill_in(letter) for letter in self.answer)
-
     # PUBLIC API
     # -------------------------------------------------------------------
-
     def guess(self, letter):
         """Add letter to hits or misses."""
 
@@ -114,15 +75,57 @@ class Hangman(object):
 
         return self
 
+    # INSTANCE PROPERTIES
+    # -------------------------------------------------------------------
+    @property
+    def misses(self):
+        """List of misses."""
+
+        return sorted(list(self._misses))
+
+    @misses.setter
+    def misses(self, letters):
+        for letter in letters:
+            self._add_miss(letter)
+
+    @property
+    def hits(self):
+        """List of hits."""
+
+        return sorted(list(self._hits))
+
+    @hits.setter
+    def hits(self, letters):
+        for letter in letters:
+            self._add_hit(letter)
+
+    @property
+    def remaining_turns(self):
+        """Calculate number of turns remaining."""
+
+        return self.MAX_TURNS - len(self.misses)
+
+    @property
+    def status(self):
+        """Build a string representation of status."""
+
+        hits = self.hits  # calculated property
+
+        def fill_in(letter):
+            """Replace non-hits with `_`."""
+
+            return letter if letter in hits else '_'
+
+        return ''.join(fill_in(letter) for letter in self.answer)
+
     # UTILITIES
     # -------------------------------------------------------------------
-
     def _add_miss(self, value):
         """Add a letter to misses.  Check for game over."""
 
         self._misses.add(value.upper())
         if self.remaining_turns <= 0:
-            raise GameOver
+            raise GameLost
 
     def _add_hit(self, value):
         """Add a letter to hits. Check for game won"""

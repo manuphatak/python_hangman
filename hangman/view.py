@@ -3,13 +3,14 @@
 hangman.view
 ~~~~~~~~~~~~
 
-This module handles user interaction. Printing and prompting.
+View layer, printing and prompting.
 """
 from __future__ import absolute_import
-# noinspection PyCompatibility
-from builtins import zip
+
 import click
-from hangman.utils import FlashMessage, GameFinished
+
+from ._compat import zip
+from .utils import FlashMessage, GameOverNotificationComplete
 
 
 # DRAW COMPONENT BLOCK
@@ -19,36 +20,74 @@ def draw_board(game, message=FlashMessage()):
     """
     Present the game status with pictures.
 
-    Clears the screen.
-    Flashes any messages.
-    Zip the two halves of the picture together.
+    - Clears the screen.
+    - Flashes any messages.
+    - Zip the two halves of the picture together.
+
+    .. code-block:: text
+
+        +---------------------------------------------+
+        |              message 45 x 1                 |
+        +---------------------------------------------+
+        |              title 45 x 1                   |
+        +----------+----------------------------------+
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        | picture  |             misses               |
+        | 10 x 10  |             35 x 10              |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        |          |                                  |
+        +----------+----------------------------------+
+        |              hits 45 x 1                    |
+        +---------------------------------------------+
+        Dare to pick a letter:
+        _
+
+    **Example output:**
+
+    .. code-block:: text
+
+                        HANGMAN GAME
+            _____
+            |   |
+                |
+                |      MISSES:
+                |      _ _ _ _ _ _ _ _ _ _
+                |
+                |
+        ________|_
+                  _   _   _   _   _   _   _
+        Dare to pick a letter:
+        _
+
 
     :param hangman.Hangman game: game instance
     :param hangman.utils.FlashMessage message: flash message
-    :raises: hangman.utils.GameFinished
-    :return: self
+    :raises: hangman.utils.GameOverNotificationComplete
     """
 
     # setup
     click.clear()
     partial_picture = build_partial_picture(game.remaining_turns)
-    partial_status = build_partial_status(game.misses)
+    partial_misses = build_partial_misses(game.misses)
 
     # print
-    print_partial_message(message)
-    print_partial_header()
-    print_partial_body(partial_picture, partial_status)
-    print_partial_footer(game.status)
+    print_partial_message(message, game.answer)
+    print_partial_title()
+    print_partial_body(partial_picture, partial_misses)
+    print_partial_hits(game.status)
 
     # raise to break game loop
-    if message.game_over or message.game_won:
-        raise GameFinished
+    if message.game_lost or message.game_won:
+        raise GameOverNotificationComplete
 
 
 def say_goodbye():
-    """
-    Write a goodbye message.
-    """
+    """Write a goodbye message."""
 
     click.secho('Have a nice day!', bold=True, fg='green', blink=True)
 
@@ -58,31 +97,23 @@ def say_goodbye():
 # PROMPT USER INPUT
 # -------------------------------------------------------------------
 def prompt_guess():
-    """
-    Prompt user for a single keystroke.
-
-    :return: a single letter
-    :raises: KeyboardInterrupt
-    """
+    """Get a single letter."""
 
     print_spacer()
 
     click.secho('Dare to pick a letter: ', dim=True, bold=True)
     letter = click.getchar()
-    if letter == '\x03':
+
+    # \x03 = ctrl+c, \x04 = ctrl+d
+    if letter in ['\x03', '\x04']:
         raise KeyboardInterrupt
     return letter
 
 
 def prompt_play_again():
-    """
-    Prompt user to play again.
+    """Prompt user to play again."""
 
-    :rtype: bool
-    :return: bool response
-    """
     print_spacer()
-
     return click.confirm('Double or nothings?')
 
 
@@ -90,12 +121,8 @@ def prompt_play_again():
 # -------------------------------------------------------------------
 
 def build_partial_picture(remaining_turns):
-    """
-    Generator. Draw the iconic hangman game status.
+    """Generator, build the iconic hangman game status."""
 
-    :param int remaining_turns: Number of turns remaining.
-    :return: Line of picture.
-    """
     yield '    _____'
     yield '    |   |'
     if remaining_turns <= 9:
@@ -122,7 +149,9 @@ def build_partial_picture(remaining_turns):
     else:
         yield '        |'
 
-    if remaining_turns <= 1:
+    if remaining_turns <= 0:
+        yield '  _/ \_ |'
+    elif remaining_turns <= 1:
         yield '  _/ \  |'
     elif remaining_turns <= 2:
         yield '   / \  |'
@@ -134,13 +163,10 @@ def build_partial_picture(remaining_turns):
     yield '________|_'
 
 
-def build_partial_status(misses_block):
-    """
-    Generator. Draw game status.
+def build_partial_misses(game_misses):
+    """Generator, build game misses block."""
 
-    :return: Line of status.
-    """
-    misses_block = ' '.join('{0:_<10s}'.format(''.join(misses_block)))
+    misses_block = ' '.join('{0:_<10s}'.format(''.join(game_misses)))
     yield ''
     yield ''
     yield ''
@@ -156,20 +182,22 @@ def build_partial_status(misses_block):
 # PRINT PARTIAL BLOCKS
 # -------------------------------------------------------------------
 
-def print_partial_message(flash):
-    if flash.game_over:
-        message = "YOU LOSE! THE ANSWER IS {0}".format(flash.game_answer)
+def print_partial_message(flash, answer):
+    if flash.game_lost:
+        message = "YOU LOSE! THE ANSWER IS {0}".format(answer)
         return click.secho('{0:45s}'.format(message), bold=True, fg='red')
+
     if flash.game_won:
         message = "YOU ARE SO COOL"
         return click.secho('{0:45s}'.format(message), bold=True, fg='cyan')
+
     if flash.message:
         return click.secho('{0:45s}'.format(flash), bold=True, fg='yellow')
 
     return print_spacer()
 
 
-def print_partial_header():
+def print_partial_title():
     return click.secho('{0: ^45s}'.format('HANGMAN GAME'), bold=True, underline=True)
 
 
@@ -178,7 +206,8 @@ def print_partial_body(picture, status):
         click.echo('{0:10s}{1:35s}'.format(*line))
 
 
-def print_partial_footer(game_status):
+def print_partial_hits(game_status):
+    # Dynamically space hits to fill line
     space_between_letters = '   ' if len(game_status) < 45 / 4 else '  '
     formatted_game_status = space_between_letters.join(game_status)
 
@@ -187,4 +216,5 @@ def print_partial_footer(game_status):
 
 
 def print_spacer():
+    """Print empty line"""
     return click.echo()

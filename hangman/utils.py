@@ -6,9 +6,10 @@ hangman.utils
 App utilities.
 """
 from __future__ import absolute_import
+
 from random import choice
 
-__all__ = ['WordBank', 'FlashMessage', 'GameOver', 'GameWon', 'GameFinished']
+__all__ = ['WordBank', 'FlashMessage', 'GameLost', 'GameWon', 'GameOverNotificationComplete']
 
 
 class WordBank(object):
@@ -30,20 +31,14 @@ class WordBank(object):
 
     @classmethod
     def set(cls, *values):
-        """
-        Set `WordBank` word list.
+        """Set word list."""
 
-        :param tuple values:
-        """
         cls.WORDS = list(values)
 
     @classmethod
     def get(cls):
-        """
-        Get a random word from word list.
+        """Get a random word from word list."""
 
-        :return str: Random word.
-        """
         return choice(cls.WORDS)
 
 
@@ -51,33 +46,25 @@ class FlashMessage(object):
     """Basic "flash message" implementation."""
 
     message = ''
-    game_over = False
+    game_lost = False
     game_won = False
-    game_answer = ''
 
     def __call__(self, message):
-        """
-        Set message to be flashed.
+        """Set message to be flashed."""
 
-        :param str message:
-        """
         self.message = str(message)
 
     def __str__(self):
-        """
-        Returns and clears the message
+        """Returns and clears the message"""
 
-        :return: Flashed message.
-        :rtype: str
-        """
         message, self.message = self.message, ''
         return str(message)
 
     def __bool__(self):
         # Python3 compatibility
-        return bool(self.message)
+        return self.__nonzero__()
 
-    def __nonzero__(self):  # pragma: no cover
+    def __nonzero__(self):
         # Python2 compatibility
         return bool(self.message)
 
@@ -85,7 +72,8 @@ class FlashMessage(object):
         return bool(self.message) == other
 
     def __format__(self, format_spec):
-        """Calls `str()` to clear flash message"""
+        """Format and clear flash message"""
+
         return format(str(self), format_spec)
 
 
@@ -93,9 +81,9 @@ class GameWon(Exception):
     """Raised when answer has been guessed."""
 
 
-class GameOver(Exception):
+class GameLost(Exception):
     """Raised when out of turns."""
 
 
-class GameFinished(Exception):
+class GameOverNotificationComplete(Exception):
     """Raised when controller should break game loop."""
