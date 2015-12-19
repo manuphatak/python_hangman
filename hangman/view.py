@@ -68,7 +68,6 @@ def draw_board(game, message=FlashMessage()):
     :param hangman.Hangman game: game instance
     :param hangman.utils.FlashMessage message: flash message
     :raises: hangman.utils.GameOverNotificationComplete
-    :return: self
     """
 
     # setup
@@ -88,9 +87,7 @@ def draw_board(game, message=FlashMessage()):
 
 
 def say_goodbye():
-    """
-    Write a goodbye message.
-    """
+    """Write a goodbye message."""
 
     click.secho('Have a nice day!', bold=True, fg='green', blink=True)
 
@@ -101,7 +98,7 @@ def say_goodbye():
 # -------------------------------------------------------------------
 def prompt_guess():
     """
-    Prompt user for a single keystroke.
+    Get a single letter.
 
     :return: a single letter
     :raises: KeyboardInterrupt
@@ -111,7 +108,8 @@ def prompt_guess():
 
     click.secho('Dare to pick a letter: ', dim=True, bold=True)
     letter = click.getchar()
-    if letter == '\x03':
+
+    if letter in ['\x03', '\x04']:
         raise KeyboardInterrupt
     return letter
 
