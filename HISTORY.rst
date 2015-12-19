@@ -13,6 +13,7 @@ Next Release
 * Updated requirements.
 * Removed gratuitous docs -- less is more.
 * 2.2.1 Handle ctrl+d EOF to exit.
+* 2.2.2 Fix broken coverage report.
 
 
 2.1.0 (2015-18-05)
