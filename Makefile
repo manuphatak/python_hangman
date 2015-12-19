@@ -51,7 +51,7 @@ clean-pyc:
 clean-test:
 	rm -fr .tox/
 	rm -f .coverage
-	rm -fr htmlcov/
+	rm -fr .htmlcov/
 
 clean-docs:
 	rm -f $(DOCSSOURCEDIR)/python_hangman.rst
