@@ -2,7 +2,7 @@ Features
 ========
 
 - Hangman!
-- Documentation: https://python_hangman.readthedocs.org
+- Documentation: https://python_hangman.readthedocs.io
 - Open Source: https://github.com/bionikspoon/python_hangman
 - Idiomatic code.
 - Thoroughly tested with very high coverage.

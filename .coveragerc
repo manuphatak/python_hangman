@@ -1,5 +1,5 @@
 ; vi:syntax=ini
-; See https://coverage.readthedocs.org/en/coverage-4.0.3/config.html
+; See https://coverage.readthedocs.io/en/coverage-4.0.3/config.html
 
 [run]
 data_file = .coverage
