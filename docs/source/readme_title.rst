@@ -19,7 +19,7 @@ python_hangman
     :alt: Coverage Status
 
 .. image:: https://readthedocs.org/projects/python-hangman/badge/?version=develop
-    :target: https://python-hangman.readthedocs.org/en/develop/?badge=develop
+    :target: https://python-hangman.readthedocs.io/en/develop/?badge=develop
     :alt: Documentation Status
 
 

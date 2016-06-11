@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 """
-The full documentation is at https://python_hangman.readthedocs.org.
+The full documentation is at https://python_hangman.readthedocs.io.
 """
 
 try:
