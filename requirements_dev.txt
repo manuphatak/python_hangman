@@ -7,42 +7,36 @@
 alabaster==0.7.6          # via sphinx
 argh==0.26.1              # via watchdog
 babel==2.1.1              # via sphinx
-bumpversion==0.5.3
-cffi==1.4.1               # via cryptography
+bumpversion==0.5.3        # via -r requirements_dev.in
+cffi==1.14.3              # via cryptography
 click==6.2                # via pip-tools
-coverage==4.0.3
-cryptography==1.1.2
+coverage==4.0.3           # via -r requirements_dev.in
+cryptography==3.2         # via -r requirements_dev.in
 docutils==0.12            # via restructuredtext-lint, sphinx
 first==2.0.1              # via pip-tools
-flake8==2.5.1
-idna==2.0                 # via cryptography
+flake8==2.5.1             # via -r requirements_dev.in
 jinja2==2.8               # via sphinx
 markupsafe==0.23          # via jinja2
 mccabe==0.3.1             # via flake8
-mock==1.3.0
+mock==1.3.0               # via -r requirements_dev.in
 pathtools==0.1.2          # via watchdog
 pbr==1.8.1                # via mock
 pep8==1.5.7               # via flake8
-pip-tools==1.4.2
+pip-tools==1.4.2          # via -r requirements_dev.in
 pluggy==0.3.1             # via tox
 py==1.4.31                # via pytest, tox
-pyasn1==0.1.9             # via cryptography
 pycparser==2.14           # via cffi
 pyflakes==1.0.0           # via flake8
 pygments==2.0.2           # via sphinx
-pytest==2.8.5
+pytest==2.8.5             # via -r requirements_dev.in
 pytz==2015.7              # via babel
-pyyaml==3.11
-restructuredtext-lint==0.14.0
+pyyaml==3.11              # via -r requirements_dev.in, watchdog
+restructuredtext-lint==0.14.0  # via -r requirements_dev.in
 six==1.10.0               # via cryptography, mock, pip-tools, sphinx
 snowballstemmer==1.2.0    # via sphinx
 sphinx-rtd-theme==0.1.9   # via sphinx
-sphinx==1.3.3
-tox==2.3.1
+sphinx==1.3.3             # via -r requirements_dev.in, sphinx-rtd-theme
+tox==2.3.1                # via -r requirements_dev.in
 virtualenv==13.1.2        # via tox
-watchdog==0.8.3
-wheel==0.26.0
-
-# The following packages are commented out because they are
-# considered to be unsafe in a requirements file:
-# setuptools==19.1.1        # via cryptography
+watchdog==0.8.3           # via -r requirements_dev.in
+wheel==0.26.0             # via -r requirements_dev.in
